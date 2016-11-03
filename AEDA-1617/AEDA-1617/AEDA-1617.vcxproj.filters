@@ -24,12 +24,27 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utente.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Piscina.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pessoa.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aula.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AEDA-1617.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utente.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
