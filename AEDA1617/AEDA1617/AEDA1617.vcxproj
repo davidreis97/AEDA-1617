@@ -30,6 +30,7 @@
     <ClCompile Include="AEDA-1617.cpp" />
     <ClCompile Include="Aula.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="Pessoa.cpp" />
     <ClCompile Include="Piscina.cpp" />
     <ClCompile Include="Utente.cpp" />
   </ItemGroup>

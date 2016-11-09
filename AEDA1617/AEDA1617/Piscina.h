@@ -2,7 +2,6 @@
 #include "Utente.h"
 #include "Professor.h"
 #include "Data.h"
-
 #include <algorithm>
 using namespace std;
 class Piscina {
@@ -13,7 +12,7 @@ private:
 	const unsigned int periodoDia;
 	float precoAula;
 	float precoPeriodo;
-
+	const unsigned int nMaxUtentes;
 public:
 	Piscina(unsigned int periodos, float precoA, float precoP);
 	vector<Utente *> getUtentes();
@@ -21,6 +20,7 @@ public:
 	bool addUtente(Utente * u);
 	bool addProfessor(Professor * p);
 	bool addData(Data d);
+	void marcarUtente(Utente * utente, bool isAula);
 	int	 getNumUtentesAula(int hora, int minutos, Data data);
 	int  getNumUtentesAtuais(int hora, int minutos, Data data);
 	void pagarMesUtente(int id);

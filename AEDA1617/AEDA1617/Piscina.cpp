@@ -1,5 +1,6 @@
 #include "Piscina.h"
 
+
 using namespace std;
 Piscina::Piscina(unsigned int periodos, float precoA, float precoP) : periodoDia(periodos){
 	precoAula = precoA;
@@ -37,7 +38,7 @@ bool Piscina::addProfessor(Professor * p) {
 }
 
 bool Piscina::addData(Data d) {
-	vector<Data>::iterator it = find_if(horario.begin(), horario.end(), d.operator==);
+	vector<Data>::iterator it = find_if(horario.begin(), horario.end(), d);
 
 	if (it == horario.end()) {
 		horario.push_back(d);
@@ -58,5 +59,23 @@ int Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
 	if (i == this->horario.size()) {
 		throw DataNaoEncontrada(&data);
 	}
-	return (this->horario[i].getPeriodos()[periodo]->getUtentes.size());
+	return (this->horario[i].getPeriodos()[periodo]->getUtentes);
+}
+
+int Piscina::getNumUtentesAula(int hora, int minutos, Data data) {
+	int periodo = horaToPeriodo(hora, minutos);
+	int i, utentes;
+	for (i = 0; i < this->horario.size(); i++) {
+		if (data == this->horario[i]) {
+			break;
+		}
+	}
+	if (i == this->horario.size()) {
+		throw DataNaoEncontrada(&data);
+	}
+	return (this->horario[i].getPeriodos()[periodo]->getUtentes);
+}
+
+void Piscina::marcarUtente(Utente * utente, bool isAula) {
+	vector<Utente *>::iterator it  = find(this->utentes.begin(), this->utentes.end(), *(utente));
 }

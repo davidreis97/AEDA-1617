@@ -50,5 +50,8 @@
     <ClCompile Include="Aula.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pessoa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
