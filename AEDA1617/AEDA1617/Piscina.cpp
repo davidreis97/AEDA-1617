@@ -2,7 +2,7 @@
 
 
 using namespace std;
-Piscina::Piscina(unsigned int periodos, float precoA, float precoP) : periodoDia(periodos){
+Piscina::Piscina(unsigned int periodos, float precoA, float precoP, unsigned int nMax) : periodoDia(periodos), nMaxUtentes(nMax){
 	precoAula = precoA;
 	precoPeriodo = precoP;
 }

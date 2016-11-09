@@ -13,8 +13,9 @@ private:
 	float precoAula;
 	float precoPeriodo;
 	const unsigned int nMaxUtentes;
+
 public:
-	Piscina(unsigned int periodos, float precoA, float precoP);
+	Piscina(unsigned int periodos, float precoA, float precoP, unsigned int nMax);
 	vector<Utente *> getUtentes();
 	vector<Professor *> getProfessores();
 	bool addUtente(Utente * u);
