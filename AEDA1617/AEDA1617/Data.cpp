@@ -92,8 +92,21 @@ unsigned short Data::getAno() {
 	return this->ano;
 }
 
+vector<Periodo *> Data::getPeriodos() {
+	return this->periodos;
+}
+
 DataInvalida::DataInvalida(Data *data): data(data){}
 
 Data DataInvalida::getData() {
 	return *(this->data);
+}
+
+bool Data::operator==(Data otherdata) {
+	if (this->ano == otherdata.getAno && this->mes == otherdata.getAno && this->dia == otherdata.getDia) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

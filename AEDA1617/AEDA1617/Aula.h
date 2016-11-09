@@ -4,6 +4,8 @@
 
 class Periodo {
 	vector<Utente *> utentes;
+public:
+	vector<Utente *> getUtentes();
 };
 
 class Aula : public Periodo {

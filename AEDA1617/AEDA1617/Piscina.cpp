@@ -15,5 +15,20 @@ vector<Professor *> Piscina::getProfessores() {
 }
 
 bool Piscina::addUtente(Utente * u) {
-	vector<Utente *>::
+	vector<Utente *>::iterator it;
+}
+
+int  Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
+	int periodo = horaToPeriodo(hora, minutos);
+	int i,utentes;
+	for (i= 0; i < this->horario.size(); i++) {
+		if (data == this->horario[i]) {
+			break;
+		}
+	}
+	if (i == this->horario.size()) {
+		throw DataNaoEncontrada;
+	}
+	return (this->horario[i].getPeriodos()[periodo]->getUtentes.size());
+
 }

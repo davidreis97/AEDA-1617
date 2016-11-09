@@ -47,5 +47,8 @@
     <ClCompile Include="Piscina.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Aula.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
