@@ -1,4 +1,6 @@
 #pragma once
+#include "Utente.h"
+#include "Professor.h"
 
 class Periodo {
 	vector<Utente *> utentes;
