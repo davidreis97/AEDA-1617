@@ -2,5 +2,5 @@
 #include "Pessoa.h"
 
 class Professor :public Pessoa{
-	int ;
+
 };

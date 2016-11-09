@@ -47,8 +47,8 @@ bool Piscina::addData(Data d) {
 		return false;
 }
 
-int  Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
-	int periodo = horaToPeriodo(hora, minutos);
+int Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
+	int periodo = horaToPeriodo(hora,minutos);
 	int i,utentes;
 	for (i= 0; i < this->horario.size(); i++) {
 		if (data == this->horario[i]) {
@@ -56,8 +56,7 @@ int  Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
 		}
 	}
 	if (i == this->horario.size()) {
-		throw DataNaoEncontrada;
+		throw DataNaoEncontrada(&data);
 	}
 	return (this->horario[i].getPeriodos()[periodo]->getUtentes.size());
-
 }

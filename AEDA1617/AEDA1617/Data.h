@@ -28,3 +28,15 @@ public:
 	Data getData();
 	DataInvalida(Data* data);
 };
+
+class DataNaoEncontrada {
+private:
+	Data *data;
+public:
+	Data getData();
+	DataNaoEncontrada(Data* data);
+};
+
+int horaToPeriodo(int hora, int minutos);
+
+ostream &periodoToHora(ostream &os, int periodo);

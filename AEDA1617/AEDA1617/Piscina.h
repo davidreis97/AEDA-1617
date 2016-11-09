@@ -20,7 +20,6 @@ public:
 	vector<Professor *> getProfessores();
 	bool addUtente(Utente * u);
 	bool addProfessor(Professor * p);
-	bool addUtentes(vector<Utente* > utentes);
 	bool addData(Data d);
 	int	 getNumUtentesAula(int hora, int minutos, Data data);
 	int  getNumUtentesAtuais(int hora, int minutos, Data data);
@@ -28,4 +27,3 @@ public:
 	void pagarMesUtente(string nome);
 };
 
-bool dataIgual(Data d);
