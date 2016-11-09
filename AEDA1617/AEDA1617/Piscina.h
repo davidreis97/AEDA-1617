@@ -2,6 +2,8 @@
 #include "Utente.h"
 #include "Professor.h"
 #include "Aula.h"
+#include "Data.h"
+#include <algorithm>
 
 class Piscina {
 private:
@@ -25,3 +27,5 @@ public:
 	void pagarMesUtente(int id);
 	void pagarMesUtente(string nome);
 };
+
+bool dataIgual(Data d);
