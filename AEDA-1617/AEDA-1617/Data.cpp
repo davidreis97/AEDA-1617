@@ -1,4 +1,6 @@
 #include "Data.h"
+#include <ostream>
+#include <string>
 #include "stdafx.h"
 
 using namespace std;
@@ -48,6 +50,7 @@ ostream & Data::operator<<(ostream &os) {
 	os << this->dia << " de " << mestexto << " de " << this->ano;
 	return os;
 }
+
 
 Data::Data(unsigned short dia1, unsigned short mes1, unsigned short ano1) {
 	this->ano = ano1;
