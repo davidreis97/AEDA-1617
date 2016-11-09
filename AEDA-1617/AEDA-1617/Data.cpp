@@ -3,7 +3,7 @@
 
 using namespace std;
 
-ostream &Data::operator<<(ostream &os) {
+ostream & Data::operator<<(ostream &os) {
 	string mestexto;
 	switch (this->mes) {
 	case(1):
@@ -44,7 +44,7 @@ ostream &Data::operator<<(ostream &os) {
 		break;
 	default:
 		DataInvalida(this);
-	}
+	};
 	os << this->dia << " de " << mestexto << " de " << this->ano;
 	return os;
 }

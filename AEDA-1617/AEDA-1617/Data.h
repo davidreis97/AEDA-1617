@@ -2,6 +2,7 @@
 #include <ostream>
 
 using namespace std;
+
 class Data {
 private:
 	unsigned short dia;
