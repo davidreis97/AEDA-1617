@@ -13,6 +13,10 @@ private:
 public:
 	Data(unsigned short dia1, unsigned short mes1, unsigned short ano1);
 	ostream &operator<<(ostream &os);
+	bool operator<(Data otherdata);
+	unsigned short getDia();
+	unsigned short getMes();
+	unsigned short getAno();
 };
 
 class DataInvalida {

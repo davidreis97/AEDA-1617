@@ -4,6 +4,26 @@
 
 using namespace std;
 
+bool Data::operator<(Data otherdata) {
+	if (this->ano < otherdata.getAno) {
+		return 1;
+	}else if(this->ano > otherdata.getAno){
+		return 0;
+	}else {
+		if (this->mes < otherdata.getMes) {
+			return 1;
+		}else if (this->mes > otherdata.getMes) {
+			return 0;
+		}else {
+			if (this->dia < otherdata.getDia) {
+				return 1;
+			}else{
+				return 0;
+			}
+		}
+	}
+}
+
 ostream & Data::operator<<(ostream &os) {
 	string mestexto;
 	switch (this->mes) {
@@ -58,6 +78,18 @@ Data::Data(unsigned short dia1, unsigned short mes1, unsigned short ano1) {
 	if (dia > 31 || mes > 12) {
 		throw DataInvalida(this);
 	}
+}
+
+unsigned short Data::getDia() {
+	return this->dia;
+}
+
+unsigned short Data::getMes() {
+	return this->mes;
+}
+
+unsigned short Data::getAno() {
+	return this->ano;
 }
 
 DataInvalida::DataInvalida(Data *data): data(data){}
