@@ -36,7 +36,11 @@ bool Piscina::addProfessor(Professor * p) {
 	else
 		return false;
 }
-
+/* @brief sdsdasdasd
+	
+	@args d 
+	@return sdsadsas
+*/
 bool Piscina::addData(Data d) {
 	vector<Data>::iterator it = find_if(horario.begin(), horario.end(), d);
 
@@ -50,7 +54,7 @@ bool Piscina::addData(Data d) {
 
 int Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
 	int periodo = horaToPeriodo(hora,minutos);
-	int i,utentes;
+	int i;
 	for (i= 0; i < this->horario.size(); i++) {
 		if (data == this->horario[i]) {
 			break;
@@ -59,7 +63,7 @@ int Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
 	if (i == this->horario.size()) {
 		throw DataNaoEncontrada(&data);
 	}
-	return (this->horario[i].getPeriodos()[periodo]->getUtentes);
+	return (this->horario[i].getPeriodos()[periodo]->getUtentes().size());
 }
 
 int Piscina::getNumUtentesAula(int hora, int minutos, Data data) {
@@ -73,9 +77,44 @@ int Piscina::getNumUtentesAula(int hora, int minutos, Data data) {
 	if (i == this->horario.size()) {
 		throw DataNaoEncontrada(&data);
 	}
-	return (this->horario[i].getPeriodos()[periodo]->getUtentes);
+	return (this->horario[i].getPeriodos()[periodo]->getEmAula());
 }
 
-void Piscina::marcarUtente(Utente * utente, bool isAula) {
-	vector<Utente *>::iterator it  = find(this->utentes.begin(), this->utentes.end(), *(utente));
+void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data) {
+	int i;
+	for (i = 0; i < this->utentes.size(); i++) {
+		if (this->utentes[i]->getId == id) {
+			break;
+		}
+	}
+	if (i = this->utentes.size()) {
+		throw UtenteNaoEncontrado(int id);
+	}
+	for (int j = 0; j < this->horario.size(); j++) {
+		if (this->horario[j] == data) {
+			break;
+		}
+	}
+	if (j = this->utentes.size()) {
+		this->horario.push_back(data);
+	}
+	if (isAula) {
+		if ((periodoInicial-periodoFinal) != 2) {
+			printf("Quantidade de Periodos Invalidos. Aulas são de duração 1 hora.");
+		}
+		else {
+			for (int p = periodoInicial; p < periodoFinal + 1; p++) {
+				if() //verificar capacidade da piscina
+				this->horario[p].getPeriodos()[p]->addEmAula();
+				this->horario[p].getPeriodos()[p]->addUtente(this->utentes[i]);
+			}
+		}
+	}
+	else {
+		for (int p = periodoInicial; p < periodoFinal + 1; p++) {
+			//verificar capacidade da piscina
+			this->horario[p].getPeriodos()[p]->addEmAula();
+			this->horario[p].getPeriodos()[p]->addUtente(this->utentes[i]);
+		}
+	}
 }

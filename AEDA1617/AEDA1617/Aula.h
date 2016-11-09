@@ -9,9 +9,8 @@ class Periodo {
 	int emAula;
 public:
 	vector<Utente *> getUtentes();
-};
-
-class Aula : public Periodo {
-private:
+	void addUtente(Utente * utente);
+	void addEmAula();
+	int getEmAula();
 	Professor *professor;
 };

@@ -113,7 +113,7 @@ bool Data::operator==(Data otherdata) {
 
 int horaToPeriodo(int hora, int minutos) {
 	if (minutos >= 30) {
-		return hora * 2 + 1;
+		return (hora * 2 + 1)-;
 	}
 	else {
 		return hora * 2;

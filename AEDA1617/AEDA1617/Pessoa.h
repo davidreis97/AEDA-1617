@@ -12,4 +12,6 @@ private:
 public:
 	bool operator==(Pessoa *other);
 	int getId();
+	Pessoa(string nome, unsigned int idade);
+	Pessoa(string nome, unsigned int idade,int id);
 };
