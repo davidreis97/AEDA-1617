@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aula.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="Pessoa.h" />
     <ClInclude Include="Piscina.h" />
     <ClInclude Include="Professor.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AEDA-1617.cpp" />
+    <ClCompile Include="Data.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
