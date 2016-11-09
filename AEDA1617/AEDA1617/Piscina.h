@@ -8,10 +8,12 @@ private:
 	vector<Utente *> utentes;
 	vector<Professor *> professores;
 	vector<Data> Horario;
-	unsigned int periodoDia;
+	const unsigned int periodoDia;
+	float precoAula;
+	float precoPeriodo;
+
 public:
-	Piscina();
-	Piscina(unsigned int periodos);
+	Piscina(unsigned int periodos, float precoA, float precoP);
 	vector<Utente *> getUtentes();
 	vector<Professor *> getProfessores();
 	bool addUtente(Utente * u);
