@@ -61,3 +61,7 @@ Data::Data(unsigned short dia1, unsigned short mes1, unsigned short ano1) {
 }
 
 DataInvalida::DataInvalida(Data *data): data(data){}
+
+Data DataInvalida::getData() {
+	return *(this->data);
+}
