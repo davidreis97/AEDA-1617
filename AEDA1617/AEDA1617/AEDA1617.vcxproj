@@ -18,6 +18,19 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Aula.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="Pessoa.h" />
+    <ClInclude Include="Piscina.h" />
+    <ClInclude Include="Professor.h" />
+    <ClInclude Include="Utente.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AEDA-1617.cpp" />
+    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="Utente.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5B46B244-B9A1-40A5-8968-BAE0C230D896}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -145,19 +158,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\AEDA-1617\AEDA-1617\AEDA-1617.cpp" />
-    <ClCompile Include="..\..\AEDA-1617\AEDA-1617\Data.cpp" />
-    <ClCompile Include="..\..\AEDA-1617\AEDA-1617\Utente.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\AEDA-1617\AEDA-1617\Aula.h" />
-    <ClInclude Include="..\..\AEDA-1617\AEDA-1617\Data.h" />
-    <ClInclude Include="..\..\AEDA-1617\AEDA-1617\Pessoa.h" />
-    <ClInclude Include="..\..\AEDA-1617\AEDA-1617\Piscina.h" />
-    <ClInclude Include="..\..\AEDA-1617\AEDA-1617\Professor.h" />
-    <ClInclude Include="..\..\AEDA-1617\AEDA-1617\Utente.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
