@@ -15,5 +15,12 @@ vector<Professor *> Piscina::getProfessores() {
 }
 
 bool Piscina::addUtente(Utente * u) {
-	vector<Utente *>::
+	vector<Utente *>::iterator it = find(utentes.begin(), utentes.end(), u);
+
+	if (it == utentes.end()) {
+		utentes.push_back(u);
+		return true;
+	}
+	else
+		return false;
 }
