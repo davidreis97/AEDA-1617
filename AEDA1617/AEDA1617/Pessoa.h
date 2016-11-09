@@ -7,5 +7,6 @@ class Pessoa {
 private:
 	string nome;
 	int id;
+	unsigned int idade;
 	static int ultimoId;
 };

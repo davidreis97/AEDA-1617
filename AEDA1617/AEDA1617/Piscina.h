@@ -18,4 +18,8 @@ public:
 	bool addProfessor(Professor * p);
 	bool addClientes(vector<Utente* > utentes);
 	bool addData(Data d);
+	int	 getNumUtentesAula();
+	int  getNumUtentesAtuais();
+	void pagarMesUtente(int id);
+	void pagarMesUtente(string nome);
 };
