@@ -79,3 +79,10 @@ int Piscina::getNumUtentesAula(int hora, int minutos, Data data) {
 void Piscina::marcarUtente(Utente * utente, bool isAula) {
 	vector<Utente *>::iterator it  = find(this->utentes.begin(), this->utentes.end(), *(utente));
 }
+
+vector<Utente *> Piscina::ocupacaoPiscina(Data d, int x) {
+	for (unsigned int i = 0; i < horario.size(); i++)
+		if (horario[i] == d)
+			return horario[i].getPeriodos()[x]->getUtentes();
+	return {};
+}
