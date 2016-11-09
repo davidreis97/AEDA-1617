@@ -12,4 +12,3 @@ int main()
 	cout << "teste 2";
     return 0;
 }
-
