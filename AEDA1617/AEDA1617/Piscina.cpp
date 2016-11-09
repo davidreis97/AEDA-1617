@@ -1,7 +1,7 @@
 #include "Piscina.h"
 
 using namespace std;
-Piscina::Piscina(unsigned int periodos, float precoA, float precoP) : periodoDia(periodos){
+Piscina::Piscina(unsigned int periodos, float precoA, float precoP, unsigned int nMax) : periodoDia(periodos), nMaxUtentes(nMax){
 	precoAula = precoA;
 	precoPeriodo = precoP;
 }
@@ -37,14 +37,10 @@ bool Piscina::addProfessor(Professor * p) {
 }
 
 bool Piscina::addData(Data d) {
-	vector<Data>::iterator it = find_if(horario.begin(), horario.end(), d.operator==);
 
-	if (it == horario.end()) {
-		horario.push_back(d);
-		return true;
+	for (unsigned int i = 0; i < horario.size(); i++) {
+		if ()
 	}
-	else
-		return false;
 }
 
 int Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
