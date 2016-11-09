@@ -45,7 +45,6 @@ bool Piscina::addData(Data d) {
 	}
 	else
 		return false;
-	vector<Utente *>::iterator it;
 }
 
 int  Piscina::getNumUtentesAtuais(int hora, int minutos, Data data) {
