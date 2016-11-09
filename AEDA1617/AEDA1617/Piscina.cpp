@@ -1,9 +1,9 @@
 #include "Piscina.h"
 
-
-Piscina::Piscina(unsigned int periodos, float precoA, float precoPeriodo) : periodoDia(periodos){
+using namespace std;
+Piscina::Piscina(unsigned int periodos, float precoA, float precoP) : periodoDia(periodos){
 	precoAula = precoA;
-	precoPeriodo = precoPeriodo;
+	precoPeriodo = precoP;
 }
 
 vector<Utente *> Piscina::getUtentes() {
@@ -29,7 +29,7 @@ bool Piscina::addProfessor(Professor * p) {
 	vector<Professor *>::iterator it = find(professores.begin(), professores.end(), p);
 
 	if (it == professores.end()) {
-		professores.push_back(u);
+		professores.push_back(p);
 		return true;
 	}
 	else

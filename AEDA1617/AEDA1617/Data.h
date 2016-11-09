@@ -1,5 +1,6 @@
 #pragma once
 #include <ostream>
+#include <vector>
 #include "Aula.h"
 
 using namespace std;

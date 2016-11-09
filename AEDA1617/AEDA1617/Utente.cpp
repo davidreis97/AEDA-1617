@@ -1,5 +1,6 @@
 #include "Utente.h"
 
+using namespace std;
 float Utente::valorPagamento(float precoAula, float precoPeriodo) {
 	float valor = this->aulasPorPagar * precoAula + this->periodosPorPagar * precoPeriodo;
 	return valor;

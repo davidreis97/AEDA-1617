@@ -1,10 +1,10 @@
 #pragma once
 #include "Utente.h"
 #include "Professor.h"
-#include "Aula.h"
 #include "Data.h"
-#include <algorithm>
 
+#include <algorithm>
+using namespace std;
 class Piscina {
 private:
 	vector<Utente *> utentes;

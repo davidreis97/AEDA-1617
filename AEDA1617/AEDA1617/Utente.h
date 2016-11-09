@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Data.h"
 #include "Pessoa.h"
 using namespace std;
 
