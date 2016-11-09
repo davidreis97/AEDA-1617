@@ -1,7 +1,6 @@
 #include "Data.h"
 #include <ostream>
 #include <string>
-#include "stdafx.h"
 
 using namespace std;
 

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Utente.h"
 
 float Utente::valorPagamento(float precoAula, float precoPeriodo) {
