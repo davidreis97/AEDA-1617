@@ -1,7 +1,7 @@
-#include "Data.h"
+#include "stdafx.h"
 #include <ostream>
 #include <string>
-#include "stdafx.h"
+
 
 using namespace std;
 
@@ -46,7 +46,7 @@ ostream & Data::operator<<(ostream &os) {
 		break;
 	default:
 		DataInvalida(this);
-	};
+	}
 	os << this->dia << " de " << mestexto << " de " << this->ano;
 	return os;
 }

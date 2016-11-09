@@ -1,8 +1,10 @@
 #pragma once
+#ifndef UTENTE_H
+#define UTENTE_H
 #include <string>
 #include <vector>
-#include "Data.h"
-#include "Pessoa.h"
+#include "stdafx.h"
+
 using namespace std;
 
 
@@ -20,4 +22,7 @@ private:
 	vector<Frequencia> historico;
 public:
 	float valorPagamento(float precoAula,float precoPeriodo);
+	ostream & operator<<(ostream &os);
 };
+
+#endif UTENTE_H

@@ -6,7 +6,12 @@
 #pragma once
 
 #include "targetver.h"
-
+#include "Pessoa.h"
+#include "Utente.h"
+#include "Data.h"
+#include "Aula.h"
+#include "Piscina.h"
+#include "Professor.h"
 #include <stdio.h>
 #include <tchar.h>
 
