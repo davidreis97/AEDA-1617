@@ -24,3 +24,25 @@ bool Piscina::addUtente(Utente * u) {
 	else
 		return false;
 }
+
+bool Piscina::addProfessor(Professor * p) {
+	vector<Professor *>::iterator it = find(professores.begin(), professores.end(), p);
+
+	if (it == professores.end()) {
+		professores.push_back(u);
+		return true;
+	}
+	else
+		return false;
+}
+
+bool Piscina::addData(Data d) {
+	vector<Data>::iterator it = find_if(horario.begin(), horario.end(), d.operator==);
+
+	if (it == horario.end()) {
+		horario.push_back(d);
+		return true;
+	}
+	else
+		return false;
+}

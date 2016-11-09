@@ -2,12 +2,14 @@
 #include "Utente.h"
 #include "Professor.h"
 #include "Aula.h"
+#include "Data.h"
+#include <algorithm>
 
 class Piscina {
 private:
 	vector<Utente *> utentes;
 	vector<Professor *> professores;
-	vector<Data> Horario;
+	vector<Data> horario;
 	const unsigned int periodoDia;
 	float precoAula;
 	float precoPeriodo;
@@ -25,3 +27,5 @@ public:
 	void pagarMesUtente(int id);
 	void pagarMesUtente(string nome);
 };
+
+bool dataIgual(Data d);
