@@ -36,11 +36,7 @@ bool Piscina::addProfessor(Professor * p) {
 	else
 		return false;
 }
-/* @brief sdsdasdasd
-	
-	@args d 
-	@return sdsadsas
-*/
+
 bool Piscina::addData(Data d) {
 	vector<Data>::iterator it = find_if(horario.begin(), horario.end(), d);
 

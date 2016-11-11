@@ -25,5 +25,6 @@ public:
 	int  getNumUtentesAtuais(int hora, int minutos, Data data);
 	void pagarMesUtente(int id);
 	void pagarMesUtente(string nome);
+	vector<Utente *> ocupacaoPiscina(Data d, int x);
 };
 
