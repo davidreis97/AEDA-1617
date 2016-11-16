@@ -8,7 +8,15 @@ using namespace std;
 
 int main()
 {
-	cout << "Teste";
-	cout << "teste 2";
-    return 0;
+	
+}
+
+void menuInicial() {
+	cout << "1- Criar Piscina" << endl;
+	cout << "2- Sair" << endl;
+	int input;
+	switch (input) {
+	case 1:
+
+	}
 }

@@ -30,7 +30,6 @@ public:
 	void printFrequenciaUtente(int id);
 	void printProfessor(int id);
 	void printDia(Data data);
-	void printPeriodo(Data data, int periodo);
 	bool Piscina::newAula(Data data, int periodo);
 };
 

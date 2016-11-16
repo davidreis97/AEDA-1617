@@ -201,6 +201,14 @@ void Piscina::printProfessor(int id) {
 	cout << "O professor " << this->professores[j].getNome() << "com o ID " << this->professores[j].getId() << " lecionou " << this->professores[j].getNumAulas() << " aulas." << endl;
 }
 
-void printDia(Data data) {
-
+void Piscina::printDia(Data data) {
+	for (int i = 0; i < this->periodoDia; i++) {
+		try {
+			this->printOcupacaoPiscina(data, i);
+		}
+		catch (DataNaoEncontrada data) {
+			cout << "A data fornecida (" << data.getData() << ") não pertence aos nossos registos." << endl;
+		}
+		
+	}
 }
