@@ -24,9 +24,9 @@ bool Data::operator<(Data otherdata) {
 	}
 }
 
-ostream & Data::operator<<(ostream &os) {
+ostream & operator<<(ostream &os,Data& data) {
 	string mestexto;
-	switch (this->mes) {
+	switch (data.getMes()) {
 	case(1):
 		mestexto = "Janeiro";
 		break;
@@ -64,9 +64,9 @@ ostream & Data::operator<<(ostream &os) {
 		mestexto = "Dezembro";
 		break;
 	default:
-		DataInvalida(this);
+		DataInvalida(*data);
 	};
-	os << this->dia << " de " << mestexto << " de " << this->ano;
+	os << data.getDia() << " de " << data.getMes() << " de " << data.getAno();
 	return os;
 }
 

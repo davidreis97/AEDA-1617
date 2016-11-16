@@ -37,5 +37,14 @@ int UtenteNaoEncontrado::getId() {
 }
 
 
+int Utente::getPeriodosPorPagar() {
+	return this->periodosPorPagar;
+}
+
+
+int Utente::getAulasPorPagar() {
+	return this->aulasPorPagar;
+}
+
 
 

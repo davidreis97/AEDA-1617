@@ -28,7 +28,7 @@ public:
 	void pagarUtente(int id);
 	void printOcupacaoPiscina(Data d,int periodo);
 	void printFrequenciaUtente(int id);
-	void printProfessores(int id);
+	void printProfessor(int id);
 	void printDia(Data data);
 	void printPeriodo(Data data, int periodo);
 	bool Piscina::newAula(Data data, int periodo);

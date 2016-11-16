@@ -14,7 +14,7 @@ private:
 	vector<Aula> aulas;
 public:
 	Data(unsigned short dia1, unsigned short mes1, unsigned short ano1);
-	ostream &operator<<(ostream &os);
+	friend ostream & operator<<(ostream &os, Data& data);
 	bool operator<(Data otherdata);
 	bool operator==(Data otherdata);
 	unsigned short getDia();

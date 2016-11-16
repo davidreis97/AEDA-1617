@@ -131,7 +131,7 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 	if (this->horario[j].getAula(periodoInicial) != NULL) {
 		for (int p = periodoInicial; p < periodoFinal + 1; p++) {
 			this->horario[j].getAula(periodoInicial)->addUtente(&(this->utentes[i]));
-			this->utentes[i].setRelPeriodosPorPagar(1, 0);
+			this->utentes[i].setRelPeriodosPorPagar(0, 1);
 		}
 	}
 }
@@ -156,6 +156,51 @@ int PiscinaCheia::getNMaxUtentes() {
 	return this->nMaxUtentes;
 }
 
-void Piscina::printOcupacaoPiscina(Data d, int periodo) {
+void Piscina::printOcupacaoPiscina(Data data, int periodo) {
+	int j;
+	for (j = 0; j < this->horario.size(); j++) {
+		if (this->horario[j] == data) {
+			break;
+		}
+	}
+	if (j = this->horario.size()) {
+		throw DataNaoEncontrada(&data);
+	}
+	cout << "Frequencia da piscina no periodo " << periodo << " do dia " << data << ":" << endl;
+	for (int i = 0; i < this->horario[j].getPeriodo(periodo)->getUtentes()->size(); i++) {
+		cout << "Utente " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getId() << endl;
+	}
+	for (int i = 0; i < this->horario[j].getAula(periodo)->getUtentes()->size(); i++) {
+		cout << "Aluno " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getId() << endl;
+	}
+}
+
+void Piscina::printFrequenciaUtente(int id) {
+	int i;
+	for (i = 0; i < this->utentes.size(); i++) {
+		if (this->utentes[i].getId() == id) {
+			break;
+		}
+	}
+	if (i == this->utentes.size()) {
+		throw UtenteNaoEncontrado(id);
+	}
+	cout << "O utente " << this->utentes[i].getNome() << " com ID " << this->utentes[i].getId() << " frequentou " << this->utentes[i].getPeriodosPorPagar() << " periodos e " << this->utentes[i].getAulasPorPagar() << " aulas, aguardando pagamento de " << this->utentes[i].valorPagamento(this->precoAula, this->precoPeriodo) << "€" << endl;
+}
+
+void Piscina::printProfessor(int id) {
+	int j;
+	for (j = 0; j < this->professores.size(); j++) {
+		if (this->professores[j].getId() == id) {
+			break;
+		}
+	}
+	if (j == this->professores.size()) {
+		throw UtenteNaoEncontrado(id);
+	}
+	cout << "O professor " << this->professores[j].getNome() << "com o ID " << this->professores[j].getId() << " lecionou " << this->professores[j].getNumAulas() << " aulas." << endl;
+}
+
+void printDia(Data data) {
 
 }

@@ -15,6 +15,8 @@ public:
 	float valorPagamento(float precoAula,float precoPeriodo);
 	void setRelPeriodosPorPagar(int aulas, int periodos);
 	void setAbsPeriodosPorPagar(int aulas, int periodos);
+	int getPeriodosPorPagar();
+	int getAulasPorPagar();
 };
 
 class UtenteNaoEncontrado {
