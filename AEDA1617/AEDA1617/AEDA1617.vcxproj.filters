@@ -27,10 +27,10 @@
     <ClInclude Include="Utente.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Aula.h">
+    <ClInclude Include="Data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Data.h">
+    <ClInclude Include="Aula.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,10 +47,13 @@
     <ClCompile Include="Piscina.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pessoa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Aula.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pessoa.cpp">
+    <ClCompile Include="Professor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

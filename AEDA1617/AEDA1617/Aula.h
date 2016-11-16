@@ -6,11 +6,20 @@ using namespace std;
 
 class Periodo {
 	vector<Utente *> utentes;
-	int emAula;
+	int periodo;
 public:
-	vector<Utente *> getUtentes();
+	Periodo(int periodo);
+	int getPeriodo();
+	vector<Utente *> *getUtentes();
+	int getNumUtentes();
 	void addUtente(Utente * utente);
-	void addEmAula();
-	int getEmAula();
 	Professor *professor;
+};
+
+class Aula : public Periodo{
+	Professor *professor;
+public:
+	Aula(Professor *professor, int periodo);
+	Professor *getProfessor();
+	void setProfessor(Professor *professor);
 };

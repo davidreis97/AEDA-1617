@@ -1,18 +1,15 @@
 #include "Pessoa.h"
 
-bool Pessoa::operator==(Pessoa *other) {
-	if (this->id == other->getId()) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 int Pessoa::getId() {
 	return this->id;
 }
 
-Pessoa::Pessoa(string nome, unsigned int idade) :nome(nome),idade(idade),id(ultimoId++){}
+int Pessoa::ultimoId = 0;
+
+Pessoa::Pessoa(string nome, unsigned int idade) :nome(nome),idade(idade),id(this->ultimoId++){}
 
 Pessoa::Pessoa(string nome, unsigned int idade,int id) : nome(nome), idade(idade), id(id) {}
+
+string Pessoa::getNome() {
+	return this->nome;
+}

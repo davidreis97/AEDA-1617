@@ -5,17 +5,17 @@
 using namespace std;
 
 bool Data::operator<(Data otherdata) {
-	if (this->ano < otherdata.getAno) {
+	if (this->ano < otherdata.getAno()) {
 		return 1;
-	}else if(this->ano > otherdata.getAno){
+	}else if(this->ano > otherdata.getAno()){
 		return 0;
 	}else {
-		if (this->mes < otherdata.getMes) {
+		if (this->mes < otherdata.getMes()) {
 			return 1;
-		}else if (this->mes > otherdata.getMes) {
+		}else if (this->mes > otherdata.getMes()) {
 			return 0;
 		}else {
-			if (this->dia < otherdata.getDia) {
+			if (this->dia < otherdata.getDia()) {
 				return 1;
 			}else{
 				return 0;
@@ -92,8 +92,8 @@ unsigned short Data::getAno() {
 	return this->ano;
 }
 
-vector<Periodo *> Data::getPeriodos() {
-	return this->periodos;
+vector<Periodo> *Data::getPeriodos() {
+	return &(this->periodos);
 }
 
 DataInvalida::DataInvalida(Data *data): data(data){}
@@ -102,8 +102,14 @@ Data DataInvalida::getData() {
 	return *(this->data);
 }
 
+DataNaoEncontrada::DataNaoEncontrada(Data* data) :data(data){}
+
+Data DataNaoEncontrada::getData() {
+	return *(this->data);
+}
+
 bool Data::operator==(Data otherdata) {
-	if (this->ano == otherdata.getAno && this->mes == otherdata.getAno && this->dia == otherdata.getDia) {
+	if (this->ano == otherdata.getAno() && this->mes == otherdata.getAno() && this->dia == otherdata.getDia()) {
 		return true;
 	}
 	else {
@@ -113,7 +119,7 @@ bool Data::operator==(Data otherdata) {
 
 int horaToPeriodo(int hora, int minutos) {
 	if (minutos >= 30) {
-		return (hora * 2 + 1)-;
+		return (hora * 2 + 1);
 	}
 	else {
 		return hora * 2;
@@ -131,4 +137,24 @@ ostream &periodoToHora(ostream &os, int periodo) {
 	}
 	os << hora << ":" << minutos << "h";
 	return os;
+}
+
+vector<Aula> *Data::getAulas() {
+	return &(this->aulas);
+}
+
+Aula *Data::getAula(int periodo) {
+	for (int i = 0; i < this->aulas.size(); i++) {
+		if (this->aulas[i].getPeriodo() == periodo) {
+			return &(this->aulas[i]);
+		}
+	}
+}
+
+Periodo *Data::getPeriodo(int periodo) {
+	for (int i = 0; i < this->periodos.size(); i++) {
+		if (this->periodos[i].getPeriodo() == periodo) {
+			return &(this->periodos[i]);
+		}
+	}
 }

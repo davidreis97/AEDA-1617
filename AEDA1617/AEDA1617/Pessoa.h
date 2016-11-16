@@ -8,10 +8,10 @@ private:
 	string nome;
 	int id;
 	unsigned int idade;
-	static int ultimoId;
 public:
-	bool operator==(Pessoa *other);
+	static int ultimoId;
 	int getId();
+	string getNome();
 	Pessoa(string nome, unsigned int idade);
 	Pessoa(string nome, unsigned int idade,int id);
 };

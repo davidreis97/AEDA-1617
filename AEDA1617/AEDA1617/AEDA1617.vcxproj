@@ -32,6 +32,7 @@
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Pessoa.cpp" />
     <ClCompile Include="Piscina.cpp" />
+    <ClCompile Include="Professor.cpp" />
     <ClCompile Include="Utente.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
