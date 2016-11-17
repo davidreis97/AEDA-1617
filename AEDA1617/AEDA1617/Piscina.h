@@ -25,12 +25,12 @@ public:
 	int	 getNumUtentesAula(int periodo, Data data);
 	void marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data);
 	int  getNumUtentesAtuais(int periodo, Data data);
-	void pagarUtente(int id);
+	void pagarUtente(int id, int mes);
 	void printOcupacaoPiscina(Data d,int periodo);
 	void printFrequenciaUtente(int id);
 	void printProfessor(int id);
 	void printDia(Data data);
-	bool Piscina::newAula(Data data, int periodo);
+	bool newAula(Data data, int periodo);
 };
 
 class PiscinaCheia {

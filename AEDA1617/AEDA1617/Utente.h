@@ -4,6 +4,14 @@
 #include "Pessoa.h"
 using namespace std;
 
+/**
+* @file   Pessoa.h
+* @date   November, 2016
+* @brief  Classe que define um utente.
+*
+* Classe que define uma pessoa, nunca é instanciada.
+*/
+
 class Utente : public Pessoa {
 private:
 	int periodosPorPagar;

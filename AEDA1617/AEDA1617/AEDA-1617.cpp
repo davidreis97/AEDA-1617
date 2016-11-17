@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-
+#include "Piscina.h"
 
 using namespace std;
 
@@ -15,6 +15,7 @@ void menuInicial() {
 	cout << "1- Criar Piscina" << endl;
 	cout << "2- Sair" << endl;
 	int input;
+	cin >> input;
 	switch (input) {
 	case 1:
 

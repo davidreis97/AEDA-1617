@@ -1,5 +1,13 @@
 #pragma once
 #include <string>
+/**
+* @file   Pessoa.h
+* @date   November, 2016
+* @brief  Classe que define uma pessoa.
+*
+* Classe que define uma pessoa, nunca é instanciada.
+*/
+
 
 using namespace std;
 

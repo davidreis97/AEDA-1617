@@ -136,8 +136,9 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 	}
 }
 
-void Piscina::pagarUtente(int id) {
-	int i, j;
+void Piscina::pagarUtente(int id, int mes) {
+	int i, j, p, k;
+	float pagamento = 0;
 	for (i = 0; i < this->utentes.size(); i++) {
 		if (this->utentes[i].getId() == id) {
 			break;
@@ -146,9 +147,29 @@ void Piscina::pagarUtente(int id) {
 	if (i == this->utentes.size()) {
 		throw UtenteNaoEncontrado(id);
 	}
-	cout << "O utente " << this->utentes[i].getNome() << " com o ID " << this->utentes[i].getId() << " efetuou o pagamento de " << this->utentes[i].valorPagamento(this->precoAula, this->precoPeriodo) << "€";
-	this->utentes[i].setAbsPeriodosPorPagar(0, 0);
-}
+	cout << "O utente " << this->utentes[i].getNome() << " com o ID " << this->utentes[i].getId() << " frequentou os seguintes periodos/aulas: " << endl;
+	for (j = 0; j < this->horario.size; j++) {
+		if (this->horario[j].getMes() == mes) {
+			for (p = 0; p < this->horario[j].getPeriodos()->size(); p++) {
+				for (k = 0; k < this->horario[j].getPeriodos()->at(p).getUtentes()->size; k++) {
+					if (this->horario[j].getPeriodos()->at(p).getUtentes()->at(k)->getId() == id) {
+						cout << this->horario[j] << " - Periodo " << this->horario[j].getPeriodos()->at(p).getPeriodo() << endl;
+						pagamento += this->precoPeriodo;
+					}
+				}
+			}
+			for (p = 0; p < this->horario[j].getAulas()->size(); p++) {
+				for (k = 0; k < this->horario[j].getAulas()->at(p).getUtentes()->size; k++) {
+					if (this->horario[j].getAulas()->at(p).getUtentes()->at(k)->getId() == id) {
+						cout << this->horario[j] << " - Aula no Periodo " << this->horario[j].getAulas()->at(p).getPeriodo() << endl;
+						pagamento += this->precoAula;
+					}
+				}
+			}
+		}
+	}
+	cout << "Devendo efetuar um pagamento de " << pagamento << "€ por este mes." << endl;
+	}
 
 PiscinaCheia::PiscinaCheia(int nMaxUtentes):nMaxUtentes(nMaxUtentes) {}
 
