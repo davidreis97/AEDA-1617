@@ -66,7 +66,7 @@ ostream & operator<<(ostream &os,Data& data) {
 	default:
 		DataInvalida(*data);
 	};
-	os << data.getDia() << " de " << data.getMes() << " de " << data.getAno();
+	os << data.getDia() << " de " << mestexto << " de " << data.getAno();
 	return os;
 }
 
@@ -109,7 +109,7 @@ Data DataNaoEncontrada::getData() {
 }
 
 bool Data::operator==(Data otherdata) {
-	if (this->ano == otherdata.getAno() && this->mes == otherdata.getAno() && this->dia == otherdata.getDia()) {
+	if (this->ano == otherdata.getAno() && this->mes == otherdata.getMes() && this->dia == otherdata.getDia()) {
 		return true;
 	}
 	else {
@@ -149,6 +149,7 @@ Aula *Data::getAula(int periodo) {
 			return &(this->aulas[i]);
 		}
 	}
+	return NULL;
 }
 
 Periodo *Data::getPeriodo(int periodo) {
@@ -157,4 +158,15 @@ Periodo *Data::getPeriodo(int periodo) {
 			return &(this->periodos[i]);
 		}
 	}
+	return NULL;
+}
+
+void Data::addPeriodo(int i) {
+	Periodo p(i);
+	this->periodos.push_back(p);
+}
+
+void Data::addAula(int i, Professor *p) {
+	Aula a(p,i);
+	this->aulas.push_back(a);
 }

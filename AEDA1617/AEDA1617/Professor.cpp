@@ -12,3 +12,11 @@ bool Professor::operator==(Professor u) {
 int Professor::getNumAulas() {
 	return this->aulas;
 }
+
+void Professor::setNumAulas(int aulas) {
+	this->aulas += aulas;
+}
+
+Professor::Professor(string nome, unsigned int idade) :Pessoa(nome, idade) { this->aulas = 0; }
+
+Professor::Professor(string nome, unsigned int idade, int id, int aulas) : Pessoa(nome, idade, id) { this->aulas = 0; }

@@ -31,6 +31,7 @@ public:
 	void printProfessor(int id);
 	void printDia(Data data);
 	bool newAula(Data data, int periodo);
+	void Piscina::printProfessores();
 };
 
 class PiscinaCheia {

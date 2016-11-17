@@ -37,7 +37,10 @@ bool Piscina::addProfessor(Professor p) {
 
 bool Piscina::addData(Data d) {
 	if (std::find(horario.begin(), horario.end(), d) == horario.end()) {
-		horario.push_back(d);
+		this->horario.push_back(d);
+		for (int i = 0; i < this->periodoDia; i++) {
+			this->horario.back().addPeriodo(i);
+		}
 		return true;
 	}
 	else {
@@ -53,9 +56,12 @@ int Piscina::getNumUtentesAtuais(int periodo, Data data) {
 		}
 	}
 	if (i == this->horario.size()) {
-		throw DataNaoEncontrada(&data);
+		this->addData(data);
 	}
-	return (this->horario[i].getPeriodo(periodo)->getNumUtentes());
+	if (this->horario[i].getPeriodo(periodo) != NULL) {
+		return (this->horario[i].getPeriodo(periodo)->getNumUtentes());
+	}
+	return 0;
 }
 
 int Piscina::getNumUtentesAula(int periodo, Data data) {
@@ -66,9 +72,12 @@ int Piscina::getNumUtentesAula(int periodo, Data data) {
 		}
 	}
 	if (i == this->horario.size()) {
-		throw DataNaoEncontrada(&data);
+		this->addData(data);
 	}
-	return (this->horario[i].getAula(periodo)->getNumUtentes());
+	if (this->horario[i].getAula(periodo) != NULL) {
+		return (this->horario[i].getAula(periodo)->getNumUtentes());
+	}
+	return 0;
 }
 
 bool Piscina::newAula(Data data, int periodo) {
@@ -78,22 +87,28 @@ bool Piscina::newAula(Data data, int periodo) {
 			break;
 		}
 	}
-	if (j = this->horario.size()) {
-		this->horario.push_back(data);
+	if (j == this->horario.size()) {
+		this->addData(data);
 	}
 	if (this->horario[j].getAula(periodo) != NULL) {
 		return false;
 	}
-	for (int p = 0; p < this->professores.size(); p++) {
-		if(this->professores[menor].getNumAulas() > this->professores[p].getNumAulas()) {
-			menor = p;
+	if (this->professores.size() > 0) {
+		for (int p = 0; p < this->professores.size(); p++) {
+			if (this->professores[menor].getNumAulas() > this->professores[p].getNumAulas()) {
+				menor = p;
+			}
 		}
-	}
-	Aula aula(&(this->professores[menor]), periodo);
-	if (i = this->horario[j].getAulas()->size()) {
-		this->horario[j].getAulas()->push_back(aula);
+		this->horario[j].addAula(periodo, &(this->professores[menor]));
+		this->horario[j].addAula(periodo+1, &(this->professores[menor]));
+		this->professores[menor].setNumAulas(2);
 		return true;
 	}
+	else {
+		cout << "Nao ha um professor para essa aula." << endl;
+		return false;
+	}
+	
 }
 
 void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data) {
@@ -111,27 +126,32 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 			break;
 		}
 	}
-	if (j = this->horario.size()) {
-		this->horario.push_back(data);
+	if (j == this->horario.size()) {
+		this->addData(data);
 	}
 	if (this->getNumUtentesAtuais(periodoInicial, data) + this->getNumUtentesAula(periodoInicial, data) > this->nMaxUtentes) {
 		throw PiscinaCheia(this->nMaxUtentes);
 	}
 	if (isAula) {
-		if ((periodoInicial-periodoFinal) != 2) {
-			cout << "Quantidade de Periodos Invalidos. Aulas são de duração 1 hora." << endl;
+		if ((periodoFinal-periodoInicial) != 2) {
+			cout << "Quantidade de Periodos Invalidos. Aulas sao de duracao 1 hora." << endl;
 		}
 		if (this->horario[j].getAula(periodoInicial) != NULL) {
-			for (int p = periodoInicial; p < periodoFinal + 1; p++) {
-				this->horario[j].getAula(periodoInicial)->addUtente(&(this->utentes[i]));
-				this->utentes[i].setRelPeriodosPorPagar(1, 0);
+			for (int p = periodoInicial; p < periodoFinal; p++) {
+					this->horario[j].getAula(p)->addUtente(&(this->utentes[i]));
+					this->utentes[i].setRelPeriodosPorPagar(1, 0);
 			}
 		}
 	}
-	if (this->horario[j].getAula(periodoInicial) != NULL) {
-		for (int p = periodoInicial; p < periodoFinal + 1; p++) {
-			this->horario[j].getAula(periodoInicial)->addUtente(&(this->utentes[i]));
-			this->utentes[i].setRelPeriodosPorPagar(0, 1);
+	else {
+		if (this->horario[j].getPeriodo(periodoInicial) != NULL) {
+			for (int p = periodoInicial; p < periodoFinal; p++) {
+				this->horario[j].getPeriodo(p)->addUtente(&(this->utentes[i]));
+				this->utentes[i].setRelPeriodosPorPagar(0, 1);
+			}
+		}
+		else {
+
 		}
 	}
 }
@@ -148,10 +168,10 @@ void Piscina::pagarUtente(int id, int mes) {
 		throw UtenteNaoEncontrado(id);
 	}
 	cout << "O utente " << this->utentes[i].getNome() << " com o ID " << this->utentes[i].getId() << " frequentou os seguintes periodos/aulas: " << endl;
-	for (j = 0; j < this->horario.size; j++) {
+	for (j = 0; j < this->horario.size(); j++) {
 		if (this->horario[j].getMes() == mes) {
 			for (p = 0; p < this->horario[j].getPeriodos()->size(); p++) {
-				for (k = 0; k < this->horario[j].getPeriodos()->at(p).getUtentes()->size; k++) {
+				for (k = 0; k < this->horario[j].getPeriodos()->at(p).getUtentes()->size(); k++) {
 					if (this->horario[j].getPeriodos()->at(p).getUtentes()->at(k)->getId() == id) {
 						cout << this->horario[j] << " - Periodo " << this->horario[j].getPeriodos()->at(p).getPeriodo() << endl;
 						pagamento += this->precoPeriodo;
@@ -159,7 +179,7 @@ void Piscina::pagarUtente(int id, int mes) {
 				}
 			}
 			for (p = 0; p < this->horario[j].getAulas()->size(); p++) {
-				for (k = 0; k < this->horario[j].getAulas()->at(p).getUtentes()->size; k++) {
+				for (k = 0; k < this->horario[j].getAulas()->at(p).getUtentes()->size(); k++) {
 					if (this->horario[j].getAulas()->at(p).getUtentes()->at(k)->getId() == id) {
 						cout << this->horario[j] << " - Aula no Periodo " << this->horario[j].getAulas()->at(p).getPeriodo() << endl;
 						pagamento += this->precoAula;
@@ -169,7 +189,7 @@ void Piscina::pagarUtente(int id, int mes) {
 		}
 	}
 	cout << "Devendo efetuar um pagamento de " << pagamento << "€ por este mes." << endl;
-	}
+}
 
 PiscinaCheia::PiscinaCheia(int nMaxUtentes):nMaxUtentes(nMaxUtentes) {}
 
@@ -184,15 +204,24 @@ void Piscina::printOcupacaoPiscina(Data data, int periodo) {
 			break;
 		}
 	}
-	if (j = this->horario.size()) {
+	if (j == this->horario.size()) {
 		throw DataNaoEncontrada(&data);
 	}
 	cout << "Frequencia da piscina no periodo " << periodo << " do dia " << data << ":" << endl;
-	for (int i = 0; i < this->horario[j].getPeriodo(periodo)->getUtentes()->size(); i++) {
-		cout << "Utente " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getId() << endl;
+	if (this->horario[j].getAula(periodo) != NULL || this->horario[j].getPeriodo(periodo) != NULL) {
+		if (this->horario[j].getPeriodo(periodo) != NULL) {
+			for (int i = 0; i < this->horario[j].getPeriodo(periodo)->getUtentes()->size(); i++) {
+				cout << "Utente " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getId() << endl;
+			}
+		}
+		if (this->horario[j].getAula(periodo) != NULL) {
+			for (int i = 0; i < this->horario[j].getAula(periodo)->getUtentes()->size(); i++) {
+				cout << "Aluno " << this->horario[j].getAula(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getAula(periodo)->getUtentes()->at(i)->getId() << endl;
+			}
+		}
 	}
-	for (int i = 0; i < this->horario[j].getAula(periodo)->getUtentes()->size(); i++) {
-		cout << "Aluno " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getId() << endl;
+	else {
+		cout << "Periodo Nao Encontrado" << endl;
 	}
 }
 
@@ -219,7 +248,14 @@ void Piscina::printProfessor(int id) {
 	if (j == this->professores.size()) {
 		throw UtenteNaoEncontrado(id);
 	}
-	cout << "O professor " << this->professores[j].getNome() << "com o ID " << this->professores[j].getId() << " lecionou " << this->professores[j].getNumAulas() << " aulas." << endl;
+	cout << "O professor " << this->professores[j].getNome() << " com o ID " << this->professores[j].getId() << " leccionou " << this->professores[j].getNumAulas() << " periodos de aulas." << endl;
+}
+
+void Piscina::printProfessores() {
+	int j;
+	for (j = 0; j < this->professores.size(); j++) {
+		this->printProfessor(this->professores[j].getId());
+	}	
 }
 
 void Piscina::printDia(Data data) {

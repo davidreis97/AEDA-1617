@@ -22,6 +22,8 @@ public:
 	unsigned short getAno();
 	vector<Periodo> *getPeriodos();
 	vector<Aula> *getAulas();
+	void addPeriodo(int i);
+	void addAula(int i, Professor* prof);
 	Aula *getAula(int periodo);
 	Periodo *getPeriodo(int periodo);
 };
