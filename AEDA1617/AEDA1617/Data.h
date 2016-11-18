@@ -3,6 +3,14 @@
 #include <vector>
 #include "Aula.h"
 
+/**
+* @file   Data.h
+* @date   November, 2016
+* @brief  Classe que define uma data.
+*
+* Classe que define uma data, contendo informacao sobre todos os periodos e aulas existentes nesse dia.
+*/
+
 using namespace std;
 
 class Data {
