@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AEDA-1617.h" />
     <ClInclude Include="Aula.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Pessoa.h" />
     <ClInclude Include="Piscina.h" />
     <ClInclude Include="Professor.h" />
-    <ClInclude Include="ShowMenu.h" />
     <ClInclude Include="Utente.h" />
   </ItemGroup>
   <ItemGroup>
@@ -34,7 +34,6 @@
     <ClCompile Include="Pessoa.cpp" />
     <ClCompile Include="Piscina.cpp" />
     <ClCompile Include="Professor.cpp" />
-    <ClCompile Include="ShowMenu.cpp" />
     <ClCompile Include="Utente.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

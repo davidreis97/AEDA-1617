@@ -270,3 +270,25 @@ void Piscina::printDia(Data data) {
 		
 	}
 }
+
+bool Piscina::removeUtente(int id) {
+	vector<Utente>::iterator it;
+	for (it = this->utentes.begin(); it != this->utentes.end();) {
+		if ((it)->getId() == id) {
+			this->utentes.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Piscina::removeProfessor(int id) {
+	vector<Professor>::iterator it;
+	for (it = this->professores.begin(); it != this->professores.end();) {
+		if ((it)->getId() == id) {
+			this->professores.erase(it);
+			return true;
+		}
+	}
+	return false;
+}

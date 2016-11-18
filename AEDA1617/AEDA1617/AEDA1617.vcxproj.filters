@@ -33,7 +33,7 @@
     <ClInclude Include="Aula.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShowMenu.h">
+    <ClInclude Include="AEDA-1617.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -57,9 +57,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Professor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShowMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
