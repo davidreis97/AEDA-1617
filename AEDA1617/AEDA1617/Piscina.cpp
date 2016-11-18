@@ -7,6 +7,7 @@ Piscina::Piscina(unsigned int periodos, float precoA, float precoP, unsigned int
 	precoPeriodo = precoP;
 }
 
+
 vector<Utente> Piscina::getUtentes() {
 	return utentes;
 }

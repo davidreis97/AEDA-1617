@@ -25,6 +25,7 @@ public:
 	void setAbsPeriodosPorPagar(int aulas, int periodos);
 	int getPeriodosPorPagar();
 	int getAulasPorPagar();
+	bool removeUtente(int id);
 };
 
 class UtenteNaoEncontrado {
