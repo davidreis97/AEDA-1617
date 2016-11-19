@@ -23,6 +23,11 @@ public:
 	*/
 	int getId();
 	/**
+	* Permite obter a idade de um cliente.
+	* @return A idade do cliente.
+	*/
+	int getIdade();
+	/**
 	* Permite obter o nome de um cliente.
 	* @return O nome do cliente.
 	*/

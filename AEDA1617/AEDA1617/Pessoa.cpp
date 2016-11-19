@@ -4,6 +4,10 @@ int Pessoa::getId() {
 	return this->id;
 }
 
+int Pessoa::getIdade() {
+	return this->idade;
+}
+
 int Pessoa::ultimoId = 0;
 
 Pessoa::Pessoa(string nome, unsigned int idade) :nome(nome),idade(idade),id(this->ultimoId++){}

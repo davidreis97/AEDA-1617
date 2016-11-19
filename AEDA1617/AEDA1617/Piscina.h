@@ -138,8 +138,18 @@ public:
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool removeProfessor(int id);
-	bool importUtentes(string file, Piscina *p);
-	bool exportUtentes(Piscina *p);
+	/**
+	* Permite importar uma lista de clientes de um ficheiro.
+	* @param file Nome do ficheiro a importar.
+	* @return True em caso de sucesso, False em caso de falha.
+	*/
+	bool importUtentes(string file);
+	/**
+	* Permite exportar uma lista de clientes de um ficheiro.
+	* @param file Nome do ficheiro a exportar.
+	* @return True em caso de sucesso, False em caso de falha.
+	*/
+	bool exportUtentes(string file);
 };
 
 class PiscinaCheia {

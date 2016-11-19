@@ -96,31 +96,46 @@ void menuUtentes(Piscina *p) {
 		break;
 	}
 	case 2:
+	{
 		int id;
 		cout << "Indique o id do utente" << endl;
 		cin >> id;
 		(*p).removeUtente(id);
 		menuUtentes(p);
 		break;
+	}
 	case 3:
+	{
 		int id;
 		cout << "Indique o id do utente" << endl;
 		cin >> id;
 		(*p).printFrequenciaUtente(id);
 		menuUtentes(p);
 		break;
+	}
 	case 4:
+	{
 		string x;
 		cout << "Introduza o nome do ficheiro de utentes a usar (com .txt no fim) \n";
 		cin >> x;
-
+		(*p).exportUtentes(x);
+		menuUtentes(p);
 		break;
+	}
 	case 5:
-		//Nesta funcao deve haver leitura de ficheiros
+	{
+		string x;
+		cout << "Introduza o nome do ficheiro de utentes a usar (com .txt no fim) \n";
+		cin >> x;
+		(*p).importUtentes(x);
+		menuUtentes(p);
 		break;
+	}
 	case 6:
+	{
 		menuPiscina(p);
 		break;
+	}
 	default:
 		cout << "Escolha invalida" << endl;
 		menuUtentes(p);
