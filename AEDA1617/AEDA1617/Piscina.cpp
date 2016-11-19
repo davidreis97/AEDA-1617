@@ -255,7 +255,7 @@ void Piscina::printFrequenciaUtente(int id) {
 	}
 }
 
-void Piscina::printProfessor(int id, int mes) {
+void Piscina::printProfessor(int id) {
 	int j;
 	for (j = 0; j < this->professores.size(); j++) {
 		if (this->professores[j].getId() == id) {
@@ -267,20 +267,19 @@ void Piscina::printProfessor(int id, int mes) {
 	}
 	cout << "O professor " << this->professores[j].getNome() << " com o ID " << this->professores[j].getId() << " leccionou as seguintes aulas: " << endl;
 	for (int k = 0; k < this->horario.size(); k++) {
-		if (this->horario[k].getMes() == mes) {
-			for (int p = 0; p < this->horario[k].getAulas()->size(); p++) {
-				if (this->horario[k].getAulas()->at(p).getProfessor()->getId() == id) {
-					cout << this->horario[k] << " - Aula no Periodo " << this->horario[k].getAulas()->at(p).getPeriodo() << endl;
-				}
+		for (int p = 0; p < this->horario[k].getAulas()->size(); p++) {
+			if (this->horario[k].getAulas()->at(p).getProfessor()->getId() == id) {
+				cout << this->horario[k] << " - Aula no Periodo " << this->horario[k].getAulas()->at(p).getPeriodo() << endl;
 			}
 		}
+
 	}
 }
 
-void Piscina::printProfessores(int mes) {
+void Piscina::printProfessores() {
 	int j;
 	for (j = 0; j < this->professores.size(); j++) {
-		this->printProfessor(this->professores[j].getId(), mes);
+		this->printProfessor(this->professores[j].getId());
 	}
 }
 
@@ -399,3 +398,13 @@ bool Piscina::exportUtentes(string x) {
 	return true;
 }
 
+
+bool Piscina::importProfessores(string file) {
+	//TODO
+	return true;
+}
+
+bool Piscina::exportProfessores(string file) {
+	//TODO
+	return true;
+}

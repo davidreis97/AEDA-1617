@@ -107,9 +107,8 @@ public:
 	/**
 	* Imprime no ecrã todas as aulas lecionadas por um determinado professor.
 	* @param id ID do professor ao qual se pretende efetuar a consulta.
-	* @param mes Mes no qual se pretende efetuar a consulta.
 	*/
-	void printProfessor(int id, int mes);
+	void printProfessor(int id);
 	/**
 	* Imprime no ecrã todos os utentes que frequentaram a piscina em todos os periodos de um determinado dia.
 	* @param data Data onde se pretende consultar ocupacao.
@@ -123,9 +122,8 @@ public:
 	bool newAula(Data data, int periodo);
 	/**
 	* Imprime no ecrã todas as aulas lecionadas por todos os professores da piscina.
-	* @param mes Mes no qual se pretende efetuar a consulta.
 	*/
-	void printProfessores(int mes);
+	void printProfessores();
 	/**
 	* Remove um utente.
 	* @param id ID do utente a remover.
@@ -150,6 +148,18 @@ public:
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool exportUtentes(string file);
+	/**
+	* Permite importar uma lista de professores de um ficheiro.
+	* @param file Nome do ficheiro a importar.
+	* @return True em caso de sucesso, False em caso de falha.
+	*/
+	bool importProfessores(string file);
+	/**
+	* Permite exportar uma lista de professores de um ficheiro.
+	* @param file Nome do ficheiro a exportar.
+	* @return True em caso de sucesso, False em caso de falha.
+	*/
+	bool exportProfessores(string file);
 };
 
 class PiscinaCheia {
