@@ -287,6 +287,9 @@ bool Piscina::removeUtente(int id) {
 			this->utentes.erase(it);
 			return true;
 		}
+		else {
+			it++;
+		}
 	}
 	return false;
 }
@@ -311,6 +314,73 @@ bool Piscina::removeProfessor(int id) {
 			this->professores.erase(it);
 			return true;
 		}
+		else {
+			it++;
+		}
 	}
 	return false;
+}
+
+bool importUtentes(string x, Piscina *p) {
+	ostringstream z;
+	string ut;
+	fstream file;
+
+	file.open(x.c_str(), fstream::in);  //Abrir o ficheiro
+	if (file.fail())					//Verificar se ficheiro existe
+		cout << "Ficheiro pretendido nao encontrado!\n";
+	else
+	{
+		while (!file.eof()) {
+
+
+			while (getline(file, ut))
+			{
+				string name;
+				string ide;
+				string age;
+				string periodos_por_pagar;
+				string aulas_por_pagar;
+
+
+				stringstream ss; ss.str(ut);
+
+				getline(ss, ide, ';');
+				ide.pop_back();
+
+				getline(ss, name, ';');
+				name.pop_back();
+
+				getline(ss, age, ';');
+				age.pop_back();
+
+				getline(ss, aulas_por_pagar, ';');
+				aulas_por_pagar.pop_back();
+
+				getline(ss, periodos_por_pagar, ';');
+				periodos_por_pagar.pop_back();
+
+
+				int age_int = stoi(age);
+				int ide_int = stoi(ide);
+				int aulas_por_pagar_int = stoi(aulas_por_pagar);
+				int periodos_por_pagar_int = stoi(periodos_por_pagar);
+
+				Utente u1 = Utente(name, age_int, ide_int);
+				u1.setRelPeriodosPorPagar(aulas_por_pagar_int, periodos_por_pagar_int);
+				(*p)->utentes.push_back(u1);
+			}
+		}
+		file.close();
+	}
+}
+
+
+bool exportUtentes(Piscina *p) {
+
+	fstream file2;
+
+	for (int i = 0; i < (*p).utentes.size(); i++) {
+		file2 << (*p)->utentes[i]->getId() << " ; " << (*p)->utentes[i]->getNome() << " ; " << (*p)->utentes[i]->getIdade() << " ; " << (*p)->utentes[i]->getAulasPorPagar() << " ; " << (*p)->utentes[i]->getPeriodosPorPagar() << " ; " << endl;
+	}
 }

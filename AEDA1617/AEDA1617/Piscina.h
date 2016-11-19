@@ -4,6 +4,10 @@
 #include "Data.h"
 #include <algorithm>
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <sstream>
 
 /**
 * @file   Piscina.h
@@ -134,6 +138,8 @@ public:
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool removeProfessor(int id);
+	bool importUtentes(string file, Piscina *p);
+	bool exportUtentes(Piscina *p);
 };
 
 class PiscinaCheia {
