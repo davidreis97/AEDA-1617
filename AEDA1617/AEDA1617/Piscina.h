@@ -7,13 +7,13 @@
 
 /**
 * @file   Piscina.h
-* @date   November, 2016
 * @brief  Classe que define uma piscina.
 *
 * Classe que define uma piscina, contendo os seus utentes, professores e todos os dias de funcionamento. É a classe central de todo o programa.
 */
 
 using namespace std;
+
 class Piscina {
 private:
 	vector<Utente> utentes;
@@ -86,25 +86,63 @@ public:
 	/**
 	* Permite efetuar o pagamento das frequencias de um mes de um utente.
 	* @param id ID do cliente ao qual se pretende efetuar uma marcacao.
-	* @param isAula True se pretender marcar uma aula, false se pretender marcar um periodo livre.
-	* @param periodoInicial Primeiro periodo em que se pretende marcar.
-	* @param periodoFinal Ultimo periodo em que se pretende marcar.
-	* @param data Data em que se pretende marcar.
+	* @param mes Mes no qual se pretende efetuar o pagamento.
 	*/
 	void pagarUtente(int id, int mes);
+	/**
+	* Imprime no ecrã os utentes na piscina num determinado periodo de um determinado dia.
+	* @param d Data onde se pretende consultar ocupacao.
+	* @param p Periodo onde se pretende consultar ocupacao.
+	*/
 	void printOcupacaoPiscina(Data d,int periodo);
+	/**
+	* Imprime no ecrã todas as frequencias na piscina por um determinado utente.
+	* @param id ID do cliente ao qual se pretende efetuar a consulta.
+	*/
 	void printFrequenciaUtente(int id);
-	void printProfessor(int id);
+	/**
+	* Imprime no ecrã todas as aulas lecionadas por um determinado professor.
+	* @param id ID do professor ao qual se pretende efetuar a consulta.
+	* @param mes Mes no qual se pretende efetuar a consulta.
+	*/
+	void printProfessor(int id, int mes);
+	/**
+	* Imprime no ecrã todos os utentes que frequentaram a piscina em todos os periodos de um determinado dia.
+	* @param data Data onde se pretende consultar ocupacao.
+	*/
 	void printDia(Data data);
+	/**
+	* Cria uma nova aula num determinado periodo de um determinado dia. Aloca um professor para essa aula, tendo em conta qual dos professores está mais livre.
+	* @param data Data onde se pretende efetuar marcacao.
+	* @return True em caso de sucesso, False em caso de falha.
+	*/
 	bool newAula(Data data, int periodo);
-	void printProfessores();
+	/**
+	* Imprime no ecrã todas as aulas lecionadas por todos os professores da piscina.
+	* @param mes Mes no qual se pretende efetuar a consulta.
+	*/
+	void printProfessores(int mes);
+	/**
+	* Remove um utente.
+	* @param id ID do utente a remover.
+	* @return True em caso de sucesso, False em caso de falha.
+	*/
 	bool removeUtente(int id);
+	/**
+	* Remove um professor, distribuindo todas as suas aulas uniformemente pelo resto dos professores.
+	* @param id ID do professor a remover.
+	* @return True em caso de sucesso, False em caso de falha.
+	*/
 	bool removeProfessor(int id);
 };
 
 class PiscinaCheia {
 	int nMaxUtentes;
 public:
+	/**
+	* Construtor da classe-excepcao PiscinaCheia, usado para quando nao e adicionar mais clientes num determinado periodo por estar demasiada gente na piscina.
+	* @param id O ID do cliente que nao foi encontrado.
+	*/
 	PiscinaCheia(int nMaxUtentes);
 	int getNMaxUtentes();
 };

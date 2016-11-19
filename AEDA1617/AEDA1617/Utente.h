@@ -5,7 +5,6 @@
 
 /**
 * @file   Utente.h
-* @date   November, 2016
 * @brief  Classe que define um utente.
 *
 * Classe que define um utente e os seus consumos na piscina.

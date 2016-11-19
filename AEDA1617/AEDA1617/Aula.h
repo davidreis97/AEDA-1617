@@ -4,7 +4,6 @@
 
 /**
 * @file   Aula.h
-* @date   November, 2016
 * @brief  Classes que definem uma aula e um periodo.
 *
 * Classes que definem uma aula e um periodo, cada um guardando um vetor de utentes que frequentam esse periodo, sendo que no caso da aula guarda tambem o professor responsavel por leccionar essa aula.

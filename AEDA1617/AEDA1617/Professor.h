@@ -3,7 +3,6 @@
 
 /**
 * @file   Professor.h
-* @date   November, 2016
 * @brief  Classe que define um professor.
 *
 * Classe que define um professor e as aulas que este leciona.

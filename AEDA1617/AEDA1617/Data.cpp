@@ -117,28 +117,6 @@ bool Data::operator==(Data otherdata) {
 	}
 }
 
-int horaToPeriodo(int hora, int minutos) {
-	if (minutos >= 30) {
-		return (hora * 2 + 1);
-	}
-	else {
-		return hora * 2;
-	}
-}
-
-ostream &periodoToHora(ostream &os, int periodo) {
-	int hora = periodo / 2;
-	int minutos;
-	if (periodo % 2 == 0) {
-		minutos = 00;
-	}
-	else {
-		minutos = 30;
-	}
-	os << hora << ":" << minutos << "h";
-	return os;
-}
-
 vector<Aula> *Data::getAulas() {
 	return &(this->aulas);
 }
