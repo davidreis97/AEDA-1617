@@ -4,6 +4,10 @@
 #include "Data.h"
 #include <algorithm>
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <sstream>
 
 /**
 * @file   Piscina.h
@@ -100,6 +104,8 @@ public:
 	void printProfessores();
 	bool removeUtente(int id);
 	bool removeProfessor(int id);
+	bool importUtentes(string file, Piscina *p);
+	bool exportUtentes(Piscina *p);
 };
 
 class PiscinaCheia {
