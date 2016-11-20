@@ -280,6 +280,7 @@ void Piscina::printDia(Data data) {
 		}
 		catch (DataNaoEncontrada data) {
 			cout << "A data fornecida (" << data.getData() << ") nao pertence aos nossos registos." << endl;
+			break;
 		}
 
 	}
