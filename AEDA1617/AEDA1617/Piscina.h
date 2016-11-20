@@ -157,9 +157,6 @@ public:
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool exportProfessores(string x);
-
-	vector<Utente> showAllUtentes();
-
 };
 
 class PiscinaCheia {

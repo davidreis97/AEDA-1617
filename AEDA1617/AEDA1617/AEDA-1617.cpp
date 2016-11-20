@@ -1,4 +1,4 @@
-// AEDA-1617.cpp : Defines the entry point for the console application.
+ï»¿// AEDA-1617.cpp : Defines the entry point for the console application.
 //
 #include "AEDA-1617.h"
 
@@ -30,7 +30,7 @@ void menuInicial() {
 		cout << "Indique a capacidade maxima da piscina" << endl;
 		cin >> nMax;
 		Piscina p(periodos, precoA, precoP, nMax);
-		menuPiscina(&p); //Passado sempre como apontador para evitar a duplicação desnecessária de objetos
+		menuPiscina(&p); //Passado sempre como apontador para evitar a duplicaï¿½ï¿½o desnecessï¿½ria de objetos
 		break;
 	}
 	case 2:
@@ -94,7 +94,7 @@ void menuUtentes(Piscina *p) {
 		cout << "Indique a idade do utente" << endl;
 		cin >> idade;
 		Utente u(nome, idade);
-		(*p).addUtente(u); //Esta função da classe piscina assegura que o utente que se pretende adicionar é adicionado no vetor certo, e nao numa copia. Por esse motivo, deve-se usar este metodo e nao um push_back para inserir objetos neste vetor. Existem funcoes semelhantes para outros vetores do programa.
+		(*p).addUtente(u); //Esta funï¿½ï¿½o da classe piscina assegura que o utente que se pretende adicionar ï¿½ adicionado no vetor certo, e nao numa copia. Por esse motivo, deve-se usar este metodo e nao um push_back para inserir objetos neste vetor. Existem funcoes semelhantes para outros vetores do programa.
 		menuUtentes(p); //Importante incluir
 		break;
 	}
@@ -118,7 +118,7 @@ void menuUtentes(Piscina *p) {
 		catch (PessoaNaoEncontrada pne) {
 			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
 		}
-		
+
 		menuUtentes(p);
 		break;
 	}
@@ -197,7 +197,7 @@ void menuProfessores(Piscina *p) {
 		cout << "Indique a idade do professor" << endl;
 		cin >> idade;
 		Professor prof(nome, idade);
-		(*p).addProfessor(prof); //Esta função da classe piscina assegura que o professor que se pretende adicionar é adicionado no vetor certo, e nao numa copia. Por esse motivo, deve-se usar este metodo e nao um push_back para inserir objetos neste vetor. Existem funcoes semelhantes para outros vetores do programa.
+		(*p).addProfessor(prof); //Esta funcao da classe piscina assegura que o professor que se pretende adicionar ï¿½ adicionado no vetor certo, e nao numa copia. Por esse motivo, deve-se usar este metodo e nao um push_back para inserir objetos neste vetor. Existem funcoes semelhantes para outros vetores do programa.
 		menuProfessores(p); //Importante incluir
 		break;
 	}
@@ -218,7 +218,7 @@ void menuProfessores(Piscina *p) {
 		try {
 			(*p).printProfessor(id);
 		}
-		catch(PessoaNaoEncontrada pne){
+		catch (PessoaNaoEncontrada pne) {
 			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
 		}
 		menuProfessores(p);
