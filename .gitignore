@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/AEDA1617/AEDA1617/latex
+/AEDA1617/AEDA1617/html

@@ -80,8 +80,8 @@ public:
 	void marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data);
 	/**
 	* Permite obter o numero de utentes dentro da piscina, num determinado periodo de um determinado dia.
-	* @param d Data onde se pretende consultar ocupacao.
-	* @param p Periodo onde se pretende consultar ocupacao.
+	* @param data Data onde se pretende consultar ocupacao.
+	* @param periodo Periodo onde se pretende consultar ocupacao.
 	* @return Numero de utentes dentro da piscina.
 	*/
 	int getNumUtentesAtuais(int periodo, Data data);
@@ -89,12 +89,13 @@ public:
 	* Permite efetuar o pagamento das frequencias de um mes de um utente.
 	* @param id ID do cliente ao qual se pretende efetuar uma marcacao.
 	* @param mes Mes no qual se pretende efetuar o pagamento.
+	* @param ano Ano no qual se pretende efetuar o pagamento.
 	*/
 	void pagarUtente(int id, int mes, int ano);
 	/**
 	* Imprime no ecrã os utentes na piscina num determinado periodo de um determinado dia.
 	* @param d Data onde se pretende consultar ocupacao.
-	* @param p Periodo onde se pretende consultar ocupacao.
+	* @param periodo Periodo onde se pretende consultar ocupacao.
 	*/
 	void printOcupacaoPiscina(Data d,int periodo);
 	/**
@@ -119,6 +120,7 @@ public:
 	/**
 	* Cria uma nova aula num determinado periodo de um determinado dia. Aloca um professor para essa aula, tendo em conta qual dos professores está mais livre.
 	* @param data Data onde se pretende efetuar marcacao.
+	* @param periodo Periodo onde se pretende efetuar marcacao.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool newAula(Data data, int periodo);
@@ -140,25 +142,25 @@ public:
 	bool removeProfessor(int id);
 	/**
 	* Permite importar uma lista de clientes de um ficheiro.
-	* @param file Nome do ficheiro a importar.
+	* @param x Nome do ficheiro a importar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool importUtentes(string x);
 	/**
 	* Permite exportar uma lista de clientes de um ficheiro.
-	* @param file Nome do ficheiro a exportar.
+	* @param x Nome do ficheiro a exportar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool exportUtentes(string x);
 	/**
 	* Permite importar uma lista de professores de um ficheiro.
-	* @param file Nome do ficheiro a importar.
+	* @param x Nome do ficheiro a importar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool importProfessores(string x);
 	/**
 	* Permite exportar uma lista de professores de um ficheiro.
-	* @param file Nome do ficheiro a exportar.
+	* @param x Nome do ficheiro a exportar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool exportProfessores(string x);
@@ -169,8 +171,12 @@ class PiscinaCheia {
 public:
 	/**
 	* Construtor da classe-excepcao PiscinaCheia, usado para quando nao e adicionar mais clientes num determinado periodo por estar demasiada gente na piscina.
-	* @param id O ID do cliente que nao foi encontrado.
+	* @param nMaxUtentes O numero maximo de utentes permitidos na piscina.
 	*/
 	PiscinaCheia(int nMaxUtentes);
+	/**
+	* Construtor da classe-excepcao PiscinaCheia, usado para quando nao e adicionar mais clientes num determinado periodo por estar demasiada gente na piscina.
+	* @param nMaxUtentes O numero maximo de utentes permitidos na piscina.
+	*/
 	int getNMaxUtentes();
 };
