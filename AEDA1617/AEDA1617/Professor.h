@@ -19,13 +19,6 @@ public:
 	*/
 	Professor(string nome, unsigned int idade);
 	/**
-	* Construtor da classe Professor, usado para criar um professor importado de um ficheiro.
-	* @param nome Indica o nome do professor.
-	* @param idade Indica a idade do professor.
-	* @param id Indica o ID do professor.
-	*/
-	Professor(string nome, unsigned int idade, int id);
-	/**
 	* Permite verificar a igualdade entre dois professores atraves do seu ID.
 	* @return Verdadeiro caso sejam iguais, falso caso não sejam.
 	*/

@@ -24,13 +24,6 @@ public:
 	*/
 	Utente(string nome, unsigned int idade);
 	/**
-	* Construtor da classe Utente, usado para criar um cliente importado de um ficheiro.
-	* @param nome Indica o nome do utente.
-	* @param idade Indica a idade do utente.
-	* @param id Indica o ID do utente.
-	*/
-	Utente(string nome, unsigned int idade,int id);
-	/**
 	* Permite verificar a igualdade entre dois utentes atraves do seu ID.
 	* @return Verdadeiro caso sejam iguais, falso caso não sejam.
 	*/

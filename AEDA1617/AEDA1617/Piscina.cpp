@@ -120,7 +120,7 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 		}
 	}
 	if (isAula) {
-		if ((periodoFinal - periodoInicial) != 2) {
+		if ((periodoFinal - periodoInicial) != 1) {
 			cout << "Quantidade de Periodos Invalidos. Aulas sao de duracao 1 hora." << endl;
 		}
 		else {
@@ -224,14 +224,14 @@ void Piscina::printFrequenciaUtente(int id) {
 		for (int p = 0; p < this->horario[j].getPeriodos()->size(); p++) {
 			for (int k = 0; k < this->horario[j].getPeriodos()->at(p).getUtentes()->size(); k++) {
 				if (this->horario[j].getPeriodos()->at(p).getUtentes()->at(k).getId() == id) {
-					cout << this->horario[j] << " - Periodo " << this->horario[j].getPeriodo(p)->getPeriodo() << endl;
+					cout << this->horario[j] << " - Periodo " << this->horario[j].getPeriodos()->at(p).getPeriodo() << endl;
 				}
 			}
 		}
 		for (int p = 0; p < this->horario[j].getAulas()->size(); p++) {
 			for (int k = 0; k < this->horario[j].getAulas()->at(p).getUtentes()->size(); k++) {
 				if (this->horario[j].getAulas()->at(p).getUtentes()->at(k).getId() == id) {
-					cout << this->horario[j] << " - Aula no Periodo " << this->horario[j].getAula(p)->getPeriodo() << " em aula com o professor " << this->horario[j].getAula(p)->getProfessor().getNome() << endl;
+					cout << this->horario[j] << " - Aula no Periodo " << this->horario[j].getAulas()->at(p).getPeriodo() << " em aula com o professor " << this->horario[j].getAulas()->at(p).getProfessor().getNome() << endl;
 				}
 			}
 		}
@@ -262,7 +262,12 @@ void Piscina::printProfessor(int id) {
 void Piscina::printProfessores() {
 	int j;
 	for (j = 0; j < this->professores.size(); j++) {
-		this->printProfessor(this->professores[j].getId());
+		try {
+			this->printProfessor(this->professores[j].getId());
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro na funcao printFrequenciaUtentes. (ID " << pne.getId() << " nao encontrado)" << endl;
+		}
 	}
 }
 
@@ -359,9 +364,6 @@ bool Piscina::importUtentes(string x) {
 
 				stringstream ss; ss.str(ut);
 
-				getline(ss, ide, ';');
-				ide.pop_back();
-
 				getline(ss, name, ';');
 				name.pop_back();
 
@@ -375,11 +377,10 @@ bool Piscina::importUtentes(string x) {
 				periodos_por_pagar.pop_back();
 
 				int age_int = stoi(age);
-				int ide_int = stoi(ide);
 				int aulas_por_pagar_int = stoi(aulas_por_pagar);
 				int periodos_por_pagar_int = stoi(periodos_por_pagar);
 
-				Utente u1 = Utente(name, age_int, ide_int);
+				Utente u1 = Utente(name, age_int);
 				u1.setAbsPeriodosPorPagar(aulas_por_pagar_int, periodos_por_pagar_int);
 				this->addUtente(u1);
 			}
@@ -395,7 +396,7 @@ bool Piscina::exportUtentes(string x) {
 	ofstream file2;
 	file2.open(x);
 	for (int i = 0; i < this->utentes.size(); i++) {
-		file2 << this->utentes[i].getId() << " ;" << this->utentes[i].getNome() << " ;" << this->utentes[i].getIdade() << " ;" << this->utentes[i].getAulasPorPagar() << " ;" << this->utentes[i].getPeriodosPorPagar() << " ;" << endl;
+		file2 << this->utentes[i].getNome() << " ;" << this->utentes[i].getIdade() << " ;" << this->utentes[i].getAulasPorPagar() << " ;" << this->utentes[i].getPeriodosPorPagar() << " ;" << endl;
 	}
 	file2.close();
 	return true;
@@ -413,13 +414,9 @@ bool Piscina::importProfessores(string x) {
 		while (!file.eof()) {
 			while (getline(file, ut)) {
 				string name;
-				string ide;
 				string age;
 
 				stringstream ss; ss.str(ut);
-
-				getline(ss, ide, ';');
-				ide.pop_back();
 
 				getline(ss, name, ';');
 				name.pop_back();
@@ -429,9 +426,8 @@ bool Piscina::importProfessores(string x) {
 
 
 				int age_int = stoi(age);
-				int ide_int = stoi(ide);
 
-				Professor p1 = Professor(name, age_int, ide_int);
+				Professor p1 = Professor(name, age_int);
 				this->addProfessor(p1);
 			}
 		}
@@ -444,7 +440,7 @@ bool Piscina::exportProfessores(string x) {
 	ofstream file2;
 	file2.open(x);
 	for (int i = 0; i < this->professores.size(); i++) {
-		file2 << this->professores[i].getId() << " ;" << this->professores[i].getNome() << " ;" << this->professores[i].getIdade() << " ;" << endl;
+		file2 << this->professores[i].getNome() << " ;" << this->professores[i].getIdade() << " ;" << endl;
 	}
 	file2.close();
 	return true;
@@ -452,6 +448,11 @@ bool Piscina::exportProfessores(string x) {
 
 void Piscina::printFrequenciaUtentes() {
 	for (int i = 0; i < this->utentes.size(); i++) {
-		this->printFrequenciaUtente(this->utentes[i].getId());
+		try {
+			this->printFrequenciaUtente(this->utentes[i].getId());
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro na funcao printFrequenciaUtentes. (ID " << pne.getId() << " nao encontrado)" << endl;
+		}
 	}
 }

@@ -18,5 +18,3 @@ void Professor::setNumAulas(int aulas) {
 }
 
 Professor::Professor(string nome, unsigned int idade) :Pessoa(nome, idade) { this->aulas = 0; }
-
-Professor::Professor(string nome, unsigned int idade, int id) : Pessoa(nome, idade, id) { this->aulas = 0; }

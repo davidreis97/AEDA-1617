@@ -21,8 +21,6 @@ void Utente::setAbsPeriodosPorPagar(int aulas, int periodos) {
 
 Utente::Utente(string nome, unsigned int idade) :Pessoa(nome, idade) { this->aulasPorPagar = 0; this->periodosPorPagar = 0; }
 
-Utente::Utente(string nome, unsigned int idade,int id) : Pessoa(nome, idade,id) {}
-
 bool Utente::operator==(Utente u) {
 	if (this->getId() == u.getId()) {
 		return true;

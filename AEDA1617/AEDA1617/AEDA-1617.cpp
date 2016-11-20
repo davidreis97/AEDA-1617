@@ -88,8 +88,9 @@ void menuUtentes(Piscina *p) {
 	{
 		string nome;
 		int idade;
-		cout << "Indique o nome do utente (sem espacos)" << endl;
-		cin >> nome;
+		cout << "Indique o nome do utente" << endl;
+		cin.ignore();
+		getline(cin, nome);
 		cout << "Indique a idade do utente" << endl;
 		cin >> idade;
 		Utente u(nome, idade);
@@ -111,7 +112,13 @@ void menuUtentes(Piscina *p) {
 		int id;
 		cout << "Indique o id do utente" << endl;
 		cin >> id;
-		(*p).printFrequenciaUtente(id);
+		try {
+			(*p).printFrequenciaUtente(id);
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
+		
 		menuUtentes(p);
 		break;
 	}
@@ -123,14 +130,19 @@ void menuUtentes(Piscina *p) {
 	}
 	case 5:
 	{
-		int id,mes,ano;
+		int id, mes, ano;
 		cout << "Indique o id do utente" << endl;
 		cin >> id;
 		cout << "Indique o mes que pretende pagar" << endl;
 		cin >> mes;
 		cout << "Indique o ano do mes que pretende pagar" << endl;
 		cin >> ano;
-		(*p).pagarUtente(id,mes,ano);
+		try {
+			(*p).pagarUtente(id, mes, ano);
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
 		menuUtentes(p);
 		break;
 	}
@@ -179,8 +191,9 @@ void menuProfessores(Piscina *p) {
 	{
 		string nome;
 		int idade;
-		cout << "Indique o nome do professor (sem espacos)" << endl;
-		cin >> nome;
+		cout << "Indique o nome do professor" << endl;
+		cin.ignore();
+		getline(cin, nome);
 		cout << "Indique a idade do professor" << endl;
 		cin >> idade;
 		Professor prof(nome, idade);
@@ -202,7 +215,12 @@ void menuProfessores(Piscina *p) {
 		int id;
 		cout << "Indique o id do professor" << endl;
 		cin >> id;
-		(*p).printProfessor(id);
+		try {
+			(*p).printProfessor(id);
+		}
+		catch(PessoaNaoEncontrada pne){
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
 		menuProfessores(p);
 		break;
 	}
@@ -260,8 +278,16 @@ void menuHorario(Piscina *p) {
 		cin >> ano;
 		cout << "Indique o periodo em que pretende efetuar a consulta" << endl;
 		cin >> periodo;
-		Data d(dia, mes, ano);
-		(*p).printOcupacaoPiscina(d, periodo);
+		try {
+			Data d(dia, mes, ano);
+			(*p).printOcupacaoPiscina(d, periodo);
+		}
+		catch (DataInvalida di) {
+			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		}
+		catch (DataNaoEncontrada dne) {
+			cout << "Erro! Nao foi encontrada a data " << dne.getData() << " nos nossos registos." << endl;
+		}
 		menuHorario(p);
 		break;
 	}
@@ -274,8 +300,13 @@ void menuHorario(Piscina *p) {
 		cin >> mes;
 		cout << "Indique o ano em que pretende efetuar a consulta" << endl;
 		cin >> ano;
-		Data d(dia, mes, ano);
-		(*p).printDia(d);
+		try {
+			Data d(dia, mes, ano);
+			(*p).printDia(d);
+		}
+		catch (DataInvalida di) {
+			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		}
 		menuHorario(p);
 		break;
 	}
@@ -310,8 +341,19 @@ void menuMarcacoes(Piscina *p) {
 		cin >> ano;
 		cout << "Indique o periodo em que pretende efetuar a marcacao (Aula tem sempre duracao de 2 periodos, ou seja, 1 hora)" << endl;
 		cin >> periodo;
-		Data d(dia, mes, ano);
-		(*p).marcarUtente(id,true,periodo,periodo+2,d);
+		try {
+			Data d(dia, mes, ano);
+			(*p).marcarUtente(id, true, periodo, periodo + 1, d);
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
+		catch (PiscinaCheia pc) {
+			cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
+		}
+		catch (DataInvalida di) {
+			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		}
 		menuMarcacoes(p);
 		break;
 	}
@@ -330,12 +372,23 @@ void menuMarcacoes(Piscina *p) {
 		cin >> periodoInicial;
 		cout << "Indique o periodo final em que pretende efetuar a marcacao" << endl;
 		cin >> periodoFinal;
-		Data d(dia, mes, ano);
-		(*p).marcarUtente(id, false, periodoInicial, periodoFinal, d);
+		try {
+			Data d(dia, mes, ano);
+			(*p).marcarUtente(id, false, periodoInicial, periodoFinal, d);
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
+		catch (PiscinaCheia pc) {
+			cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
+		}
+		catch (DataInvalida di) {
+			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		}
 		menuMarcacoes(p);
 		break;
 	}
-	case 3: 
+	case 3:
 	{
 		int dia, mes, ano, periodo;
 		cout << "Indique o dia em que pretende criar uma nova aula" << endl;
@@ -346,8 +399,13 @@ void menuMarcacoes(Piscina *p) {
 		cin >> ano;
 		cout << "Indique o periodo em que pretende uma nova aula" << endl;
 		cin >> periodo;
-		Data d(dia, mes, ano);
-		(*p).newAula(d, periodo);
+		try {
+			Data d(dia, mes, ano);
+			(*p).newAula(d, periodo);
+		}
+		catch (DataInvalida di) {
+			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		}
 		menuMarcacoes(p);
 		break;
 	}
