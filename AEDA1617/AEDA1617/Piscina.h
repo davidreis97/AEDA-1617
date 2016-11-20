@@ -65,13 +65,6 @@ public:
 	*/
 	bool addData(Data d);
 	/**
-	* Permite obter o numero de utentes em aula, num determinado periodo de um determinado dia.
-	* @param d Data onde se pretende consultar ocupacao.
-	* @param p Periodo onde se pretende consultar ocupacao.
-	* @return Numero de utentes em aula
-	*/
-	int	 getNumUtentesAula(int periodo, Data data);
-	/**
 	* Permite marcar a frequencia de um utente, quer seja numa aula ou num periodo livre, tendo em conta a ocupacao da piscina nos periodos pedidos.
 	* @param id ID do cliente ao qual se pretende efetuar uma marcacao.
 	* @param isAula True se pretender marcar uma aula, false se pretender marcar um periodo livre.
@@ -86,13 +79,13 @@ public:
 	* @param p Periodo onde se pretende consultar ocupacao.
 	* @return Numero de utentes dentro da piscina.
 	*/
-	int  getNumUtentesAtuais(int periodo, Data data);
+	int getNumUtentesAtuais(int periodo, Data data);
 	/**
 	* Permite efetuar o pagamento das frequencias de um mes de um utente.
 	* @param id ID do cliente ao qual se pretende efetuar uma marcacao.
 	* @param mes Mes no qual se pretende efetuar o pagamento.
 	*/
-	void pagarUtente(int id, int mes);
+	void pagarUtente(int id, int mes, int ano);
 	/**
 	* Imprime no ecrã os utentes na piscina num determinado periodo de um determinado dia.
 	* @param d Data onde se pretende consultar ocupacao.
@@ -104,6 +97,10 @@ public:
 	* @param id ID do cliente ao qual se pretende efetuar a consulta.
 	*/
 	void printFrequenciaUtente(int id);
+	/**
+	* Imprime no ecrã todas as frequencias na piscina por todos os utentes da piscina.
+	*/
+	void printFrequenciaUtentes();
 	/**
 	* Imprime no ecrã todas as aulas lecionadas por um determinado professor.
 	* @param id ID do professor ao qual se pretende efetuar a consulta.

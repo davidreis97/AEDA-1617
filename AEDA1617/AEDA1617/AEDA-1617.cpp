@@ -30,7 +30,7 @@ void menuInicial() {
 		cout << "Indique a capacidade maxima da piscina" << endl;
 		cin >> nMax;
 		Piscina p(periodos, precoA, precoP, nMax);
-		menuPiscina(&p); //Passado como apontador para evitar a duplicação de objetos
+		menuPiscina(&p); //Passado sempre como apontador para evitar a duplicação desnecessária de objetos
 		break;
 	}
 	case 2:
@@ -76,10 +76,11 @@ void menuUtentes(Piscina *p) {
 	cout << "1- Novo Utente" << endl;
 	cout << "2- Apagar Utente" << endl;
 	cout << "3- Consultar Utente" << endl;
-	cout << "4- Efetuar Pagamento" << endl;
-	cout << "5- Exportar Utentes" << endl;
-	cout << "6- Importar Utentes" << endl;
-	cout << "7- Menu Anterior" << endl;
+	cout << "4- Consultar todos os Utentes" << endl;
+	cout << "5- Efetuar Pagamento" << endl;
+	cout << "6- Exportar Utentes" << endl;
+	cout << "7- Importar Utentes" << endl;
+	cout << "8- Menu Anterior" << endl;
 	cout << "/***********************/" << endl;
 	int escolha; cin >> escolha;
 	switch (escolha) {
@@ -87,7 +88,7 @@ void menuUtentes(Piscina *p) {
 	{
 		string nome;
 		int idade;
-		cout << "Indique o nome do utente" << endl;
+		cout << "Indique o nome do utente (sem espacos)" << endl;
 		cin >> nome;
 		cout << "Indique a idade do utente" << endl;
 		cin >> idade;
@@ -116,34 +117,42 @@ void menuUtentes(Piscina *p) {
 	}
 	case 4:
 	{
-		int id,mes;
-		cout << "Indique o id do utente" << endl;
-		cin >> id;
-		cout << "Indique o mes que pretende pagar" << endl;
-		cin >> mes;
-		(*p).pagarUtente(id,mes);
+		(*p).printFrequenciaUtentes();
 		menuUtentes(p);
 		break;
 	}
 	case 5:
 	{
-		string x;
-		cout << "Introduza o nome do ficheiro de utentes a usar (com .txt no fim) \n";
-		cin >> x;
-		(*p).exportUtentes(x);
+		int id,mes,ano;
+		cout << "Indique o id do utente" << endl;
+		cin >> id;
+		cout << "Indique o mes que pretende pagar" << endl;
+		cin >> mes;
+		cout << "Indique o ano do mes que pretende pagar" << endl;
+		cin >> ano;
+		(*p).pagarUtente(id,mes,ano);
 		menuUtentes(p);
 		break;
 	}
 	case 6:
 	{
 		string x;
-		cout << "Introduza o nome do ficheiro de utentes a usar (com .txt no fim) \n";
+		cout << "Introduza o nome do ficheiro de utentes a usar \n";
+		cin >> x;
+		(*p).exportUtentes(x);
+		menuUtentes(p);
+		break;
+	}
+	case 7:
+	{
+		string x;
+		cout << "Introduza o nome do ficheiro de utentes a usar \n";
 		cin >> x;
 		(*p).importUtentes(x);
 		menuUtentes(p);
 		break;
 	}
-	case 7:
+	case 8:
 	{
 		menuPiscina(p);
 		break;
@@ -170,7 +179,7 @@ void menuProfessores(Piscina *p) {
 	{
 		string nome;
 		int idade;
-		cout << "Indique o nome do professor" << endl;
+		cout << "Indique o nome do professor (sem espacos)" << endl;
 		cin >> nome;
 		cout << "Indique a idade do professor" << endl;
 		cin >> idade;
@@ -206,7 +215,7 @@ void menuProfessores(Piscina *p) {
 	case 5:
 	{
 		string x;
-		cout << "Introduza o nome do ficheiro de professores a usar (com .txt no fim) \n";
+		cout << "Introduza o nome do ficheiro de professores a usar \n";
 		cin >> x;
 		(*p).exportProfessores(x);
 		menuProfessores(p);
@@ -215,7 +224,7 @@ void menuProfessores(Piscina *p) {
 	case 6:
 	{
 		string x;
-		cout << "Introduza o nome do ficheiro de professores a usar (com .txt no fim) \n";
+		cout << "Introduza o nome do ficheiro de professores a usar \n";
 		cin >> x;
 		(*p).importProfessores(x);
 		menuProfessores(p);
@@ -233,9 +242,120 @@ void menuProfessores(Piscina *p) {
 }
 
 void menuHorario(Piscina *p) {
-	//TODO
+	cout << "/***********************/" << endl;
+	cout << "1- Consultar Periodo" << endl;
+	cout << "2- Consultar Dia" << endl;
+	cout << "3- Menu Anterior" << endl;
+	cout << "/***********************/" << endl;
+	int escolha; cin >> escolha;
+	switch (escolha) {
+	case 1:
+	{
+		int dia, mes, ano, periodo;
+		cout << "Indique o dia em que pretende efetuar a consulta" << endl;
+		cin >> dia;
+		cout << "Indique o mes em que pretende efetuar a consulta" << endl;
+		cin >> mes;
+		cout << "Indique o ano em que pretende efetuar a consulta" << endl;
+		cin >> ano;
+		cout << "Indique o periodo em que pretende efetuar a consulta" << endl;
+		cin >> periodo;
+		Data d(dia, mes, ano);
+		(*p).printOcupacaoPiscina(d, periodo);
+		menuHorario(p);
+		break;
+	}
+	case 2:
+	{
+		int dia, mes, ano;
+		cout << "Indique o dia em que pretende efetuar a consulta" << endl;
+		cin >> dia;
+		cout << "Indique o mes em que pretende efetuar a consulta" << endl;
+		cin >> mes;
+		cout << "Indique o ano em que pretende efetuar a consulta" << endl;
+		cin >> ano;
+		Data d(dia, mes, ano);
+		(*p).printDia(d);
+		menuHorario(p);
+		break;
+	}
+	case 3:
+		menuPiscina(p);
+		break;
+	default:
+		cout << "Escolha invalida" << endl;
+		menuHorario(p);
+	}
 }
 
 void menuMarcacoes(Piscina *p) {
-	//TODO
+	cout << "/***********************/" << endl;
+	cout << "1- Marcar Aula" << endl;
+	cout << "2- Marcar Periodo" << endl;
+	cout << "3- Nova Aula" << endl;
+	cout << "4- Voltar Atras" << endl;
+	cout << "/***********************/" << endl;
+	int escolha; cin >> escolha;
+	switch (escolha) {
+	case 1:
+	{
+		int dia, mes, ano, periodo, id;
+		cout << "Indique o ID do cliente que quer efetuar a marcacao" << endl;
+		cin >> id;
+		cout << "Indique o dia em que pretende efetuar a marcacao" << endl;
+		cin >> dia;
+		cout << "Indique o mes em que pretende efetuar a marcacao" << endl;
+		cin >> mes;
+		cout << "Indique o ano em que pretende efetuar a marcacao" << endl;
+		cin >> ano;
+		cout << "Indique o periodo em que pretende efetuar a marcacao (Aula tem sempre duracao de 2 periodos, ou seja, 1 hora)" << endl;
+		cin >> periodo;
+		Data d(dia, mes, ano);
+		(*p).marcarUtente(id,true,periodo,periodo+2,d);
+		menuMarcacoes(p);
+		break;
+	}
+	case 2:
+	{
+		int dia, mes, ano, periodoInicial, periodoFinal, id;
+		cout << "Indique o ID do cliente que quer efetuar a marcacao" << endl;
+		cin >> id;
+		cout << "Indique o dia em que pretende efetuar a marcacao" << endl;
+		cin >> dia;
+		cout << "Indique o mes em que pretende efetuar a marcacao" << endl;
+		cin >> mes;
+		cout << "Indique o ano em que pretende efetuar a marcacao" << endl;
+		cin >> ano;
+		cout << "Indique o periodo inicial em que pretende efetuar a marcacao" << endl;
+		cin >> periodoInicial;
+		cout << "Indique o periodo final em que pretende efetuar a marcacao" << endl;
+		cin >> periodoFinal;
+		Data d(dia, mes, ano);
+		(*p).marcarUtente(id, false, periodoInicial, periodoFinal, d);
+		menuMarcacoes(p);
+		break;
+	}
+	case 3: 
+	{
+		int dia, mes, ano, periodo;
+		cout << "Indique o dia em que pretende criar uma nova aula" << endl;
+		cin >> dia;
+		cout << "Indique o mes em que pretende criar uma nova aula" << endl;
+		cin >> mes;
+		cout << "Indique o ano em que pretende criar uma nova aula" << endl;
+		cin >> ano;
+		cout << "Indique o periodo em que pretende uma nova aula" << endl;
+		cin >> periodo;
+		Data d(dia, mes, ano);
+		(*p).newAula(d, periodo);
+		menuMarcacoes(p);
+		break;
+	}
+	case 4:
+		menuPiscina(p);
+		break;
+	default:
+		cout << "Escolha invalida" << endl;
+		menuMarcacoes(p);
+	}
 }

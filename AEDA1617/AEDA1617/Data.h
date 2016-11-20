@@ -77,7 +77,7 @@ public:
 	* @param i O indice do periodo a adicionar.
 	* @param prof O vetor do professor a adicionar.
 	*/
-	void addAula(int i, Professor* prof);
+	void addAula(int i, Professor prof);
 	/**
 	* Permite obter a aula que decorre num determinado periodo.
 	* @param periodo O periodo do qual se pretende obter a aula.
