@@ -357,7 +357,6 @@ bool Piscina::importUtentes(string x) {
 		while (!file.eof()) {
 			while (getline(file, ut)) {
 				string name;
-				string ide;
 				string age;
 				string periodos_por_pagar;
 				string aulas_por_pagar;
@@ -455,4 +454,8 @@ void Piscina::printFrequenciaUtentes() {
 			cout << "Erro na funcao printFrequenciaUtentes. (ID " << pne.getId() << " nao encontrado)" << endl;
 		}
 	}
+}
+
+const unsigned int Piscina::getPeriodoDia() {
+	return this->periodoDia;
 }

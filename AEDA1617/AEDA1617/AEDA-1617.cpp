@@ -278,15 +278,19 @@ void menuHorario(Piscina *p) {
 		cin >> ano;
 		cout << "Indique o periodo em que pretende efetuar a consulta" << endl;
 		cin >> periodo;
-		try {
-			Data d(dia, mes, ano);
-			(*p).printOcupacaoPiscina(d, periodo);
-		}
-		catch (DataInvalida di) {
-			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
-		}
-		catch (DataNaoEncontrada dne) {
-			cout << "Erro! Nao foi encontrada a data " << dne.getData() << " nos nossos registos." << endl;
+		if (periodo > (*p).getPeriodoDia() || periodo < 0) {
+			cout << "Erro! Periodo invalido!" << endl;
+		}else {
+			try {
+				Data d(dia, mes, ano);
+				(*p).printOcupacaoPiscina(d, periodo);
+			}
+			catch (DataInvalida di) {
+				cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+			}
+			catch (DataNaoEncontrada dne) {
+				cout << "Erro! Nao foi encontrada a data " << dne.getData() << " nos nossos registos." << endl;
+			}
 		}
 		menuHorario(p);
 		break;
@@ -341,18 +345,23 @@ void menuMarcacoes(Piscina *p) {
 		cin >> ano;
 		cout << "Indique o periodo em que pretende efetuar a marcacao (Aula tem sempre duracao de 2 periodos, ou seja, 1 hora)" << endl;
 		cin >> periodo;
-		try {
-			Data d(dia, mes, ano);
-			(*p).marcarUtente(id, true, periodo, periodo + 1, d);
+		if (periodo < 0 || periodo + 1 >(*p).getPeriodoDia()) {
+			cout << "Erro! Periodo invalido!" << endl;
 		}
-		catch (PessoaNaoEncontrada pne) {
-			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
-		}
-		catch (PiscinaCheia pc) {
-			cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
-		}
-		catch (DataInvalida di) {
-			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		else {
+			try {
+				Data d(dia, mes, ano);
+				(*p).marcarUtente(id, true, periodo, periodo + 1, d);
+			}
+			catch (PessoaNaoEncontrada pne) {
+				cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+			}
+			catch (PiscinaCheia pc) {
+				cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
+			}
+			catch (DataInvalida di) {
+				cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+			}
 		}
 		menuMarcacoes(p);
 		break;
@@ -372,18 +381,23 @@ void menuMarcacoes(Piscina *p) {
 		cin >> periodoInicial;
 		cout << "Indique o periodo final em que pretende efetuar a marcacao" << endl;
 		cin >> periodoFinal;
-		try {
-			Data d(dia, mes, ano);
-			(*p).marcarUtente(id, false, periodoInicial, periodoFinal, d);
+		if (periodoInicial < 0 || periodoFinal > (*p).getPeriodoDia() || periodoFinal < periodoInicial) {
+			cout << "Erro! Periodo invalido!" << endl;
 		}
-		catch (PessoaNaoEncontrada pne) {
-			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
-		}
-		catch (PiscinaCheia pc) {
-			cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
-		}
-		catch (DataInvalida di) {
-			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		else {
+			try {
+				Data d(dia, mes, ano);
+				(*p).marcarUtente(id, false, periodoInicial, periodoFinal, d);
+			}
+			catch (PessoaNaoEncontrada pne) {
+				cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+			}
+			catch (PiscinaCheia pc) {
+				cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
+			}
+			catch (DataInvalida di) {
+				cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+			}
 		}
 		menuMarcacoes(p);
 		break;
@@ -399,12 +413,17 @@ void menuMarcacoes(Piscina *p) {
 		cin >> ano;
 		cout << "Indique o periodo em que pretende uma nova aula" << endl;
 		cin >> periodo;
-		try {
-			Data d(dia, mes, ano);
-			(*p).newAula(d, periodo);
+		if (periodo < 0 || periodo + 1 >(*p).getPeriodoDia()) {
+			cout << "Erro! Periodo invalido!" << endl;
 		}
-		catch (DataInvalida di) {
-			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		else {
+			try {
+				Data d(dia, mes, ano);
+				(*p).newAula(d, periodo);
+			}
+			catch (DataInvalida di) {
+				cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+			}
 		}
 		menuMarcacoes(p);
 		break;

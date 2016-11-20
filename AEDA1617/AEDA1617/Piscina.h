@@ -42,6 +42,11 @@ public:
 	*/
 	vector<Utente> getUtentes();
 	/**
+	* Permite obter o numero de periodos por dia.
+	* @return Numero de periodos por dia.
+	*/
+	const unsigned int getPeriodoDia();
+	/**
 	* Permite obter uma copia do vetor professores.
 	* @return Copia do vetor professores.
 	*/
