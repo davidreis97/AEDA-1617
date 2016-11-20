@@ -38,13 +38,6 @@ public:
 	* @param idade A idade do cliente a adicionar.
 	*/
 	Pessoa(string nome, unsigned int idade);
-	/**
-	* Construtor da classe Pessoa, usado para quando se importa uma pessoa de um ficheiro.
-	* @param nome O nome do cliente a adicionar.
-	* @param idade A idade do cliente a adicionar.
-	* @param id O id do cliente a adicionar.
-	*/
-	Pessoa(string nome, unsigned int idade,int id);
 };
 
 class PessoaNaoEncontrada {

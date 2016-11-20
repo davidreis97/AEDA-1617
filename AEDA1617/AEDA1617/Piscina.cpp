@@ -124,11 +124,14 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 			cout << "Quantidade de Periodos Invalidos. Aulas sao de duracao 1 hora." << endl;
 		}
 		else {
-			if (this->horario[j].getAula(periodoInicial) != NULL) {
+			if (this->horario[j].getAula(periodoInicial) != NULL && this->horario[j].getAula(periodoFinal) != NULL) {
 				for (int p = periodoInicial; p <= periodoFinal; p++) {
 					this->horario[j].getAula(p)->addUtente(this->utentes[i]);
 					this->utentes[i].setRelPeriodosPorPagar(1, 0);
 				}
+			}
+			else {
+				cout << "Aula Inexistente. Verifique se ja criou a aula e se existe pelo menos um professor disponivel." << endl;
 			}
 		}
 	}
