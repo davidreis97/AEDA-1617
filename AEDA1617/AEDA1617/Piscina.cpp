@@ -65,6 +65,22 @@ int Piscina::getNumUtentesAtuais(int periodo, Data data) {
 	return 0;
 }
 
+int Piscina::getNumUtentesAula(int periodo, Data data) {
+	int i;
+	for (i = 0; i < this->horario.size(); i++) {
+		if (data == this->horario[i]) {
+			break;
+		}
+	}
+	if (i == this->horario.size()) {
+		this->addData(data);
+	}
+	if (this->horario[i].getAula(periodo) != NULL) {
+		return (this->horario[i].getAula(periodo)->getNumUtentes());
+	}
+	return 0;
+}
+
 bool Piscina::newAula(Data data, int periodo) {
 	int j, i, menor = 0;
 	for (j = 0; j < this->horario.size(); j++) {
@@ -84,8 +100,8 @@ bool Piscina::newAula(Data data, int periodo) {
 				menor = p;
 			}
 		}
-		this->horario[j].addAula(periodo, this->professores[menor]);
-		this->horario[j].addAula(periodo + 1, this->professores[menor]);
+		this->horario[j].addAula(periodo, &(this->professores[menor]));
+		this->horario[j].addAula(periodo + 1, &(this->professores[menor]));
 		this->professores[menor].setNumAulas(2);
 		return true;
 	}
@@ -104,7 +120,7 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 		}
 	}
 	if (i == this->utentes.size()) {
-		throw PessoaNaoEncontrada(id);
+		throw UtenteNaoEncontrado(id);
 	}
 	for (j = 0; j < this->horario.size(); j++) {
 		if (this->horario[j] == data) {
@@ -114,33 +130,34 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 	if (j == this->horario.size()) {
 		this->addData(data);
 	}
-	for (int k = periodoInicial; k <= periodoFinal; k++) {
-		if (this->getNumUtentesAtuais(k, data) >= this->nMaxUtentes) {
-			throw PiscinaCheia(this->nMaxUtentes);
-		}
+	if (this->getNumUtentesAtuais(periodoInicial, data) + this->getNumUtentesAula(periodoInicial, data) > this->nMaxUtentes) {
+		throw PiscinaCheia(this->nMaxUtentes);
 	}
 	if (isAula) {
 		if ((periodoFinal - periodoInicial) != 1) {
 			cout << "Quantidade de Periodos Invalidos. Aulas sao de duracao 1 hora." << endl;
 		}
-		else {
-			if (this->horario[j].getAula(periodoInicial) != NULL) {
-				for (int p = periodoInicial; p <= periodoFinal; p++) {
-					this->horario[j].getAula(p)->addUtente(this->utentes[i]);
-					this->utentes[i].setRelPeriodosPorPagar(1, 0);
-				}
+		if (this->horario[j].getAula(periodoInicial) != NULL) {
+			for (int p = periodoInicial; p < periodoFinal; p++) {
+				this->horario[j].getAula(p)->addUtente(&(this->utentes[i]));
+				this->utentes[i].setRelPeriodosPorPagar(1, 0);
 			}
 		}
 	}
 	else {
-		for (int p = periodoInicial; p <= periodoFinal; p++) {
-			this->horario[j].getPeriodo(p)->addUtente(this->utentes[i]);
-			this->utentes[i].setRelPeriodosPorPagar(0, 1);
+		if (this->horario[j].getPeriodo(periodoInicial) != NULL) {
+			for (int p = periodoInicial; p < periodoFinal; p++) {
+				this->horario[j].getPeriodo(p)->addUtente(&(this->utentes[i]));
+				this->utentes[i].setRelPeriodosPorPagar(0, 1);
+			}
+		}
+		else {
+
 		}
 	}
 }
 
-void Piscina::pagarUtente(int id, int mes, int ano) {
+void Piscina::pagarUtente(int id, int mes) {
 	int i, j, p, k;
 	float pagamento = 0;
 	for (i = 0; i < this->utentes.size(); i++) {
@@ -149,14 +166,14 @@ void Piscina::pagarUtente(int id, int mes, int ano) {
 		}
 	}
 	if (i == this->utentes.size()) {
-		throw PessoaNaoEncontrada(id);
+		throw UtenteNaoEncontrado(id);
 	}
 	cout << "O utente " << this->utentes[i].getNome() << " com o ID " << this->utentes[i].getId() << " frequentou os seguintes periodos/aulas: " << endl;
 	for (j = 0; j < this->horario.size(); j++) {
-		if (this->horario[j].getMes() == mes && this->horario[j].getAno() == ano) {
+		if (this->horario[j].getMes() == mes) {
 			for (p = 0; p < this->horario[j].getPeriodos()->size(); p++) {
 				for (k = 0; k < this->horario[j].getPeriodos()->at(p).getUtentes()->size(); k++) {
-					if (this->horario[j].getPeriodos()->at(p).getUtentes()->at(k).getId() == id) {
+					if (this->horario[j].getPeriodos()->at(p).getUtentes()->at(k)->getId() == id) {
 						cout << this->horario[j] << " - Periodo " << this->horario[j].getPeriodos()->at(p).getPeriodo() << endl;
 						pagamento += this->precoPeriodo;
 					}
@@ -164,7 +181,7 @@ void Piscina::pagarUtente(int id, int mes, int ano) {
 			}
 			for (p = 0; p < this->horario[j].getAulas()->size(); p++) {
 				for (k = 0; k < this->horario[j].getAulas()->at(p).getUtentes()->size(); k++) {
-					if (this->horario[j].getAulas()->at(p).getUtentes()->at(k).getId() == id) {
+					if (this->horario[j].getAulas()->at(p).getUtentes()->at(k)->getId() == id) {
 						cout << this->horario[j] << " - Aula no Periodo " << this->horario[j].getAulas()->at(p).getPeriodo() << endl;
 						pagamento += this->precoAula;
 					}
@@ -172,7 +189,7 @@ void Piscina::pagarUtente(int id, int mes, int ano) {
 			}
 		}
 	}
-	cout << "Devendo efetuar um pagamento de " << pagamento << " Euros por este mes." << endl;
+	cout << "Devendo efetuar um pagamento de " << pagamento << "€ por este mes." << endl;
 }
 
 PiscinaCheia::PiscinaCheia(int nMaxUtentes) :nMaxUtentes(nMaxUtentes) {}
@@ -195,12 +212,12 @@ void Piscina::printOcupacaoPiscina(Data data, int periodo) {
 	if (this->horario[j].getAula(periodo) != NULL || this->horario[j].getPeriodo(periodo) != NULL) {
 		if (this->horario[j].getPeriodo(periodo) != NULL) {
 			for (int i = 0; i < this->horario[j].getPeriodo(periodo)->getUtentes()->size(); i++) {
-				cout << "Utente " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i).getNome() << " com ID " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i).getId() << endl;
+				cout << "Utente " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getPeriodo(periodo)->getUtentes()->at(i)->getId() << endl;
 			}
 		}
 		if (this->horario[j].getAula(periodo) != NULL) {
 			for (int i = 0; i < this->horario[j].getAula(periodo)->getUtentes()->size(); i++) {
-				cout << "Aluno " << this->horario[j].getAula(periodo)->getUtentes()->at(i).getNome() << " com ID " << this->horario[j].getAula(periodo)->getUtentes()->at(i).getId() << " em aula com o professor " << this->horario[j].getAula(periodo)->getProfessor().getNome() << endl;
+				cout << "Aluno " << this->horario[j].getAula(periodo)->getUtentes()->at(i)->getNome() << " com ID " << this->horario[j].getAula(periodo)->getUtentes()->at(i)->getId() << endl;
 			}
 		}
 	}
@@ -217,21 +234,21 @@ void Piscina::printFrequenciaUtente(int id) {
 		}
 	}
 	if (i == this->utentes.size()) {
-		throw PessoaNaoEncontrada(id);
+		throw UtenteNaoEncontrado(id);
 	}
 	cout << "O utente " << this->utentes[i].getNome() << " com o ID " << this->utentes[i].getId() << " frequentou os seguintes periodos/aulas: " << endl;
 	for (int j = 0; j < this->horario.size(); j++) {
 		for (int p = 0; p < this->horario[j].getPeriodos()->size(); p++) {
 			for (int k = 0; k < this->horario[j].getPeriodos()->at(p).getUtentes()->size(); k++) {
 				if (this->horario[j].getPeriodos()->at(p).getUtentes()->at(k).getId() == id) {
-					cout << this->horario[j] << " - Periodo " << this->horario[j].getPeriodos()->at(p).getPeriodo() << endl;
+					cout << this->horario[j] << " - Periodo " << this->horario[j].getPeriodo(p)->getPeriodo() << endl;
 				}
 			}
 		}
 		for (int p = 0; p < this->horario[j].getAulas()->size(); p++) {
 			for (int k = 0; k < this->horario[j].getAulas()->at(p).getUtentes()->size(); k++) {
 				if (this->horario[j].getAulas()->at(p).getUtentes()->at(k).getId() == id) {
-					cout << this->horario[j] << " - Aula no Periodo " << this->horario[j].getAulas()->at(p).getPeriodo() << " em aula com o professor " << this->horario[j].getAulas()->at(p).getProfessor().getNome() << endl;
+					cout << this->horario[j] << " - Aula no Periodo " << this->horario[j].getAula(p)->getPeriodo() << " em aula com o professor " << this->horario[j].getAula(p)->getProfessor().getNome() << endl;
 				}
 			}
 		}
@@ -246,12 +263,12 @@ void Piscina::printProfessor(int id) {
 		}
 	}
 	if (j == this->professores.size()) {
-		throw PessoaNaoEncontrada(id);
+		throw UtenteNaoEncontrado(id);
 	}
 	cout << "O professor " << this->professores[j].getNome() << " com o ID " << this->professores[j].getId() << " leccionou as seguintes aulas: " << endl;
 	for (int k = 0; k < this->horario.size(); k++) {
 		for (int p = 0; p < this->horario[k].getAulas()->size(); p++) {
-			if (this->horario[k].getAulas()->at(p).getProfessor().getId() == id) {
+			if (this->horario[k].getAulas()->at(p).getProfessor()->getId() == id) {
 				cout << this->horario[k] << " - Aula no Periodo " << this->horario[k].getAulas()->at(p).getPeriodo() << endl;
 			}
 		}
@@ -284,28 +301,6 @@ void Piscina::printDia(Data data) {
 }
 
 bool Piscina::removeUtente(int id) {
-	for (int j = 0; j < this->horario.size(); j++) {
-		for (int p = 0; p < this->horario[j].getPeriodos()->size(); p++) {
-			for (vector<Utente>::iterator itr = this->horario[j].getPeriodos()->at(p).getUtentes()->begin(); itr != this->horario[j].getPeriodos()->at(p).getUtentes()->end();) {
-				if ((*itr).getId() == id) {
-					this->horario[j].getPeriodos()->at(p).getUtentes()->erase(itr);
-				}
-				else {
-					itr++;
-				}
-			}
-		}
-		for (int p = 0; p < this->horario[j].getAulas()->size(); p++) {
-			for (vector<Utente>::iterator itr = this->horario[j].getAulas()->at(p).getUtentes()->begin(); itr != this->horario[j].getAulas()->at(p).getUtentes()->end();) {
-				if ((*itr).getId() == id) {
-					this->horario[j].getAulas()->at(p).getUtentes()->erase(itr);
-				}
-				else {
-					itr++;
-				}
-			}
-		}
-	}
 	vector<Utente>::iterator it;
 	for (it = this->utentes.begin(); it != this->utentes.end();) {
 		if ((it)->getId() == id) {
@@ -323,13 +318,13 @@ bool Piscina::removeProfessor(int id) {
 	int menor = 0;
 	for (int k = 0; k < this->horario.size(); k++) {
 		for (int p = 0; p < this->horario[k].getAulas()->size(); p++) {
-			if (this->horario[k].getAulas()->at(p).getProfessor().getId() == id) {
+			if (this->horario[k].getAulas()->at(p).getProfessor()->getId() == id) {
 				for (int j = 0; j < this->professores.size(); j++) {
 					if (this->professores[menor].getNumAulas() > this->professores[j].getNumAulas()) {
 						menor = j;
 					}
 				}
-				this->horario[k].getAulas()->at(p).setProfessor(this->professores[menor]);
+				this->horario[k].getAulas()->at(p).setProfessor(&(this->professores[menor]));
 			}
 		}
 	}
@@ -380,7 +375,7 @@ bool Piscina::importUtentes(string x) {
 				int aulas_por_pagar_int = stoi(aulas_por_pagar);
 				int periodos_por_pagar_int = stoi(periodos_por_pagar);
 
-				Utente u1 = Utente(name, age_int);
+				Utente u1 = Utente(name, age_int, ide_int);
 				u1.setAbsPeriodosPorPagar(aulas_por_pagar_int, periodos_por_pagar_int);
 				this->addUtente(u1);
 			}
@@ -393,30 +388,34 @@ bool Piscina::importUtentes(string x) {
 
 
 bool Piscina::exportUtentes(string x) {
-	ofstream file2;
-	file2.open(x);
+
+	fstream file2;
+	file2.open(x.c_str(), fstream::in||fstream::out||fstream::app);
+
 	for (int i = 0; i < this->utentes.size(); i++) {
-		file2 << this->utentes[i].getNome() << " ;" << this->utentes[i].getIdade() << " ;" << this->utentes[i].getAulasPorPagar() << " ;" << this->utentes[i].getPeriodosPorPagar() << " ;" << endl;
+		file2 << this->utentes[i].getId() << " ;" << this->utentes[i].getNome() << " ;" << this->utentes[i].getIdade() << " ;" << this->utentes[i].getAulasPorPagar() << " ;" << this->utentes[i].getPeriodosPorPagar() << " ;" << endl;
 	}
 	file2.close();
+	//Agora como a funcao exportUtentes pertence à classe piscina nao precisas de usar "(*p)", podes usar "this->". 
 	return true;
 }
 
 
 bool Piscina::importProfessores(string x) {
-	ostringstream z;
-	string ut;
-	fstream file;
-	file.open(x.c_str(), fstream::in);  //Abrir o ficheiro
-	if (file.fail())					//Verificar se ficheiro existe
+	string pr;
+	fstream file3;
+	file3.open(x.c_str(), fstream::in);
+	if (file3.fail()) {
 		cout << "Ficheiro pretendido nao encontrado!\n";
+	}
 	else {
-		while (!file.eof()) {
-			while (getline(file, ut)) {
+		while (!file3.eof()) {
+			while (getline(file3, pr)) {
 				string name;
 				string age;
+				string aulas;
 
-				stringstream ss; ss.str(ut);
+				stringstream ss; ss.str(pr);
 
 				getline(ss, name, ';');
 				name.pop_back();
@@ -424,15 +423,19 @@ bool Piscina::importProfessores(string x) {
 				getline(ss, age, ';');
 				age.pop_back();
 
+				getline(ss, aulas, ';');
+				aulas.pop_back();
 
 				int age_int = stoi(age);
+				int ide_int = stoi(ide);
 
-				Professor p1 = Professor(name, age_int);
+				Professor p1 = Professor(name, age_int, ide_int);
 				this->addProfessor(p1);
 			}
 		}
-		file.close();
+		file3.close();
 	}
+
 	return true;
 }
 
@@ -440,19 +443,15 @@ bool Piscina::exportProfessores(string x) {
 	ofstream file2;
 	file2.open(x);
 	for (int i = 0; i < this->professores.size(); i++) {
-		file2 << this->professores[i].getNome() << " ;" << this->professores[i].getIdade() << " ;" << endl;
+		file2 << this->professores[i].getId() << " ;" << this->professores[i].getNome() << " ;" << this->professores[i].getIdade() << " ;" << endl;
 	}
-	file2.close();
+	file4.close();
 	return true;
 }
 
-void Piscina::printFrequenciaUtentes() {
+vector<Utente> showAllUtentes() {           //Ver melhor, o porque do erro e nao tera que se fazer o overload do operador << 
+	
 	for (int i = 0; i < this->utentes.size(); i++) {
-		try {
-			this->printFrequenciaUtente(this->utentes[i].getId());
-		}
-		catch (PessoaNaoEncontrada pne) {
-			cout << "Erro na funcao printFrequenciaUtentes. (ID " << pne.getId() << " nao encontrado)" << endl;
-		}
+		this->printFrequenciaUtente(this->utentes[i].getId());
 	}
 }
