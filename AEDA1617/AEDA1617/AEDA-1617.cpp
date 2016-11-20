@@ -76,10 +76,11 @@ void menuUtentes(Piscina *p) {
 	cout << "1- Novo Utente" << endl;
 	cout << "2- Apagar Utente" << endl;
 	cout << "3- Consultar Utente" << endl;
-	cout << "4- Efetuar Pagamento" << endl;
-	cout << "5- Exportar Utentes" << endl;
-	cout << "6- Importar Utentes" << endl;
-	cout << "7- Menu Anterior" << endl;
+	cout << "4- Consultar Lista de Clientes" << endl;
+	cout << "5- Efetuar Pagamento" << endl;
+	cout << "6- Exportar Utentes" << endl;
+	cout << "7- Importar Utentes" << endl;
+	cout << "8- Menu Anterior" << endl;
 	cout << "/***********************/" << endl;
 	int escolha; cin >> escolha;
 	switch (escolha) {
@@ -116,6 +117,12 @@ void menuUtentes(Piscina *p) {
 	}
 	case 4:
 	{
+		(*p).showAllUtentes();
+		menuUtentes(p);
+		break;
+	}
+	case 5:
+	{
 		int id,mes;
 		cout << "Indique o id do utente" << endl;
 		cin >> id;
@@ -125,7 +132,7 @@ void menuUtentes(Piscina *p) {
 		menuUtentes(p);
 		break;
 	}
-	case 5:
+	case 6:
 	{
 		string x;
 		cout << "Introduza o nome do ficheiro de utentes a usar (com .txt no fim) \n";
@@ -134,7 +141,7 @@ void menuUtentes(Piscina *p) {
 		menuUtentes(p);
 		break;
 	}
-	case 6:
+	case 7:
 	{
 		string x;
 		cout << "Introduza o nome do ficheiro de utentes a usar (com .txt no fim) \n";
@@ -143,7 +150,7 @@ void menuUtentes(Piscina *p) {
 		menuUtentes(p);
 		break;
 	}
-	case 7:
+	case 8:
 	{
 		menuPiscina(p);
 		break;

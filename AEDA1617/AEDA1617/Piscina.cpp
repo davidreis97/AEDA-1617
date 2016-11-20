@@ -389,22 +389,75 @@ bool Piscina::importUtentes(string x) {
 bool Piscina::exportUtentes(string x) {
 
 	fstream file2;
+	file2.open(x.c_str(), fstream::in||fstream::out||fstream::app);
 
 	for (int i = 0; i < this->utentes.size(); i++) {
 		file2 << this->utentes[i].getId() << " ; " << this->utentes[i].getNome() << " ; " << this->utentes[i].getIdade() << " ; " << this->utentes[i].getAulasPorPagar() << " ; " << this->utentes[i].getPeriodosPorPagar() << " ; " << endl;
 	}
-
+	file2.close();
 	//Agora como a funcao exportUtentes pertence à classe piscina nao precisas de usar "(*p)", podes usar "this->". 
 	return true;
 }
 
 
-bool Piscina::importProfessores(string file) {
-	//TODO
+bool Piscina::importProfessores(string x) {
+	string pr;
+	fstream file3;
+	file3.open(x.c_str(), fstream::in);
+	if (file3.fail()) {
+		cout << "Ficheiro pretendido nao encontrado!\n";
+	}
+	else {
+		while (!file3.eof()) {
+			while (getline(file3, pr)) {
+				string name;
+				string ide;
+				string age;
+				string aulas;
+
+				stringstream ss; ss.str(pr);
+
+				getline(ss, ide, ';');
+				ide.pop_back();
+
+				getline(ss, name, ';');
+				name.pop_back();
+
+				getline(ss, age, ';');
+				age.pop_back();
+
+				getline(ss, aulas, ';');
+				aulas.pop_back();
+
+				int age_int = stoi(age);
+				int ide_int = stoi(ide);
+				int aulas_int = stoi(aulas);
+
+				Professor *p1 = new Professor(name, age_int, ide_int, aulas_int);
+				this->professores.push_back((*p1));
+			}
+		}
+		file3.close();
+	}
+
 	return true;
 }
 
-bool Piscina::exportProfessores(string file) {
-	//TODO
+bool Piscina::exportProfessores(string x) {
+	
+	fstream file4;
+	file4.open(x.c_str(), fstream::in || fstream::out || fstream::app);
+
+	for (int i= 0; i < professores.size(); i++) {
+		file4 << this->professores[i].getId() << " ; " << this->professores[i].getNome() << " ; " << this->professores[i].getIdade() << " ; " << this->professores[i].getNumAulas() << "; \n";
+	}
+	file4.close();
 	return true;
+}
+
+vector<Utente> showAllUtentes() {           //Ver melhor, o porque do erro e nao tera que se fazer o overload do operador << 
+	
+	for (int i = 0; i < this->utentes.size(); i++) {
+		cout << this->utentes[i] << endl;
+	}
 }
