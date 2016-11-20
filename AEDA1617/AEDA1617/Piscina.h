@@ -138,25 +138,28 @@ public:
 	* @param file Nome do ficheiro a importar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
-	bool importUtentes(string file);
+	bool importUtentes(string x);
 	/**
 	* Permite exportar uma lista de clientes de um ficheiro.
 	* @param file Nome do ficheiro a exportar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
-	bool exportUtentes(string file);
+	bool exportUtentes(string x);
 	/**
 	* Permite importar uma lista de professores de um ficheiro.
 	* @param file Nome do ficheiro a importar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
-	bool importProfessores(string file);
+	bool importProfessores(string x);
 	/**
 	* Permite exportar uma lista de professores de um ficheiro.
 	* @param file Nome do ficheiro a exportar.
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
-	bool exportProfessores(string file);
+	bool exportProfessores(string x);
+
+	vector<Utente> showAllUtentes();
+
 };
 
 class PiscinaCheia {
