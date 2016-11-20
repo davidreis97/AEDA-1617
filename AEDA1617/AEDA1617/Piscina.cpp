@@ -323,16 +323,27 @@ bool Piscina::removeUtente(int id) {
 }
 
 bool Piscina::removeProfessor(int id) {
-	int menor = 0;
+	int menor = -1;
+	for (int j = 0; j < this->professores.size(); j++) {
+		if (this->professores[j].getId() != id) {
+			menor = j;
+		}
+	}
+	if (menor == -1) {
+		cout << "Nao ha professores suficientes para esta operacao." << endl;
+		return false;
+	}
 	for (int k = 0; k < this->horario.size(); k++) {
 		for (int p = 0; p < this->horario[k].getAulas()->size(); p++) {
 			if (this->horario[k].getAulas()->at(p).getProfessor().getId() == id) {
 				for (int j = 0; j < this->professores.size(); j++) {
-					if (this->professores[menor].getNumAulas() > this->professores[j].getNumAulas()) {
+					if (this->professores[menor].getNumAulas() > this->professores[j].getNumAulas() && this->professores[j].getId() != id) {
 						menor = j;
 					}
 				}
 				this->horario[k].getAulas()->at(p).setProfessor(this->professores[menor]);
+				this->horario[k].getAulas()->at(p+1).setProfessor(this->professores[menor]);
+				this->professores[menor].setNumAulas(2);
 			}
 		}
 	}
