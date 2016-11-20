@@ -135,9 +135,14 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 		}
 	}
 	else {
-		for (int p = periodoInicial; p <= periodoFinal; p++) {
-			this->horario[j].getPeriodo(p)->addUtente(this->utentes[i]);
-			this->utentes[i].setRelPeriodosPorPagar(0, 1);
+		if ((periodoFinal - periodoInicial) > 3) {
+			cout << "Quantidade de Periodos Invalidos. Periodos livres sao de duracao maxima de 2 horas. (4 periodos)" << endl;
+		}
+		else {
+			for (int p = periodoInicial; p <= periodoFinal; p++) {
+				this->horario[j].getPeriodo(p)->addUtente(this->utentes[i]);
+				this->utentes[i].setRelPeriodosPorPagar(0, 1);
+			}
 		}
 	}
 }
