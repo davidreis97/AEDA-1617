@@ -34,7 +34,7 @@ ostream & operator<<(ostream &os,Data& data) {
 		mestexto = "Fevereiro";
 		break;
 	case(3):
-		mestexto = "Março";
+		mestexto = "Marco";
 		break;
 	case(4):
 		mestexto = "Abril";
