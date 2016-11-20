@@ -23,9 +23,8 @@ public:
 	* @param nome Indica o nome do professor.
 	* @param idade Indica a idade do professor.
 	* @param id Indica o ID do professor.
-	* @param aulas Indica as aulas dadas pelo professor.
 	*/
-	Professor(string nome, unsigned int idade, int id, int aulas);
+	Professor(string nome, unsigned int idade, int id);
 	/**
 	* Permite verificar a igualdade entre dois professores atraves do seu ID.
 	* @return Verdadeiro caso sejam iguais, falso caso não sejam.

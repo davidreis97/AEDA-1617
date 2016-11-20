@@ -65,15 +65,3 @@ public:
 	*/
 	int getAulasPorPagar();
 };
-
-
-class UtenteNaoEncontrado {
-	int id;
-public:
-	/**
-	* Construtor da classe-excepcao UtenteNaoEncontrado, usado para quando nao e possivel encontrar um cliente com um determinado ID.
-	* @param id O ID do cliente que nao foi encontrado.
-	*/
-	UtenteNaoEncontrado(int id);
-	int getId();
-};

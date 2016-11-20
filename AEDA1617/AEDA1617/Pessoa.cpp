@@ -17,3 +17,10 @@ Pessoa::Pessoa(string nome, unsigned int idade,int id) : nome(nome), idade(idade
 string Pessoa::getNome() {
 	return this->nome;
 }
+
+
+PessoaNaoEncontrada::PessoaNaoEncontrada(int id) : id(id) {}
+
+int PessoaNaoEncontrada::getId() {
+	return this->id;
+}

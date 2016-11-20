@@ -32,13 +32,6 @@ bool Utente::operator==(Utente u) {
 	}
 }
 
-UtenteNaoEncontrado::UtenteNaoEncontrado(int id) : id(id){}
-
-int UtenteNaoEncontrado::getId() {
-	return this->id;
-}
-
-
 int Utente::getPeriodosPorPagar() {
 	return this->periodosPorPagar;
 }
