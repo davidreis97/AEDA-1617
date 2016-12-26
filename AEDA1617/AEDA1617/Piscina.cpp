@@ -496,17 +496,64 @@ const unsigned int Piscina::getPeriodoDia() {
 */
 
 void Piscina::gerarUtentesInativos(Data dataAtual) {
-	
+	vector<Utente> aux;
+	for (int j = 0; j < this->horario.size(); j++) {
+		if (dataAtual - this->horario[j] < 180) { //180 dias = 6 meses
+			for (int p = 0; p < this->horario[j].getPeriodos()->size(); p++) {
+				for (int k = 0; k < this->horario[j].getPeriodos()->at(p).getUtentes()->size(); k++) {
+					aux.push_back(this->horario[j].getPeriodos()->at(p).getUtentes()->at(k));
+				}
+			}
+			for (int p = 0; p < this->horario[j].getAulas()->size(); p++) {
+				for (int k = 0; k < this->horario[j].getAulas()->at(p).getUtentes()->size(); k++) {
+					aux.push_back(this->horario[j].getAulas()->at(p).getUtentes()->at(k));
+				}
+			}
+		}
+	}
+	for (int j = 0; j < this->utentes.size(); j++) {
+		if (find(aux.begin(), aux.end(), this->utentes[j]) == aux.end() && find(this->utentesInativos.begin(), this->utentesInativos.end(), this->utentes[j]) == this->utentesInativos.end()) {
+			this->utentesInativos.insert(this->utentes[j]);
+		}
+		if (find(aux.begin(), aux.end(), this->utentes[j]) != aux.end() && find(this->utentesInativos.begin(), this->utentesInativos.end(), this->utentes[j]) != this->utentesInativos.end()) {
+			this->utentesInativos.erase(this->utentes[j]);
+		}
+	}
 }
 
 void Piscina::changeIdadeUtente(unsigned int idade, int id) {
-
+	int j;
+	for (j = 0; j < this->utentes.size(); j++) {
+		if (this->utentes[j].getId() == id) {
+			this->utentes[j].setIdade(idade);
+			break;
+		}
+	}
+	if (j == this->utentes.size()) {
+		throw PessoaNaoEncontrada(id);
+	}
+	if (find(this->utentesInativos.begin(), this->utentesInativos.end(), this->utentes[j]) != this->utentesInativos.end()) {
+		this->utentesInativos.erase(this->utentes[j]);
+		this->utentesInativos.insert(this->utentes[j]); //Nesta segunda insercao ja tera a idade correta.
+	}
 }
-
 
 void Piscina::printUtentesInativos() {
+	cout << "Utentes Inativos: " << endl;
+	for (tabDisp::iterator it = this->utentesInativos.begin(); it != this->utentesInativos.end(); it++) {
+		cout << "Utente " << (*it).getId() << " - " << (*it).getNome() << " de " << (*it).getIdade() << " anos." << endl;
+	}
 }
 
-void Piscina::getAtividadeUtente(int id) {
-
+void Piscina::printAtividadeUtente(int id) {
+	Utente aux("", 0, id);
+	if (find(this->utentes.begin(), this->utentes.end(), aux) == this->utentes.end()) {
+		throw PessoaNaoEncontrada(id);
+	}
+	if(find(this->utentesInativos.begin(), this->utentesInativos.end(), aux) != this->utentesInativos.end()) {
+		cout << "O cliente esta inativo." << endl;
+	}
+	else {
+		cout << "O cliente esta ativo." << endl;
+	}
 }

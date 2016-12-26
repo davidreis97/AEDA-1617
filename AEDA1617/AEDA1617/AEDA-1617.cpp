@@ -50,7 +50,7 @@ void menuPiscina(Piscina *p) {
 	cout << "5- Loja" << endl;
 	cout << "6- Modalidades" << endl;
 	cout << "7- Utentes Inativos" << endl;
-	cout << "5- Sair" << endl;
+	cout << "8- Sair" << endl;
 	cout << "/***********************/" << endl;
 	int escolha; cin >> escolha;
 	switch (escolha) {
@@ -458,5 +458,81 @@ void menuModalidades(Piscina *p) { //Nuno
 }
 
 void menuUtentesInativos(Piscina *p) { //David
-	/*TODO*/
+	cout << "/***********************/" << endl;
+	cout << "1- Imprimir Lista de Utentes Inativos" << endl;
+	cout << "2- Alterar Idade de um Utente" << endl;
+	cout << "3- Imprimir Atividade de um Utente" << endl;
+	cout << "4- Menu Anterior" << endl;
+	cout << "/***********************/" << endl;
+	int escolha; cin >> escolha;
+	switch (escolha) {
+	case 1:
+	{
+		int dia, mes, ano;
+		cout << "Indique o dia atual" << endl;
+		cin >> dia;
+		cout << "Indique o mes atual" << endl;
+		cin >> mes;
+		cout << "Indique o ano atual" << endl;
+		cin >> ano;
+		try {
+			Data d(dia, mes, ano);
+			(*p).gerarUtentesInativos(d);
+			(*p).printUtentesInativos();
+		}
+		catch (DataInvalida di) {
+			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		}
+		menuUtentesInativos(p);
+		break;
+	}
+	case 2:
+	{
+		int id;
+		unsigned int idade;
+		cout << "Indique o id do cliente" << endl;
+		cin >> id;
+		cout << "Indique a idade nova do cliente" << endl;
+		cin >> idade;
+		try {
+			(*p).changeIdadeUtente(idade, id);
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
+		menuUtentesInativos(p);
+		break;
+	}
+	case 3:
+	{
+		int id, dia, mes, ano;
+		cout << "Indique o id do cliente" << endl;
+		cin >> id;
+		cout << "Indique o dia atual" << endl;
+		cin >> dia;
+		cout << "Indique o mes atual" << endl;
+		cin >> mes;
+		cout << "Indique o ano atual" << endl;
+		cin >> ano;
+		try {
+			Data d(dia, mes, ano);
+			(*p).gerarUtentesInativos(d);
+			(*p).printAtividadeUtente(id);
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
+		catch (DataInvalida di) {
+			cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+		}
+		menuUtentesInativos(p);
+		break;
+	}
+	case 4:
+		menuPiscina(p);
+		break;
+	default:
+		cout << "Escolha invalida" << endl;
+		menuUtentesInativos(p);
+	}
 }

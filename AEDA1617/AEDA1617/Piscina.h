@@ -198,14 +198,14 @@ public:
 	*/
 	void changeIdadeUtente(unsigned int idade, int id);
 	/**
-	* Exibe uma lista de todos os utentes inativos.
+	* Imprime uma lista de todos os utentes inativos.
 	*/
 	void printUtentesInativos();
 	/**
-	* Permite obter o estado de atividade de um utente a partir do seu id.
+	* Imprime o estado de atividade de um utente a partir do seu id.
 	* @param id O id do utente.
 	*/
-	void getAtividadeUtente(int id);
+	void printAtividadeUtente(int id);
 };
 
 class PiscinaCheia {

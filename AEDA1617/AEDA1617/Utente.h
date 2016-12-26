@@ -24,10 +24,17 @@ public:
 	*/
 	Utente(string nome, unsigned int idade);
 	/**
+	* Construtor da classe Utente, usado para quando se cria um utente auxiliar, com um ID previamente decidido, sem alterar o ultimoID.
+	* @param nome O nome do utente a adicionar.
+	* @param idade A idade do utente a adicionar.
+	* @param id O id do utente a adicionar.
+	*/
+	Utente(string nome, unsigned int idade, int id);
+	/**
 	* Permite verificar a igualdade entre dois utentes atraves do seu ID.
 	* @return Verdadeiro caso sejam iguais, falso caso não sejam.
 	*/
-	bool operator==(Utente u);
+	bool operator==(Utente u) const;
 	/**
 	* Com base no custo atual de cada aula e cada periodo livre, devolve o valor que o utente deve pagar.
 	* @param precoAula Indica o preco de cada aula.
