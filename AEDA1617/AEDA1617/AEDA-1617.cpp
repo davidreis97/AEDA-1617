@@ -47,6 +47,9 @@ void menuPiscina(Piscina *p) {
 	cout << "2- Professores" << endl;
 	cout << "3- Horario" << endl;
 	cout << "4- Marcacoes" << endl;
+	cout << "5- Loja" << endl;
+	cout << "6- Modalidades" << endl;
+	cout << "7- Utentes Inativos" << endl;
 	cout << "5- Sair" << endl;
 	cout << "/***********************/" << endl;
 	int escolha; cin >> escolha;
@@ -64,6 +67,15 @@ void menuPiscina(Piscina *p) {
 		menuMarcacoes(p);
 		break;
 	case 5:
+		menuLoja(p);
+		break;
+	case 6:
+		menuModalidades(p);
+		break;
+	case 7:
+		menuUtentesInativos(p);
+		break;
+	case 8:
 		break;
 	default:
 		cout << "Escolha invalida" << endl;
@@ -435,4 +447,16 @@ void menuMarcacoes(Piscina *p) {
 		cout << "Escolha invalida" << endl;
 		menuMarcacoes(p);
 	}
+}
+
+void menuLoja(Piscina *p) { //José
+	/*TODO*/
+}
+
+void menuModalidades(Piscina *p) { //Nuno
+	/*TODO*/
+}
+
+void menuUtentesInativos(Piscina *p) { //David
+	/*TODO*/
 }

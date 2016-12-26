@@ -477,4 +477,36 @@ void Piscina::printFrequenciaUtentes() {
 
 const unsigned int Piscina::getPeriodoDia() {
 	return this->periodoDia;
+}	
+
+/*
+* FUNCOES DA LOJA
+*/
+
+//TODO
+
+/*
+* FUNCOES DAS MODALIDADES
+*/
+
+//TODO
+
+/*
+* FUNCOES DOS UTENTES INATIVOS
+*/
+
+void Piscina::gerarUtentesInativos(Data dataAtual) {
+	
+}
+
+void Piscina::changeIdadeUtente(unsigned int idade, int id) {
+
+}
+
+
+void Piscina::printUtentesInativos() {
+}
+
+void Piscina::getAtividadeUtente(int id) {
+
 }

@@ -38,6 +38,11 @@ public:
 	*/
 	bool operator<(Data otherdata);
 	/**
+	* Operador que permite determinar a diferenca entre duas datas.
+	* @return A diferenca entre duas datas.
+	*/
+	int operator-(Data otherdata);
+	/**
 	* Operador que permite determinar se duas datas sao iguais.
 	* @return True caso a "otherdata" seja igual, False caso contrario.
 	*/

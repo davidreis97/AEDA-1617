@@ -18,24 +18,29 @@ private:
 public:
 	static int ultimoId;
 	/**
-	* Permite obter o id de um cliente.
-	* @return O id do cliente.
+	* Permite obter o id de uma pessoa.
+	* @return O id da pessoa.
 	*/
-	int getId();
+	int getId() const;
 	/**
-	* Permite obter a idade de um cliente.
-	* @return A idade do cliente.
+	* Permite obter a idade de uma pessoa.
+	* @return A idade da pessoa.
 	*/
 	int getIdade();
 	/**
-	* Permite obter o nome de um cliente.
-	* @return O nome do cliente.
+	* Permite definir a idade de uma pessoa.
+	* @param i A idade da pessoa.
+	*/
+	void setIdade(unsigned int i);
+	/**
+	* Permite obter o nome de uma pessoa.
+	* @return O nome da pessoa.
 	*/
 	string getNome();
 	/**
 	* Construtor da classe Pessoa, usado para quando se cria uma pessoa nova.
-	* @param nome O nome do cliente a adicionar.
-	* @param idade A idade do cliente a adicionar.
+	* @param nome O nome da pessoa a adicionar.
+	* @param idade A idade da pessoa a adicionar.
 	*/
 	Pessoa(string nome, unsigned int idade);
 };
@@ -44,8 +49,8 @@ class PessoaNaoEncontrada {
 	int id;
 public:
 	/**
-	* Construtor da classe-excepcao UtenteNaoEncontrado, usado para quando nao e possivel encontrar um cliente com um determinado ID.
-	* @param id O ID do cliente que nao foi encontrado.
+	* Construtor da classe-excepcao UtenteNaoEncontrado, usado para quando nao e possivel encontrar uma pessoa com um determinado ID.
+	* @param id O ID da pessoa que nao foi encontrado.
 	*/
 	PessoaNaoEncontrada(int id);
 	int getId();

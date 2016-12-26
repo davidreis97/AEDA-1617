@@ -1,6 +1,6 @@
 #include "Pessoa.h"
 
-int Pessoa::getId() {
+int Pessoa::getId() const{
 	return this->id;
 }
 
@@ -19,6 +19,10 @@ string Pessoa::getNome() {
 
 PessoaNaoEncontrada::PessoaNaoEncontrada(int id) : id(id) {}
 
-int PessoaNaoEncontrada::getId() {
+int PessoaNaoEncontrada::getId(){
 	return this->id;
+}
+
+void Pessoa::setIdade(unsigned int i) {
+	this->idade = i;
 }

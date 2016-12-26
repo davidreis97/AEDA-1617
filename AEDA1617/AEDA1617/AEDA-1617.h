@@ -18,3 +18,9 @@ void menuProfessores(Piscina *p);
 void menuHorario(Piscina *p);
 
 void menuMarcacoes(Piscina *p);
+
+void menuLoja(Piscina *p);
+
+void menuModalidades(Piscina *p);
+
+void menuUtentesInativos(Piscina *p);

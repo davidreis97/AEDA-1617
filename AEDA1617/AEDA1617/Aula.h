@@ -40,6 +40,11 @@ public:
 	* @param utente O utente a adicionar.
 	*/
 	void addUtente(Utente utente);
+	/**
+	* Permite remover um utente do vetor de utentes.
+	* @param id O id do utente a remover.
+	*/
+	void deleteUtente(int id);
 };
 
 class Aula : public Periodo{

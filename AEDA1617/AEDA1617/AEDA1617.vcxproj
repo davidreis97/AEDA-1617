@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="AEDA-1617.h" />
     <ClInclude Include="Aula.h" />
+    <ClInclude Include="BST.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Pessoa.h" />
     <ClInclude Include="Piscina.h" />

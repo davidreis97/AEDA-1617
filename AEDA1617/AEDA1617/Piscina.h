@@ -8,6 +8,8 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <unordered_set>
+#include "BST.h"
 
 /**
 * @file   Piscina.h
@@ -18,9 +20,21 @@
 
 using namespace std;
 
+struct funcUtente {
+	bool operator() (const Utente &u1, const Utente &u2) const {
+		return u1.getId() == u2.getId();
+	}
+	int operator() (const Utente &u) const {
+		return u.getId();
+	}
+};
+
+typedef unordered_set<Utente, funcUtente, funcUtente> tabDisp;
+
 class Piscina {
 private:
 	vector<Utente> utentes;
+	tabDisp utentesInativos;
 	vector<Professor> professores;
 	vector<Data> horario;
 	const unsigned int periodoDia;
@@ -164,6 +178,34 @@ public:
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
 	bool exportProfessores(string x);
+	
+	//LOJA
+	/*TODO*/
+	
+	//MODALIDADES
+	/*TODO*/
+
+	//UTENTES INATIVOS
+	/**
+	* Permite gerar a tabela de dispersao de utentes inativos.
+	* @param dataAtual A data atual.
+	*/	
+	void gerarUtentesInativos(Data dataAtual);
+	/**
+	* Permite alterar a idade de um utente a partir do seu id.
+	* @param idade A idade do utente.
+	* @param id O id do utente a alterar.
+	*/
+	void changeIdadeUtente(unsigned int idade, int id);
+	/**
+	* Exibe uma lista de todos os utentes inativos.
+	*/
+	void printUtentesInativos();
+	/**
+	* Permite obter o estado de atividade de um utente a partir do seu id.
+	* @param id O id do utente.
+	*/
+	void getAtividadeUtente(int id);
 };
 
 class PiscinaCheia {

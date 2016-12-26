@@ -24,6 +24,10 @@ bool Data::operator<(Data otherdata) {
 	}
 }
 
+int Data::operator-(Data otherdata) {
+	return this->dia - otherdata.dia + (this->mes - otherdata.mes) * 31 + (this->ano - otherdata.ano) * 12 * 31;
+}
+
 ostream & operator<<(ostream &os,Data& data) {
 	string mestexto = "Erro";
 	switch (data.getMes()) {

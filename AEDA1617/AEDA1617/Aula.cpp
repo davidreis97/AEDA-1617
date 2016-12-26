@@ -30,3 +30,14 @@ int Periodo::getNumUtentes() {
 void Periodo::addUtente(Utente utente) {
 	this->utentes.push_back(utente);
 }
+
+void Periodo::deleteUtente(int id) {
+	for (vector<Utente>::iterator it = this->utentes.begin(); it != this->utentes.end();) {
+		if ((*it).getId() == id) {
+			this->utentes.erase(it);
+		}
+		else {
+			it++;
+		}
+	}
+}
