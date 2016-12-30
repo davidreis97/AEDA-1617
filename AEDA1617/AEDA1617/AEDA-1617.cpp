@@ -292,7 +292,8 @@ void menuHorario(Piscina *p) {
 		cin >> periodo;
 		if (periodo > (*p).getPeriodoDia() || periodo < 0) {
 			cout << "Erro! Periodo invalido!" << endl;
-		}else {
+		}
+		else {
 			try {
 				Data d(dia, mes, ano);
 				(*p).printOcupacaoPiscina(d, periodo);
@@ -393,7 +394,7 @@ void menuMarcacoes(Piscina *p) {
 		cin >> periodoInicial;
 		cout << "Indique o periodo final em que pretende efetuar a marcacao" << endl;
 		cin >> periodoFinal;
-		if (periodoInicial < 0 || periodoFinal > (*p).getPeriodoDia() || periodoFinal < periodoInicial) {
+		if (periodoInicial < 0 || periodoFinal >(*p).getPeriodoDia() || periodoFinal < periodoInicial) {
 			cout << "Erro! Periodo invalido!" << endl;
 		}
 		else {
@@ -454,7 +455,61 @@ void menuLoja(Piscina *p) { //José
 }
 
 void menuModalidades(Piscina *p) { //Nuno
-	/*TODO*/
+	cout << "/***********************/" << endl;
+	cout << "1- Imprimir Lista de Modalidades" << endl;
+	cout << "2- Adicionar Nova Modalidade" << endl;
+	cout << "3- Remover Modalidade" << endl;
+	cout << "4- Menu Anterior" << endl;
+	cout << "/***********************/" << endl;
+	int escolha; cin >> escolha;
+	switch (escolha) {
+	case 1: {
+		list<string> aux;
+		aux = p->getModalidades();
+		list<string>::iterator it;
+		if (aux.empty())
+			cout << "Piscina não tem modalidades disponíveis." << endl;
+		else {
+			cout << "Lista de Modalidades:" << endl;
+			for (it = aux.begin(); it != aux.end(); it++) {
+				cout << *it << endl;
+			}
+		}
+		menuModalidades(p);
+		break;
+	}
+	case 2: {
+		string modalidade;
+		cout << "Insira a modalidade: ";
+		cin.ignore();
+		getline(cin, modalidade);
+		if (p->addModalidade(modalidade))
+			cout << "Modalidade adicionada com sucesso." << endl;
+		else
+			cout << "Modalidade ja existente" << endl;
+		menuModalidades(p);
+		break;
+	}
+	case 3: {
+		string modalidade;
+		cout << "Insira a modalidade: ";
+		cin.ignore();
+		getline(cin, modalidade);
+		if (p->removeModalidade(modalidade))
+			cout << "Modalidade removida com sucesso." << endl;
+		else
+			cout << "A modalidade que indicou nao existe nas habilidades disponiveis" << endl;
+		menuModalidades(p);
+		break;
+	}
+	case 4: {
+		menuPiscina(p);
+		break;
+	}
+	default:
+		cout << "Escolha invalida" << endl;
+		menuUtentesInativos(p);
+	}
 }
 
 void menuUtentesInativos(Piscina *p) { //David

@@ -41,6 +41,7 @@ private:
 	float precoAula;
 	float precoPeriodo;
 	const unsigned int nMaxUtentes;
+	list<string> modalidades;
 public:
 	/**
 	* Construtor da classe Piscina, usado para criar uma piscina.
@@ -183,7 +184,11 @@ public:
 	/*TODO*/
 	
 	//MODALIDADES
-	/*TODO*/
+	list<string> getModalidades();
+
+	bool addModalidade(string m);
+
+	bool removeModalidade(string m);
 
 	//UTENTES INATIVOS
 	/**

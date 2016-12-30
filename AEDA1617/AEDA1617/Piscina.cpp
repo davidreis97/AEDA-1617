@@ -489,7 +489,29 @@ const unsigned int Piscina::getPeriodoDia() {
 * FUNCOES DAS MODALIDADES
 */
 
-//TODO
+list<string> Piscina::getModalidades() {
+	return modalidades;
+}
+
+bool Piscina::addModalidade(string m) {
+	list<string>::iterator it;
+	for (it = modalidades.begin(); it != modalidades.end(); it++) {
+		if (*it == m)
+			return false;
+	}
+	modalidades.push_back(m);
+}
+
+bool Piscina::removeModalidade(string m) {
+	list<string>::iterator it;
+	for (it = modalidades.begin(); it != modalidades.end(); it++) {
+		if (*it == m) {
+			modalidades.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
 
 /*
 * FUNCOES DOS UTENTES INATIVOS

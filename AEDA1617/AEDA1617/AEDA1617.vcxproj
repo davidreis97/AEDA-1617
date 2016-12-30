@@ -23,6 +23,7 @@
     <ClInclude Include="Aula.h" />
     <ClInclude Include="BST.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="InfoPiscina.h" />
     <ClInclude Include="Pessoa.h" />
     <ClInclude Include="Piscina.h" />
     <ClInclude Include="Professor.h" />
@@ -32,6 +33,7 @@
     <ClCompile Include="AEDA-1617.cpp" />
     <ClCompile Include="Aula.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="InfoPiscina.cpp" />
     <ClCompile Include="Pessoa.cpp" />
     <ClCompile Include="Piscina.cpp" />
     <ClCompile Include="Professor.cpp" />
