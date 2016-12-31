@@ -65,7 +65,7 @@ int Piscina::getNumUtentesAtuais(int periodo, Data data) {
 	return 0;
 }
 
-bool Piscina::newAula(Data data, int periodo) {
+bool Piscina::newAula(Data data, int periodo, string modalidade) {
 	int j, i, menor = 0;
 	for (j = 0; j < this->horario.size(); j++) {
 		if (this->horario[j] == data) {
@@ -84,8 +84,8 @@ bool Piscina::newAula(Data data, int periodo) {
 				menor = p;
 			}
 		}
-		this->horario[j].addAula(periodo, this->professores[menor]);
-		this->horario[j].addAula(periodo + 1, this->professores[menor]);
+		this->horario[j].addAula(periodo, this->professores[menor], modalidade);
+		this->horario[j].addAula(periodo + 1, this->professores[menor], modalidade);
 		this->professores[menor].setNumAulas(2);
 		return true;
 	}
@@ -511,6 +511,48 @@ bool Piscina::removeModalidade(string m) {
 		}
 	}
 	return false;
+}
+
+bool Piscina::isModalidade(string m) {
+	list<string>::iterator it;
+	for (it = modalidades.begin(); it != modalidades.end(); it++)
+		if (*it == m)
+			return true;
+	return false;
+}
+
+InfoPiscina Piscina::piscinaMaisPerto(string m) {
+	priority_queue<InfoPiscina> aux;
+	aux = piscinas_viz;
+	InfoPiscina p("Nome", -1);
+	while (!aux.empty()) {
+		p = aux.top();
+		list<string>::iterator it;
+		for (it = p.getModalidades().begin(); it != p.getModalidades().end(); it++) {
+			if (*it == m) {
+				return p;
+			}
+		}
+		aux.pop();
+	}
+	return p;
+}
+
+priority_queue<InfoPiscina> Piscina::getPiscinas_Viz() {
+	return piscinas_viz;
+}
+
+bool Piscina::addInfoPiscina(InfoPiscina infoP) {
+	priority_queue<InfoPiscina> aux;
+	aux = piscinas_viz;
+	while (!aux.empty()) {
+		if (aux.top() == infoP) {
+			return false;
+		}
+		aux.pop();
+	}
+	aux.push(infoP);
+	return true;
 }
 
 /*

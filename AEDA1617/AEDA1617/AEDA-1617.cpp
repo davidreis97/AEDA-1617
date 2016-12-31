@@ -50,7 +50,8 @@ void menuPiscina(Piscina *p) {
 	cout << "5- Loja" << endl;
 	cout << "6- Modalidades" << endl;
 	cout << "7- Utentes Inativos" << endl;
-	cout << "8- Sair" << endl;
+	cout << "8- Informacao Outras Piscinas" << endl;
+	cout << "9- Sair" << endl;
 	cout << "/***********************/" << endl;
 	int escolha; cin >> escolha;
 	switch (escolha) {
@@ -76,6 +77,8 @@ void menuPiscina(Piscina *p) {
 		menuUtentesInativos(p);
 		break;
 	case 8:
+		menuInfoPiscina(p);
+	case 9:
 		break;
 	default:
 		cout << "Escolha invalida" << endl;
@@ -348,33 +351,48 @@ void menuMarcacoes(Piscina *p) {
 	case 1:
 	{
 		int dia, mes, ano, periodo, id;
-		cout << "Indique o ID do cliente que quer efetuar a marcacao" << endl;
-		cin >> id;
-		cout << "Indique o dia em que pretende efetuar a marcacao" << endl;
-		cin >> dia;
-		cout << "Indique o mes em que pretende efetuar a marcacao" << endl;
-		cin >> mes;
-		cout << "Indique o ano em que pretende efetuar a marcacao" << endl;
-		cin >> ano;
-		cout << "Indique o periodo em que pretende efetuar a marcacao (Aula tem sempre duracao de 2 periodos, ou seja, 1 hora)" << endl;
-		cin >> periodo;
-		if (periodo < 0 || periodo + 1 >(*p).getPeriodoDia()) {
-			cout << "Erro! Periodo invalido!" << endl;
+		string modalidade;
+		cout << "Indique a modalidade que quer efetuar a marcacao" << endl;
+		cin.ignore();
+		getline(cin, modalidade);
+		if (p->isModalidade(modalidade)) {
+			cout << "Indique o ID do cliente que quer efetuar a marcacao" << endl;
+			cin >> id;
+			cout << "Indique o dia em que pretende efetuar a marcacao" << endl;
+			cin >> dia;
+			cout << "Indique o mes em que pretende efetuar a marcacao" << endl;
+			cin >> mes;
+			cout << "Indique o ano em que pretende efetuar a marcacao" << endl;
+			cin >> ano;
+			cout << "Indique o periodo em que pretende efetuar a marcacao (Aula tem sempre duracao de 2 periodos, ou seja, 1 hora)" << endl;
+			cin >> periodo;
+			if (periodo < 0 || periodo + 1 >(*p).getPeriodoDia()) {
+				cout << "Erro! Periodo invalido!" << endl;
+			}
+			else {
+				try {
+					Data d(dia, mes, ano);
+					(*p).marcarUtente(id, true, periodo, periodo + 1, d);
+				}
+				catch (PessoaNaoEncontrada pne) {
+					cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+				}
+				catch (PiscinaCheia pc) {
+					cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
+				}
+				catch (DataInvalida di) {
+					cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+				}
+			}
 		}
 		else {
-			try {
-				Data d(dia, mes, ano);
-				(*p).marcarUtente(id, true, periodo, periodo + 1, d);
-			}
-			catch (PessoaNaoEncontrada pne) {
-				cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
-			}
-			catch (PiscinaCheia pc) {
-				cout << "Erro! A lotacao da piscina no periodo pedido excede a lotacao maxima de " << pc.getNMaxUtentes() << " pessoas." << endl;
-			}
-			catch (DataInvalida di) {
-				cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
-			}
+			cout << "Modalidade nao disponivel" << endl;
+			InfoPiscina infoP("Nome", 1);
+			infoP = p->piscinaMaisPerto(modalidade);
+			if (infoP.getDistancia() == -1)
+				cout << "Nao existe nenhuma piscina nos registos com a modalidade disponivel." << endl;
+			else
+				cout << "A piscina " << infoP.getNome << " tem a modalidade disonivel e encontra-se a " << infoP.getDistancia() << " unidades de distancia.";
 		}
 		menuMarcacoes(p);
 		break;
@@ -418,6 +436,7 @@ void menuMarcacoes(Piscina *p) {
 	case 3:
 	{
 		int dia, mes, ano, periodo;
+		string modalidade;
 		cout << "Indique o dia em que pretende criar uma nova aula" << endl;
 		cin >> dia;
 		cout << "Indique o mes em que pretende criar uma nova aula" << endl;
@@ -426,17 +445,25 @@ void menuMarcacoes(Piscina *p) {
 		cin >> ano;
 		cout << "Indique o periodo em que pretende uma nova aula" << endl;
 		cin >> periodo;
-		if (periodo < 0 || periodo + 1 >(*p).getPeriodoDia()) {
-			cout << "Erro! Periodo invalido!" << endl;
+		cout << "Indique a modalidade" << endl;
+		cin.ignore();
+		getline(cin, modalidade);
+		if (p->isModalidade(modalidade)) {
+			if (periodo < 0 || periodo + 1 >(*p).getPeriodoDia()) {
+				cout << "Erro! Periodo invalido!" << endl;
+			}
+			else {
+				try {
+					Data d(dia, mes, ano);
+					(*p).newAula(d, periodo, modalidade);
+				}
+				catch (DataInvalida di) {
+					cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
+				}
+			}
 		}
 		else {
-			try {
-				Data d(dia, mes, ano);
-				(*p).newAula(d, periodo);
-			}
-			catch (DataInvalida di) {
-				cout << "Erro! A data " << di.getData() << " nao e valida." << endl;
-			}
+			cout << "Modalidade nao disponivel nesta piscina" << endl;
 		}
 		menuMarcacoes(p);
 		break;
@@ -589,5 +616,91 @@ void menuUtentesInativos(Piscina *p) { //David
 	default:
 		cout << "Escolha invalida" << endl;
 		menuUtentesInativos(p);
+	}
+}
+
+void menuInfoPiscina(Piscina *p) {
+	cout << "/***********************/" << endl;
+	cout << "1- Imprimir Informacao das Piscinas" << endl;
+	cout << "2- Adicionar Informacao de Piscina" << endl;
+	cout << "3- Menu Anterior" << endl;
+	cout << "/***********************/" << endl;
+	int escolha; cin >> escolha;
+	switch (escolha) {
+	case 1: {
+		priority_queue<InfoPiscina> aux;
+		aux = p->getPiscinas_Viz();
+		if (aux.empty())
+			cout << "Nao tem informacao." << endl;
+		else
+			while (!aux.empty()) {
+				InfoPiscina infoP("Nome", 1);
+				infoP = aux.top();
+				cout << "Nome: " << infoP.getNome() << endl;
+				cout << "Distancia: " << infoP.getDistancia() << endl;
+				cout << "Modalidades:" << endl;
+				list<string>::iterator it;
+				for (it = infoP.getModalidades().begin(); it != infoP.getModalidades().end(); it++) {
+					cout << *it << endl;
+				}
+			}
+		menuInfoPiscina(p);
+		break;
+	}
+	case 2: {
+		string nome;
+		int distancia = 0;
+		cout << "Insira o nome da Piscina: ";
+		cin.ignore();
+		getline(cin, nome);
+		while (distancia <= 0) {
+			cout << "Insira a distancia a que se encontra a piscina: ";
+			cin >> distancia;
+		}
+		InfoPiscina infoP(nome, distancia);
+		
+		string continuar = "y";
+		while (continuar == "y") {
+			string modalidade;
+			cout << "Insira uma modalidade: " << endl;
+			cin.ignore();
+			getline(cin, modalidade);
+			list<string>::iterator it;
+			bool ja_inserida = false;
+			for (it = infoP.getModalidades().begin(); it != infoP.getModalidades.end(); it++) {
+				if (*it == modalidade) {
+					ja_inserida = true;
+					break;
+				}
+			}
+			if (ja_inserida)
+				cout << "Erro: Modalidade ja existente." << endl;
+			else {
+				infoP.addModalidade(modalidade);
+				cout << "Modalidade adicionada com sucesso." << endl;
+				string sn;
+				while (sn != "y" || sn != "n") {
+					cout << "Deseja inserir outra modalidade (y/n): ";
+					cin >> sn;
+				}
+				continuar = sn;
+			}
+
+		}
+		if (p->addInfoPiscina(infoP))
+			cout << "Adicionada informacao com sucesso." << endl;
+		else
+			cout << "Erro: Informacao de Piscina ja existente. " << endl;
+
+		menuInfoPiscina(p);
+		break;
+	}
+	case 3: {
+		menuPiscina(p);
+		break;
+	}
+	default:
+		cout << "Escolha invalida" << endl;
+		menuInfoPiscina(p);
 	}
 }

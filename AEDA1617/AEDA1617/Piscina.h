@@ -2,6 +2,7 @@
 #include "Utente.h"
 #include "Professor.h"
 #include "Data.h"
+#include "InfoPiscina.h"
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -42,6 +43,7 @@ private:
 	float precoPeriodo;
 	const unsigned int nMaxUtentes;
 	list<string> modalidades;
+	priority_queue<InfoPiscina> piscinas_viz;
 public:
 	/**
 	* Construtor da classe Piscina, usado para criar uma piscina.
@@ -136,9 +138,10 @@ public:
 	* Cria uma nova aula num determinado periodo de um determinado dia. Aloca um professor para essa aula, tendo em conta qual dos professores está mais livre.
 	* @param data Data onde se pretende efetuar marcacao.
 	* @param periodo Periodo onde se pretende efetuar marcacao.
+	* @param modalidade Modalidade leccionada na aula
 	* @return True em caso de sucesso, False em caso de falha.
 	*/
-	bool newAula(Data data, int periodo);
+	bool newAula(Data data, int periodo, string modalidade);
 	/**
 	* Imprime no ecrã todas as aulas lecionadas por todos os professores da piscina.
 	*/
@@ -186,9 +189,17 @@ public:
 	//MODALIDADES
 	list<string> getModalidades();
 
+	bool isModalidade(string m);
+
 	bool addModalidade(string m);
 
 	bool removeModalidade(string m);
+
+	InfoPiscina piscinaMaisPerto(string m);
+
+	priority_queue<InfoPiscina> getPiscinas_Viz();
+
+	bool addInfoPiscina(InfoPiscina infoP);
 
 	//UTENTES INATIVOS
 	/**

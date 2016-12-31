@@ -148,7 +148,8 @@ void Data::addPeriodo(int i) {
 	this->periodos.push_back(p);
 }
 
-void Data::addAula(int i, Professor p) {
+void Data::addAula(int i, Professor p, string modalidade) {
 	Aula a(p,i);
+	a.setModalidade(modalidade);
 	this->aulas.push_back(a);
 }

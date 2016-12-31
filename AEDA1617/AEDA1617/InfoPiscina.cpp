@@ -2,7 +2,7 @@
 
 using namespace std;
 
-InfoPiscina::InfoPiscina (string nome, unsigned int distancia) {
+InfoPiscina::InfoPiscina (string nome, int distancia) {
 	this->nome = nome;
 	this->distancia = distancia;
 }
@@ -15,10 +15,25 @@ list<string> InfoPiscina::getModalidades() {
 	return modalidades;
 }
 
-unsigned int InfoPiscina::getDistancia() {
+int InfoPiscina::getDistancia() {
 	return distancia;
 }
 
 void InfoPiscina::addModalidade(string m) {
 	modalidades.push_back(m);
+}
+
+bool InfoPiscina::operator<(const InfoPiscina & p) const {
+	return this->distancia < p.distancia;
+}
+
+bool InfoPiscina::operator==(const InfoPiscina & p) const {
+	return this->nome == p.nome;
+}
+
+InfoPiscina & InfoPiscina::operator=(const InfoPiscina & p) {
+	this->nome = p.nome;
+	this->modalidades = p.modalidades;
+	this->distancia = p.distancia;
+	return *this;
 }

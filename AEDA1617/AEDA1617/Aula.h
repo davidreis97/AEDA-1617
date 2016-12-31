@@ -1,6 +1,7 @@
 #pragma once
 #include "Utente.h"
 #include "Professor.h"
+#include "Piscina.h"
 
 /**
 * @file   Aula.h
@@ -49,6 +50,7 @@ public:
 
 class Aula : public Periodo{
 	Professor professor;
+	string modalidade;
 public:
 	/**
 	* Construtor da classe Aula, usado para criar uma aula na piscina.
@@ -66,4 +68,8 @@ public:
 	* @param professor O professor responsavel pela aula.
 	*/
 	void setProfessor(Professor professor);
+
+	string getModalidade();
+
+	bool setModalidade(string modalidade);
 };

@@ -2,7 +2,7 @@
 #include "Aula.h"
 
 using namespace std;
-vector<Utente> *Periodo::getUtentes(){
+vector<Utente> *Periodo::getUtentes() {
 	return &(this->utentes);
 }
 
@@ -15,13 +15,21 @@ void Aula::setProfessor(Professor professor) {
 	this->professor = professor;
 }
 
+string Aula::getModalidade() {
+	return modalidade;
+}
+
+bool Aula::setModalidade(string modalidade) {
+	this->modalidade = modalidade;
+}
+
 int Periodo::getPeriodo() {
 	return this->periodo;
 }
 
 Aula::Aula(Professor professor, int periodo) : professor(professor), Periodo(periodo) {};
 
-Periodo::Periodo(int periodo): periodo(periodo) {}
+Periodo::Periodo(int periodo) : periodo(periodo) {}
 
 int Periodo::getNumUtentes() {
 	return this->utentes.size();

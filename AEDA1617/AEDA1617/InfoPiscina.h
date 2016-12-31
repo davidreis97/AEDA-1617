@@ -8,11 +8,14 @@ class InfoPiscina {
 private:
 	string nome;
 	list<string> modalidades;
-	unsigned int distancia;
+	int distancia;
 public:
-	InfoPiscina(string nome, unsigned int distancia);
+	InfoPiscina(string nome, int distancia);
 	string getNome();
 	list<string> getModalidades();
-	unsigned int getDistancia();
+	int getDistancia();
 	void addModalidade(string m);
+	InfoPiscina & operator=(const InfoPiscina & p);
+	bool operator==(const InfoPiscina & p) const;
+	bool operator<(const InfoPiscina & p) const;
 };
