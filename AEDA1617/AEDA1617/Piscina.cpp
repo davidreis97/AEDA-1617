@@ -96,7 +96,7 @@ bool Piscina::newAula(Data data, int periodo, string modalidade) {
 
 }
 
-void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data) {
+void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data, string modalidade) {
 	int i, j;
 	for (i = 0; i < this->utentes.size(); i++) {
 		if (this->utentes[i].getId() == id) {
@@ -124,13 +124,13 @@ void Piscina::marcarUtente(int id, bool isAula, int periodoInicial, int periodoF
 			cout << "Quantidade de Periodos Invalidos. Aulas sao de duracao 1 hora." << endl;
 		}
 		else {
-			if (this->horario[j].getAula(periodoInicial) != NULL && this->horario[j].getAula(periodoFinal) != NULL) {
+			if (this->horario[j].getAula(periodoInicial) != NULL && this->horario[j].getAula(periodoFinal) != NULL && this->horario[j].getAula(periodoInicial)->getModalidade() == modalidade && this->horario[j].getAula(periodoFinal)->getModalidade() == modalidade) {
 					this->horario[j].getAula(periodoInicial)->addUtente(this->utentes[i]);
 					this->horario[j].getAula(periodoFinal)->addUtente(this->utentes[i]);
 					this->utentes[i].setRelPeriodosPorPagar(2, 0);
 			}
 			else {
-				cout << "Aula Inexistente. Verifique se ja criou a aula e se existe pelo menos um professor disponivel." << endl;
+				cout << "Aula Inexistente. Verifique se ja criou a aula com a modalidade correta e se existe pelo menos um professor disponivel." << endl;
 			}
 		}
 	}
@@ -551,7 +551,7 @@ bool Piscina::addInfoPiscina(InfoPiscina infoP) {
 		}
 		aux.pop();
 	}
-	aux.push(infoP);
+	this->piscinas_viz.push(infoP);
 	return true;
 }
 

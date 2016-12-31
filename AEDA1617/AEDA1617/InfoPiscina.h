@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <list>
+#include <iostream>
 
 using namespace std;
 
@@ -14,7 +15,8 @@ public:
 	string getNome();
 	list<string> getModalidades();
 	int getDistancia();
-	void addModalidade(string m);
+	bool addModalidade(string m);
+	void printModalidades();
 	InfoPiscina & operator=(const InfoPiscina & p);
 	bool operator==(const InfoPiscina & p) const;
 	bool operator<(const InfoPiscina & p) const;

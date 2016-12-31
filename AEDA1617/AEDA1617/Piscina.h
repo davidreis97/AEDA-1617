@@ -94,7 +94,7 @@ public:
 	* @param periodoFinal Ultimo periodo em que se pretende marcar.
 	* @param data Data em que se pretende marcar.
 	*/
-	void marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data);
+	void marcarUtente(int id, bool isAula, int periodoInicial, int periodoFinal, Data data, string modalidade);
 	/**
 	* Permite obter o numero de utentes dentro da piscina, num determinado periodo de um determinado dia.
 	* @param data Data onde se pretende consultar ocupacao.
@@ -187,6 +187,7 @@ public:
 	/*TODO*/
 	
 	//MODALIDADES
+
 	list<string> getModalidades();
 
 	bool isModalidade(string m);

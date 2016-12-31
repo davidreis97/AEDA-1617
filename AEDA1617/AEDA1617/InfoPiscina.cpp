@@ -15,12 +15,24 @@ list<string> InfoPiscina::getModalidades() {
 	return modalidades;
 }
 
+void InfoPiscina::printModalidades() {
+	for (list<string>::iterator it = this->modalidades.begin(); it != this->modalidades.end(); it++) {
+		cout << (*it) << endl;
+	}
+}
+
 int InfoPiscina::getDistancia() {
 	return distancia;
 }
 
-void InfoPiscina::addModalidade(string m) {
-	modalidades.push_back(m);
+bool InfoPiscina::addModalidade(string m) {
+	for (list<string>::iterator it = this->modalidades.begin(); it != this->modalidades.end(); it++) {
+		if (*it == m) {
+			return false;
+		}
+	}
+	this->modalidades.push_back(m);
+	return true;
 }
 
 bool InfoPiscina::operator<(const InfoPiscina & p) const {

@@ -1,7 +1,6 @@
 #pragma once
 #include "Utente.h"
 #include "Professor.h"
-#include "Piscina.h"
 
 /**
 * @file   Aula.h
@@ -71,5 +70,5 @@ public:
 
 	string getModalidade();
 
-	bool setModalidade(string modalidade);
+	void setModalidade(string modalidade);
 };

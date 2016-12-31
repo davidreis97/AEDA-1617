@@ -19,7 +19,7 @@ string Aula::getModalidade() {
 	return modalidade;
 }
 
-bool Aula::setModalidade(string modalidade) {
+void Aula::setModalidade(string modalidade) {
 	this->modalidade = modalidade;
 }
 
