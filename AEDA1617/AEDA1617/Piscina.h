@@ -45,7 +45,6 @@ private:
 	list<string> modalidades;
 	priority_queue<InfoPiscina> piscinas_viz;
 public:
-	BST<Artigo> getArtigos();
 	/**
 	* Construtor da classe Piscina, usado para criar uma piscina.
 	* @param periodos Indica o numero de periodos que ha por dia.
@@ -185,7 +184,15 @@ public:
 	bool exportProfessores(string x);
 	
 	//LOJA
-	/*TODO*/
+	BST<Artigo> getArtigos();
+
+	BST<Artigo> getArtigos();
+
+	bool addStock(string designation, string size, unsigned int amount);
+
+	bool sellProduct(string designation, string size);
+
+	bool exportStock(string x);
 	
 	//MODALIDADES
 

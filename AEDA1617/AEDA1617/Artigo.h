@@ -17,6 +17,8 @@ public:
 	Artigo(string designation, string size);
 	bool operator <(Artigo outroartigo);
 	bool operator ==(Artigo outroartigo);
+	string getDesignacao();
+	string getTamanho();
 	unsigned int getStock();
 	void setStock(unsigned int s);
 };

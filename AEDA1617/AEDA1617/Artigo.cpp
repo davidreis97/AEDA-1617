@@ -46,8 +46,17 @@ unsigned int Artigo::getStock()
 	return this->stock;
 }
 
+string Artigo::getDesignacao() {
+	return this->designacao;
+}
+
+
+string Artigo::getTamanho() {
+	return this->tamanho;
+}
+
+
 void Artigo::setStock(unsigned int s) {
 	this->stock = s;
 }
-
 

@@ -542,6 +542,20 @@ bool Piscina::sellProduct(string designation, string size) {
 	else throw ArtigoInexistente(designation, size);
 }
 
+bool exportStock(string x) {
+	ofstream file4;
+	file4.open(x);
+	BSTItrLevel<Artigo> it(artigos);
+
+	while (!it.isAtEnd()) {
+		file4 << it.retrieve().getDesignacao() << "; " << it.retrieve().getTamanho() << "; " << it.retrieve().getStock() << ";\n";
+		it.advance();
+	}
+	file4.close();
+	return true;
+}
+
+
 /*
 * FUNCOES DAS MODALIDADES
 */
