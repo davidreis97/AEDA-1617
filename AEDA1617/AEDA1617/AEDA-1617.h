@@ -26,3 +26,5 @@ void menuModalidades(Piscina *p);
 void menuUtentesInativos(Piscina *p);
 
 void menuInfoPiscina(Piscina *p);
+
+void menuLoja(Piscina *p);

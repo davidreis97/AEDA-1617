@@ -483,7 +483,64 @@ const unsigned int Piscina::getPeriodoDia() {
 * FUNCOES DA LOJA
 */
 
-//TODO
+BST<Artigo> Piscina::getArtigos() {
+	return this->artigos;
+}
+
+
+
+bool Piscina::addStock(string designation, string size, unsigned int amount) {
+
+	Artigo a1(designation, size);
+
+	BSTItrLevel<Artigo> it(artigos);
+
+	while (!it.isAtEnd()) {
+		if (it.retrieve() == a1) {
+			Artigo a2 = it.retrieve();
+			artigos.remove(a2);
+			a2.setStock(a2.getStock() + amount);
+			artigos.insert(a2);
+			return true;
+		}
+		it.advance();
+	}
+	if (designation == "Touca" || "Calcao" || "Fato de banho" || "Oculos" || "Chinelos") {
+		a1.setStock(amount);
+		artigos.insert(a1);
+		return true;
+	}
+	else throw ArtigoInexistente(designation, size);
+}
+
+
+bool Piscina::sellProduct(string designation, string size) {
+
+	Artigo a1(designation, size);
+
+	BSTItrLevel<Artigo> it(artigos);
+
+	while (!it.isAtEnd()) {
+		if (it.retrieve() == a1) {
+			Artigo a2 = it.retrieve();
+			if (a2.getStock() > 0) {
+				artigos.remove(a2);
+				a2.setStock(a2.getStock() - 1);
+				artigos.insert(a2);
+				return true;
+			}
+			else throw SemStock(designation, size);
+		}
+		else it.advance();
+	}
+
+	if (designation == "Touca" || "Calcao" || "Fato de banho" || "Oculos" || "Chinelos")
+		if (size == "S" || "M" || "L" || "XL")
+			throw SemStock(designation, size);
+		else ArtigoInexistente(designation, size);
+
+	else throw ArtigoInexistente(designation, size);
+}
 
 /*
 * FUNCOES DAS MODALIDADES

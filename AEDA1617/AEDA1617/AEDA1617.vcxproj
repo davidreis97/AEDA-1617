@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AEDA-1617.h" />
+    <ClInclude Include="Artigo.h" />
     <ClInclude Include="Aula.h" />
     <ClInclude Include="BST.h" />
     <ClInclude Include="Data.h" />
@@ -37,6 +38,7 @@
     <ClCompile Include="Pessoa.cpp" />
     <ClCompile Include="Piscina.cpp" />
     <ClCompile Include="Professor.cpp" />
+    <ClCompile Include="Artigo.cpp" />
     <ClCompile Include="Utente.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

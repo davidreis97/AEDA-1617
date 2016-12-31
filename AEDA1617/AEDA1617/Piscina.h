@@ -45,6 +45,7 @@ private:
 	list<string> modalidades;
 	priority_queue<InfoPiscina> piscinas_viz;
 public:
+	BST<Artigo> getArtigos();
 	/**
 	* Construtor da classe Piscina, usado para criar uma piscina.
 	* @param periodos Indica o numero de periodos que ha por dia.

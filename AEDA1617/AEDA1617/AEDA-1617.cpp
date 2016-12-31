@@ -482,8 +482,66 @@ void menuMarcacoes(Piscina *p) {
 	}
 }
 
-void menuLoja(Piscina *p) { //Nuno
-	/*TODO*/
+void menuLoja(Piscina *p) {
+	cout << "/***********************/" << endl;
+	cout << "1- Ver Catalogo" << endl;
+	cout << "2- Comprar Artigo" << endl;
+	cout << "3- Comprar Stock" << endl;
+	cout << "4- Menu Anterior" << endl;
+	cout << "/***********************/" << endl;
+
+	int escolha; cin >> escolha;
+	switch (escolha) {
+	case 1:
+	{
+		cout << "A nossa loja vende:\n -Toucas\n -Calcao\n -Fato de banho\n -Oculos\n -Chinelos\n";
+		break;
+		menuPiscina(p);
+	}
+
+	case 2:
+	{
+		cout << "Qual o artigo que deseja comprar?";
+		string art;
+		cin >> art;
+		cout << "Qual o tamanho que deseja adquirir? (S, M, L ou XL)";
+		string tam;
+		cin >> tam;
+		try {
+			(*p).sellProduct(art, tam);
+		}
+		catch (SemStock s1) {
+			cout << "Erro! Nao existe stock desse tamanho!" << endl;
+		}
+		catch (ArtigoInexistente art1) {
+			cout << "Erro! Nao possuimos o artigo pretendido" << endl;
+		}
+		menuPiscina(p);
+		break;
+	}
+
+	case 3:
+	{
+		cout << "Qual o artigo que deseja comprar (dos fornecidos pelo catálogo)" << endl;
+		string art;
+		cin >> art;
+		cout << "Qual o tamanho que deseja adquirir? (S, M, L ou XL)";
+		string tam;
+		cin >> tam;
+		cout << "Quantas unidades deseja adquirir desse produto?" << endl;
+		unsigned int num;
+		cin >> num;
+		try {
+			(*p).addStock(art, tam, num);
+		}
+		catch (ArtigoInexistente art1) {
+			cout << "Erro! O produto nao existem em catalogo para comprar!" << endl;
+		}
+		break;
+	}
+	case 4:
+		break;
+	}
 }
 
 void menuModalidades(Piscina *p) { //Jose
