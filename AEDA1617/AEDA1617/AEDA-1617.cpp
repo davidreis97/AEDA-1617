@@ -487,7 +487,9 @@ void menuLoja(Piscina *p) {
 	cout << "1- Ver Catalogo" << endl;
 	cout << "2- Comprar Artigo" << endl;
 	cout << "3- Comprar Stock" << endl;
-	cout << "4- Menu Anterior" << endl;
+	cout << "4- Exportar Utentes" << endl;
+	cout << "5- Importar Utentes" << endl;
+	cout << "6- Menu Anterior" << endl;
 	cout << "/***********************/" << endl;
 
 	int escolha; cin >> escolha;
@@ -537,9 +539,23 @@ void menuLoja(Piscina *p) {
 		catch (ArtigoInexistente art1) {
 			cout << "Erro! O produto nao existem em catalogo para comprar!" << endl;
 		}
+		menuPiscina(p);
 		break;
 	}
+
 	case 4:
+	{
+		string x;
+		cout << "Introduza do ficheiro para o qual pretende exportar o stock!\n";
+		cin >> x;
+		if ((*p).exportStock(x))
+			cout << "Operacao efetuada com sucesso!\n";
+		else cout << "Erro! Operacao nao efetuada!\n";
+		menuPiscina(p);
+		break;
+	}
+
+	case 6:
 		break;
 	}
 }

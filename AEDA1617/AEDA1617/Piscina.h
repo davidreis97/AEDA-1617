@@ -11,6 +11,7 @@
 #include <sstream>
 #include <unordered_set>
 #include "BST.h"
+#include "Artigo.h"
 
 /**
 * @file   Piscina.h
@@ -184,7 +185,7 @@ public:
 	bool exportProfessores(string x);
 	
 	//LOJA
-	BST<Artigo> getArtigos();
+	BST<Artigo> artigos;
 
 	BST<Artigo> getArtigos();
 

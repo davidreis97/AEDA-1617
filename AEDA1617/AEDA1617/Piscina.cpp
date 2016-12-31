@@ -542,7 +542,7 @@ bool Piscina::sellProduct(string designation, string size) {
 	else throw ArtigoInexistente(designation, size);
 }
 
-bool exportStock(string x) {
+bool Piscina::exportStock(string x) {
 	ofstream file4;
 	file4.open(x);
 	BSTItrLevel<Artigo> it(artigos);
