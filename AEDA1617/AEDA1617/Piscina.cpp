@@ -2,7 +2,7 @@
 
 
 using namespace std;
-Piscina::Piscina(unsigned int periodos, float precoA, float precoP, unsigned int nMax) : periodoDia(periodos), nMaxUtentes(nMax) {
+Piscina::Piscina(unsigned int periodos, float precoA, float precoP, unsigned int nMax) : periodoDia(periodos), nMaxUtentes(nMax), artigosDisponiveis(Artigo("",0,"")) {
 	precoAula = precoA;
 	precoPeriodo = precoP;
 }
@@ -483,76 +483,74 @@ const unsigned int Piscina::getPeriodoDia() {
 * FUNCOES DA LOJA
 */
 
-BST<Artigo> Piscina::getArtigos() {
-	return this->artigos;
-}
-
-
-
-bool Piscina::addStock(string designation, string size, unsigned int amount) {
-
-	Artigo a1(designation, size);
-
-	BSTItrLevel<Artigo> it(artigos);
-
-	while (!it.isAtEnd()) {
-		if (it.retrieve() == a1) {
-			Artigo a2 = it.retrieve();
-			artigos.remove(a2);
-			a2.setStock(a2.getStock() + amount);
-			artigos.insert(a2);
-			return true;
+bool Piscina::comprarArtigo(Artigo art, int id) {
+	int i;
+	for (i = 0; i < this->utentes.size() && id != -1; i++) {
+		if (this->utentes[i].getId() == id) {
+			break;
 		}
-		it.advance();
 	}
-	if (designation == "Touca" || "Calcao" || "Fato de banho" || "Oculos" || "Chinelos") {
-		a1.setStock(amount);
-		artigos.insert(a1);
+	if (i == this->utentes.size() && id != -1) {
+		throw PessoaNaoEncontrada(id);
+	}
+	if (this->artigosDisponiveis.find(art) == Artigo("", 0, "")) {
+		throw ArtigoNaoEncontrado(art);
+	}
+	Artigo aux = this->artigosDisponiveis.find(art);
+	if (!aux.addStock(-art.getStock())) {
+		return false;
+	}
+	else {
+		this->utentes[i].addArtigo(art);
+		this->artigosDisponiveis.remove(art);
+		if (aux.getStock()) {
+			this->artigosDisponiveis.insert(aux);
+		}
 		return true;
 	}
-	else throw ArtigoInexistente(designation, size);
 }
 
+void Piscina::printArtigos() {
+	for (BSTItrIn<Artigo> it(this->artigosDisponiveis); !it.isAtEnd(); it.advance()) {
+		this->printStockArtigo(it.retrieve());
+	}
+}
 
-bool Piscina::sellProduct(string designation, string size) {
+void Piscina::printStockArtigo(Artigo art) {
+	Artigo obtido = this->artigosDisponiveis.find(art);
+	if (obtido == Artigo("", 0, "")) {
+		throw ArtigoNaoEncontrado(art);
+	}
+	else {
+		cout << obtido << endl;
+	}
+}
 
-	Artigo a1(designation, size);
-
-	BSTItrLevel<Artigo> it(artigos);
-
-	while (!it.isAtEnd()) {
-		if (it.retrieve() == a1) {
-			Artigo a2 = it.retrieve();
-			if (a2.getStock() > 0) {
-				artigos.remove(a2);
-				a2.setStock(a2.getStock() - 1);
-				artigos.insert(a2);
-				return true;
-			}
-			else throw SemStock(designation, size);
+void Piscina::printArtigosCliente(int id) {
+	int i;
+	for (i = 0; i < this->utentes.size() && id != -1; i++) {
+		if (this->utentes[i].getId() == id) {
+			break;
 		}
-		else it.advance();
 	}
-
-	if (designation == "Touca" || "Calcao" || "Fato de banho" || "Oculos" || "Chinelos")
-		if (size == "S" || "M" || "L" || "XL")
-			throw SemStock(designation, size);
-		else ArtigoInexistente(designation, size);
-
-	else throw ArtigoInexistente(designation, size);
+	if (i == this->utentes.size() && id != -1) {
+		throw PessoaNaoEncontrada(id);
+	}
+	for (int j = 0; j < this->utentes[i].getArtigos().size(); j++) {
+		cout << this->utentes[i].getArtigos().at(j) << endl;
+	}
 }
 
-bool Piscina::exportStock(string x) {
-	ofstream file4;
-	file4.open(x);
-	BSTItrLevel<Artigo> it(artigos);
-
-	while (!it.isAtEnd()) {
-		file4 << it.retrieve().getDesignacao() << "; " << it.retrieve().getTamanho() << "; " << it.retrieve().getStock() << ";\n";
-		it.advance();
+void Piscina::adicionarStock(Artigo art) {
+	Artigo aux = this->artigosDisponiveis.find(art);
+	if (aux == Artigo("", 0, "")) {
+		this->artigosDisponiveis.insert(art);
 	}
-	file4.close();
-	return true;
+	else {
+		this->artigosDisponiveis.remove(art);
+		aux.addStock(art.getStock());
+		this->artigosDisponiveis.insert(aux);
+	}
 }
 
 

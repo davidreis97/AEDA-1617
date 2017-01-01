@@ -45,6 +45,7 @@ private:
 	const unsigned int nMaxUtentes;
 	list<string> modalidades;
 	priority_queue<InfoPiscina> piscinas_viz;
+	BST<Artigo> artigosDisponiveis;
 public:
 	/**
 	* Construtor da classe Piscina, usado para criar uma piscina.
@@ -185,15 +186,32 @@ public:
 	bool exportProfessores(string x);
 	
 	//LOJA
-	BST<Artigo> artigos;
-
-	BST<Artigo> getArtigos();
-
-	bool addStock(string designation, string size, unsigned int amount);
-
-	bool sellProduct(string designation, string size);
-
-	bool exportStock(string x);
+	/**
+	* Permite comprar artigos da loja.
+	* @param art Artigo a comprar.
+	* @param id Id da pessoa a fazer a compra.
+	* @return True em caso de sucesso, False em caso de stock insuficiente.
+	*/
+	bool comprarArtigo(Artigo art, int id);
+	/**
+	* Imprime todos os artigos no stock da loja.
+	*/
+	void printArtigos();
+	/**
+	* Imprime o stock do artigo pedido.
+	* @param art Artigo pedido.
+	*/
+	void printStockArtigo(Artigo art);
+	/**
+	* Imprime todos os artigos comprados por um cliente.
+	* @param id id do cliente que se pretende consultar..
+	*/
+	void printArtigosCliente(int id);
+	/**
+	* Permite reabastecer stock de artigos da loja.
+	* @param art Artigo a reabastecer / adicionar.
+	*/
+	void adicionarStock(Artigo art);
 	
 	//MODALIDADES
 

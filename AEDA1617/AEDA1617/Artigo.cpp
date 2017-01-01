@@ -1,62 +1,81 @@
 #include "Artigo.h"
 
+using namespace std;
 
-Artigo::Artigo(string designation, string size, unsigned int estoque) {
-	this->designacao = designation;
-	this->tamanho = size;
-	this->stock = estoque;
-	//fazer condicao if para verificar se esta tudo conforme e caso nao lançar excecoes
-}
-
-Artigo::Artigo(string designation, string size) {
-	this->designacao = designation;
-	this->tamanho = size;
-	stock = 0;
-}
-
-bool Artigo::operator<(Artigo outroartigo) {
-	if (this->designacao < outroartigo.designacao)
-		return true;
-	else if (this->designacao == outroartigo.designacao)
-	{
-		if (this->tamanho == "S")
-			return true;
-		else if (this->tamanho == "M")
-			if (outroartigo.tamanho == "S")
-				return false;
-			else return true;
-		else if (this->tamanho == "L")
-			if (outroartigo.tamanho == "S" || outroartigo.tamanho == "M")
-				return false;
-			else return true;
-		else if (this->tamanho == "XL")
-			return false;
+Artigo::Artigo(string nome, int stock, string tamanho) : nome(nome), stock(stock) {
+	if (tamanho == "XXS") {
+		this->tamanho = "XXS";
 	}
-	else return false;
+	else if (tamanho == "XS") {
+		this->tamanho = "XS";
+	}
+	else if (tamanho == "S") {
+		this->tamanho = "S";
+	}
+	else if (tamanho == "M") {
+		this->tamanho = "M";
+	}
+	else if (tamanho == "L") {
+		this->tamanho = "L";
+	}
+	else if (tamanho == "XL") {
+		this->tamanho = "XL";
+	}
+	else if (tamanho == "XXL") {
+		this->tamanho = "XXL";
+	}
+	else if (tamanho == "") {
+		this->tamanho = "";
+	}
+	else {
+		throw TamanhoInvalido(tamanho);
+	}
 }
 
-bool Artigo::operator==(Artigo outroartigo) {
-	if (this->designacao == outroartigo.designacao && this->tamanho == outroartigo.tamanho)
+bool Artigo::addStock(int stock) {
+	if (this->stock + stock >= 0) {
+		this->stock += stock;
 		return true;
-	else return false;
+	}
+	else {
+		return false;
+	}
 }
 
-unsigned int Artigo::getStock()
-{
+int Artigo::getStock() {
 	return this->stock;
 }
 
-string Artigo::getDesignacao() {
-	return this->designacao;
+string Artigo::getNome() {
+	return this->nome;
 }
-
 
 string Artigo::getTamanho() {
 	return this->tamanho;
 }
 
-
-void Artigo::setStock(unsigned int s) {
-	this->stock = s;
+bool Artigo::operator<(Artigo art) const {
+	if (this->nome < art.nome) {
+		return true;
+	}
+	else if (this->nome == art.nome) {
+		if (this->tamanho < art.tamanho) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
 }
 
+bool Artigo::operator==(Artigo art) const {
+	return (this->nome == art.nome) && (this->tamanho == art.tamanho);
+}
+
+ostream& operator<<(ostream& os, Artigo& art) {
+	os << art.nome << " - " << art.tamanho << " - " << art.stock << " unidades.";
+	return os;
+}

@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Pessoa.h"
+#include "Artigo.h"
 
 /**
 * @file   Utente.h
@@ -16,6 +17,7 @@ class Utente : public Pessoa {
 private:
 	int periodosPorPagar;
 	int aulasPorPagar; //Todas estas frequencias estao no passado. Utente nao pode pagar antes de frequentar, paga sempre no fim do mes.
+	vector<Artigo> artigosComprados;
 public:
 	/**
 	* Construtor da classe Utente, usado para criar um utente que nunca foi cliente da piscina.
@@ -41,7 +43,7 @@ public:
 	* @param precoPeriodo Indica o preco de cada periodo.
 	* @return O valor que o utente deve pagar.
 	*/
-	float valorPagamento(float precoAula,float precoPeriodo);
+	float valorPagamento(float precoAula, float precoPeriodo);
 	/**
 	* Adiciona ao valor atual de periodos/aulas por pagar.
 	* @param aulas Indica quantas aulas se deve incrementar.
@@ -64,4 +66,19 @@ public:
 	* @return O numero de aulas que o utente tem por pagar
 	*/
 	int getAulasPorPagar();
+	/**
+	* Adiciona um artigo que o utente tenha comprado ao vetor respetivo.
+	* @param artigo O artigo que o utente comprou.
+	*/
+	void addArtigo(Artigo artigo);
+	/**
+	* Imprime uma lista de todos os artigos que o utente comprou.
+	*/
+	void printArtigos();
+	/**
+	* Obtem uma copia do vetor de artigos que o cliente comprou.
+	* @return O vetor de artigos que o cliente comprou.
+	*/
+	vector<Artigo> getArtigos();
+
 };

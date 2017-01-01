@@ -484,79 +484,130 @@ void menuMarcacoes(Piscina *p) {
 
 void menuLoja(Piscina *p) {
 	cout << "/***********************/" << endl;
-	cout << "1- Ver Catalogo" << endl;
-	cout << "2- Comprar Artigo" << endl;
-	cout << "3- Comprar Stock" << endl;
-	cout << "4- Exportar Utentes" << endl;
-	cout << "5- Importar Utentes" << endl;
+	cout << "1- Comprar Artigo" << endl;
+	cout << "2- Comprar Stock" << endl;
+	cout << "3- Consultar Stock de um Artigo" << endl;
+	cout << "4- Consultar todos os Artigos" << endl;
+	cout << "5- Consultar Compras de um Cliente" << endl;
 	cout << "6- Menu Anterior" << endl;
 	cout << "/***********************/" << endl;
-
 	int escolha; cin >> escolha;
 	switch (escolha) {
 	case 1:
 	{
-		cout << "A nossa loja vende:\n -Toucas\n -Calcao\n -Fato de banho\n -Oculos\n -Chinelos\n";
+		string nome, tamanho;
+		int quantidade, id;
+		cout << "Indique o nome do artigo que pretende comprar" << endl;
+		cin >> nome;
+		cout << "Indique o tamanho do artigo que pretende comprar (XXS->XXL)" << endl;
+		cin >> tamanho;
+		cout << "Indique a quantidade de unidades que pretende comprar" << endl;
+		cin >> quantidade;
+		cout << "Indique o id do cliente que vai fazer a compra" << endl;
+		cin >> id;
+		try {
+			Artigo art(nome, quantidade, tamanho);
+			if ((*p).comprarArtigo(art, id)) {
+				cout << "Compra bem sucedida." << endl;
+			}
+			else {
+				cout << "Stock insuficiente." << endl;
+			}
+		}
+		catch (TamanhoInvalido ti) {
+			cout << "Erro! O tamanho " << ti.getTamanho() << " nao e valido. Por favor utilize um tamanho entre XXS e XXL" << endl;
+		}
+		catch (ArtigoNaoEncontrado ane) {
+			cout << "Erro! O artigo " << ane.getArtigo().getNome() << " com o tamanho " << ane.getArtigo().getTamanho() << " nao se encontra disponivel." << endl;
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
+		menuLoja(p);
 		break;
-		menuPiscina(p);
 	}
-
 	case 2:
 	{
-		cout << "Qual o artigo que deseja comprar?";
-		string art;
-		cin >> art;
-		cout << "Qual o tamanho que deseja adquirir? (S, M, L ou XL)";
-		string tam;
-		cin >> tam;
+		string nome, tamanho;
+		int quantidade;
+		cout << "Indique o nome do artigo que pretende reabastecer" << endl;
+		cin >> nome;
+		cout << "Indique o tamanho do artigo que pretende reabastecer (XXS->XXL)" << endl;
+		cin >> tamanho;
+		cout << "Indique a quantidade de unidades que pretende reabastecer" << endl;
+		cin >> quantidade;
 		try {
-			(*p).sellProduct(art, tam);
+			if (quantidade > 0) {
+				Artigo art(nome, quantidade, tamanho);
+				(*p).adicionarStock(art);
+			}
+			else {
+				cout << "Quantidade Insuficiente." << endl;
+			}
 		}
-		catch (SemStock s1) {
-			cout << "Erro! Nao existe stock desse tamanho!" << endl;
+		catch (TamanhoInvalido ti) {
+			cout << "Erro! O tamanho " << ti.getTamanho() << " nao e valido. Por favor utilize um tamanho entre XXS e XXL" << endl;
 		}
-		catch (ArtigoInexistente art1) {
-			cout << "Erro! Nao possuimos o artigo pretendido" << endl;
+		catch (ArtigoNaoEncontrado ane) {
+			cout << "Erro! O artigo " << ane.getArtigo().getNome() << " com o tamanho " << ane.getArtigo().getTamanho() << " nao se encontra disponivel." << endl;
 		}
-		menuPiscina(p);
+		menuLoja(p);
 		break;
 	}
-
 	case 3:
 	{
-		cout << "Qual o artigo que deseja comprar (dos fornecidos pelo catálogo)" << endl;
-		string art;
-		cin >> art;
-		cout << "Qual o tamanho que deseja adquirir? (S, M, L ou XL)";
-		string tam;
-		cin >> tam;
-		cout << "Quantas unidades deseja adquirir desse produto?" << endl;
-		unsigned int num;
-		cin >> num;
+		string nome, tamanho;
+		cout << "Indique o nome do artigo que pretende consultar" << endl;
+		cin >> nome;
+		cout << "Indique o tamanho do artigo que pretende consultar (XXS->XXL)" << endl;
+		cin >> tamanho;
 		try {
-			(*p).addStock(art, tam, num);
+			Artigo art(nome, 0, tamanho);
+			(*p).printStockArtigo(art);
 		}
-		catch (ArtigoInexistente art1) {
-			cout << "Erro! O produto nao existem em catalogo para comprar!" << endl;
+		catch (TamanhoInvalido ti) {
+			cout << "Erro! O tamanho " << ti.getTamanho() << " nao e valido. Por favor utilize um tamanho entre XXS e XXL" << endl;
 		}
-		menuPiscina(p);
+		catch (ArtigoNaoEncontrado ane) {
+			cout << "Erro! O artigo " << ane.getArtigo().getNome() << " com o tamanho " << ane.getArtigo().getTamanho() << " nao se encontra disponivel." << endl;
+		}
+		menuLoja(p);
 		break;
 	}
-
 	case 4:
 	{
-		string x;
-		cout << "Introduza do ficheiro para o qual pretende exportar o stock!\n";
-		cin >> x;
-		if ((*p).exportStock(x))
-			cout << "Operacao efetuada com sucesso!\n";
-		else cout << "Erro! Operacao nao efetuada!\n";
-		menuPiscina(p);
+		try {
+			(*p).printArtigos();
+		}
+		catch (TamanhoInvalido ti) {
+			cout << "Erro! O tamanho " << ti.getTamanho() << " nao e valido. Por favor utilize um tamanho entre XXS e XXL" << endl;
+		}
+		catch (ArtigoNaoEncontrado ane) {
+			cout << "Erro! O artigo " << ane.getArtigo().getNome() << " com o tamanho " << ane.getArtigo().getTamanho() << " nao se encontra disponivel." << endl;
+		}
+		menuLoja(p);
 		break;
 	}
-
-	case 6:
+	case 5:
+	{
+		int id;
+		cout << "Indique o id do cliente que pretende consultar" << endl;
+		cin >> id;
+		try {
+			(*p).printArtigosCliente(id);
+		}
+		catch (PessoaNaoEncontrada pne) {
+			cout << "Erro! Nao foi encontrada a pessoa com ID " << pne.getId() << " nos nossos registos." << endl;
+		}
+		menuLoja(p);
 		break;
+	}
+	case 6:
+		menuPiscina(p);
+		break;
+	default:
+		cout << "Escolha invalida" << endl;
+		menuLoja(p);
 	}
 }
 
@@ -622,7 +673,7 @@ void menuUtentesInativos(Piscina *p) { //David
 	cout << "/***********************/" << endl;
 	cout << "1- Imprimir Lista de Utentes Inativos" << endl;
 	cout << "2- Alterar Idade de um Utente" << endl;
-	cout << "3- Imprimir Atividade de um Utente" << endl;
+	cout << "3- Imprimir Estado de Atividade de um Utente" << endl;
 	cout << "4- Menu Anterior" << endl;
 	cout << "/***********************/" << endl;
 	int escolha; cin >> escolha;
