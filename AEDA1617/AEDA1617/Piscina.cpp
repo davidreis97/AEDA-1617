@@ -314,6 +314,8 @@ bool Piscina::removeUtente(int id) {
 			}
 		}
 	}
+	Utente aux("", 0, id);
+	this->utentesInativos.erase(aux);
 	vector<Utente>::iterator it;
 	for (it = this->utentes.begin(); it != this->utentes.end();) {
 		if ((it)->getId() == id) {
