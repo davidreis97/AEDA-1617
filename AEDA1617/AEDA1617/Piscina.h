@@ -17,7 +17,7 @@
 * @file   Piscina.h
 * @brief  Classe que define uma piscina.
 *
-* Classe que define uma piscina, contendo os seus utentes, professores e todos os dias de funcionamento. … a classe central de todo o programa.
+* Classe que define uma piscina, contendo os seus utentes, professores e todos os dias de funcionamento. √â a classe central de todo o programa.
 */
 
 using namespace std;
@@ -83,7 +83,7 @@ public:
 	*/
 	bool addProfessor(Professor p);
 	/**
-	* Permite adicionar uma data ao vetor datas, verificando se esta ja existe ou nao, inicializando tambÈm todos os periodos desse dia.
+	* Permite adicionar uma data ao vetor datas, verificando se esta ja existe ou nao, inicializando tamb√©m todos os periodos desse dia.
 	* @param d Data a adicionar.
 	* @return True caso a data tenha sido adicionada, falso caso ja tenha sido encontrado uma data igual.
 	*/
@@ -112,32 +112,32 @@ public:
 	*/
 	void pagarUtente(int id, int mes, int ano);
 	/**
-	* Imprime no ecr„ os utentes na piscina num determinado periodo de um determinado dia.
+	* Imprime no ecr√£ os utentes na piscina num determinado periodo de um determinado dia.
 	* @param d Data onde se pretende consultar ocupacao.
 	* @param periodo Periodo onde se pretende consultar ocupacao.
 	*/
 	void printOcupacaoPiscina(Data d,int periodo);
 	/**
-	* Imprime no ecr„ todas as frequencias na piscina por um determinado utente.
+	* Imprime no ecr√£ todas as frequencias na piscina por um determinado utente.
 	* @param id ID do cliente ao qual se pretende efetuar a consulta.
 	*/
 	void printFrequenciaUtente(int id);
 	/**
-	* Imprime no ecr„ todas as frequencias na piscina por todos os utentes da piscina.
+	* Imprime no ecr√£ todas as frequencias na piscina por todos os utentes da piscina.
 	*/
 	void printFrequenciaUtentes();
 	/**
-	* Imprime no ecr„ todas as aulas lecionadas por um determinado professor.
+	* Imprime no ecr√£ todas as aulas lecionadas por um determinado professor.
 	* @param id ID do professor ao qual se pretende efetuar a consulta.
 	*/
 	void printProfessor(int id);
 	/**
-	* Imprime no ecr„ todos os utentes que frequentaram a piscina em todos os periodos de um determinado dia.
+	* Imprime no ecr√£ todos os utentes que frequentaram a piscina em todos os periodos de um determinado dia.
 	* @param data Data onde se pretende consultar ocupacao.
 	*/
 	void printDia(Data data);
 	/**
-	* Cria uma nova aula num determinado periodo de um determinado dia. Aloca um professor para essa aula, tendo em conta qual dos professores est· mais livre.
+	* Cria uma nova aula num determinado periodo de um determinado dia. Aloca um professor para essa aula, tendo em conta qual dos professores est√° mais livre.
 	* @param data Data onde se pretende efetuar marcacao.
 	* @param periodo Periodo onde se pretende efetuar marcacao.
 	* @param modalidade Modalidade leccionada na aula
@@ -145,7 +145,7 @@ public:
 	*/
 	bool newAula(Data data, int periodo, string modalidade);
 	/**
-	* Imprime no ecr„ todas as aulas lecionadas por todos os professores da piscina.
+	* Imprime no ecr√£ todas as aulas lecionadas por todos os professores da piscina.
 	*/
 	void printProfessores();
 	/**
@@ -216,53 +216,49 @@ public:
 	//MODALIDADES
 
 	/**
-	* FunÁ„o que devolve a lista de modalidades
+	* Fun√ß√£o que devolve a lista de modalidades
 	* @return Retorna a lista de modalidades
 	*/
 	list<string> getModalidades();
 
 	/**
-	* Verifica se m È uma modalidade da piscina.
+	* Verifica se m √© uma modalidade da piscina.
 	* @param m string que queremos comparar
-	* @return true se m for uma modalidade
-	* @return false se m n„o for uma modalidade
+	* @return true se m for uma modalidade, false se m n√£o for uma modalidade
  	*/
 	bool isModalidade(string m);
 
 	/**
-	* Adiciona uma modalidade ‡ lista de modalidades
+	* Adiciona uma modalidade √† lista de modalidades
 	* @param m nome da modalidade
-	* @return true se for adiciona com sucesso
-	* @return false se j· existir uma modalidade na lista com o mesmo nome
+	* @return true se for adiciona com sucesso, false se j√° existir uma modalidade na lista com o mesmo nome
 	*/
 	bool addModalidade(string m);
 
 	/**
 	* Remove uma modalidade da lista de modalidade
 	* @param m nome da modalidade que pretendemos remover
-	* @return true se foi removida com sucesso
-	* @return false se n„o existir uma modalidade com o nome dado
+	* @return true se foi removida com sucesso, false se n√£o existir uma modalidade com o nome dado
 	*/
 	bool removeModalidade(string m);
 
 	/**
-	* FunÁ„o que retorna a piscina mais proxima que se encontra na priority_queue das piscinas que lecciona a modalidade m.
+	* Fun√ß√£o que retorna a piscina mais proxima que se encontra na priority_queue das piscinas que lecciona a modalidade m.
 	* @param m nome da modalidade
-	* @return InformaÁ„o da Piscina que se encontra mais perto e que contÈm a modalidade dada
+	* @return Informa√ß√£o da Piscina que se encontra mais perto e que cont√©m a modalidade dada
 	*/
 	InfoPiscina piscinaMaisPerto(string m);
 
 	/**
-	* FunÁ„o que retorna a lista de prioridades das piscinas vizinhas
+	* Fun√ß√£o que retorna a lista de prioridades das piscinas vizinhas
 	* @return Lista de prioridades das piscinas vizinhas
 	*/
 	priority_queue<InfoPiscina> getPiscinas_Viz();
 
 	/**
-	* FunÁ„o que adiciona um objeto InfoPiscina ‡ lista de prioridades da piscina
-	* @param infoP Objeto que contÈm a informaÁ„o da piscina
-	* @return true se conseguiu adicionar a piscina com sucesso
-	* @return false seja existia uma piscina com o mesmo nome
+	* Fun√ß√£o que adiciona um objeto InfoPiscina √† lista de prioridades da piscina
+	* @param infoP Objeto que cont√©m a informa√ß√£o da piscina
+	* @return true se conseguiu adicionar a piscina com sucesso, false seja existia uma piscina com o mesmo nome
 	*/
 	bool addInfoPiscina(InfoPiscina infoP);
 
