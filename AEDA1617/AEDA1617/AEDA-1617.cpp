@@ -463,7 +463,13 @@ void menuMarcacoes(Piscina *p) {
 			}
 		}
 		else {
-			cout << "Modalidade nao disponivel nesta piscina" << endl;
+			cout << "Modalidade nao disponivel" << endl;
+			InfoPiscina infoP("Nome", 1);
+			infoP = p->piscinaMaisPerto(modalidade);
+			if (infoP.getDistancia() == -1)
+				cout << "Nao existe nenhuma piscina nos registos com a modalidade disponivel." << endl;
+			else
+				cout << "A piscina " << infoP.getNome() << " tem a modalidade disonivel e encontra-se a " << infoP.getDistancia() << " unidades de distancia." << endl;
 		}
 		menuMarcacoes(p);
 		break;
