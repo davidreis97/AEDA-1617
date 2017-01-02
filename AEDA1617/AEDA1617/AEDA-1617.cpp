@@ -625,7 +625,7 @@ void menuModalidades(Piscina *p) { //Jose
 		aux = p->getModalidades();
 		list<string>::iterator it;
 		if (aux.empty())
-			cout << "Piscina não tem modalidades disponíveis." << endl;
+			cout << "Piscina nao tem modalidades disponiveis." << endl;
 		else {
 			cout << "Lista de Modalidades:" << endl;
 			for (it = aux.begin(); it != aux.end(); it++) {
