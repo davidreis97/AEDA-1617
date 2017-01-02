@@ -36,7 +36,7 @@ bool InfoPiscina::addModalidade(string m) {
 }
 
 bool InfoPiscina::operator<(const InfoPiscina & p) const {
-	return this->distancia < p.distancia;
+	return this->distancia > p.distancia;
 }
 
 bool InfoPiscina::operator==(const InfoPiscina & p) const {

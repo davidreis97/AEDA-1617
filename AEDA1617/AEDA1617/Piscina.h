@@ -215,18 +215,55 @@ public:
 	
 	//MODALIDADES
 
+	/**
+	* Função que devolve a lista de modalidades
+	* @return Retorna a lista de modalidades
+	*/
 	list<string> getModalidades();
 
+	/**
+	* Verifica se m é uma modalidade da piscina.
+	* @param m string que queremos comparar
+	* @return true se m for uma modalidade
+	* @return false se m não for uma modalidade
+ 	*/
 	bool isModalidade(string m);
 
+	/**
+	* Adiciona uma modalidade à lista de modalidades
+	* @param m nome da modalidade
+	* @return true se for adiciona com sucesso
+	* @return false se já existir uma modalidade na lista com o mesmo nome
+	*/
 	bool addModalidade(string m);
 
+	/**
+	* Remove uma modalidade da lista de modalidade
+	* @param m nome da modalidade que pretendemos remover
+	* @return true se foi removida com sucesso
+	* @return false se não existir uma modalidade com o nome dado
+	*/
 	bool removeModalidade(string m);
 
+	/**
+	* Função que retorna a piscina mais proxima que se encontra na priority_queue das piscinas que lecciona a modalidade m.
+	* @param m nome da modalidade
+	* @return Informação da Piscina que se encontra mais perto e que contém a modalidade dada
+	*/
 	InfoPiscina piscinaMaisPerto(string m);
 
+	/**
+	* Função que retorna a lista de prioridades das piscinas vizinhas
+	* @return Lista de prioridades das piscinas vizinhas
+	*/
 	priority_queue<InfoPiscina> getPiscinas_Viz();
 
+	/**
+	* Função que adiciona um objeto InfoPiscina à lista de prioridades da piscina
+	* @param infoP Objeto que contém a informação da piscina
+	* @return true se conseguiu adicionar a piscina com sucesso
+	* @return false seja existia uma piscina com o mesmo nome
+	*/
 	bool addInfoPiscina(InfoPiscina infoP);
 
 	//UTENTES INATIVOS

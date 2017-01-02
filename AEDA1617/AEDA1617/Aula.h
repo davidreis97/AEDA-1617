@@ -68,7 +68,15 @@ public:
 	*/
 	void setProfessor(Professor professor);
 
+	/**
+	*Permite obter a modalidade leccionada na aula
+	*@return Nome da modalidade
+	*/
 	string getModalidade();
 
+	/**
+	* Permite mudar a modalidade leccionada na aula para a string dada
+	* @param modalidade nome da nova modalidade
+	*/
 	void setModalidade(string modalidade);
 };

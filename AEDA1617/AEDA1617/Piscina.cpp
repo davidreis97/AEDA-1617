@@ -592,14 +592,16 @@ bool Piscina::isModalidade(string m) {
 	return false;
 }
 
-InfoPiscina Piscina::piscinaMaisPerto(string m) {
+InfoPiscina Piscina::piscinaMaisPerto(string m){
 	priority_queue<InfoPiscina> aux;
 	aux = piscinas_viz;
 	InfoPiscina p("Nome", -1);
 	while (!aux.empty()) {
 		p = aux.top();
+		list<string> modal;
+		modal = p.getModalidades();
 		list<string>::iterator it;
-		for (it = p.getModalidades().begin(); it != p.getModalidades().end(); it++) {
+		for (it = modal.begin(); it != modal.end(); it++) {
 			if (*it == m) {
 				return p;
 			}

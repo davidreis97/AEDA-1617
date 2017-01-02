@@ -392,7 +392,7 @@ void menuMarcacoes(Piscina *p) {
 			if (infoP.getDistancia() == -1)
 				cout << "Nao existe nenhuma piscina nos registos com a modalidade disponivel." << endl;
 			else
-				cout << "A piscina " << infoP.getNome() << " tem a modalidade disonivel e encontra-se a " << infoP.getDistancia() << " unidades de distancia.";
+				cout << "A piscina " << infoP.getNome() << " tem a modalidade disonivel e encontra-se a " << infoP.getDistancia() << " unidades de distancia." << endl;
 		}
 		menuMarcacoes(p);
 		break;
