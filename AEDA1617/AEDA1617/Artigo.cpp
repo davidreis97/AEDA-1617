@@ -59,17 +59,35 @@ bool Artigo::operator<(Artigo art) const {
 		return true;
 	}
 	else if (this->nome == art.nome) {
-		if (this->tamanho < art.tamanho) {
+		if (this->tamanho == "XXS")
 			return true;
+		else if (this->tamanho == "XS")
+			if (art.tamanho == "XXS")
+				return false;
+			else return true;
+		else if (this->tamanho == "S")
+			if (art.tamanho == "XXS"|| art.tamanho == "XS")
+				return false;
+			else return true;
+		else if (this->tamanho == "M")
+			if (art.tamanho == "XXS" || art.tamanho == "XS" || art.tamanho == "S")
+				return false;
+			else return true;
+		else if (this->tamanho == "L")
+			if (art.tamanho == "XXS" || art.tamanho == "XS" || art.tamanho == "S" || art.tamanho == "M")
+				return false;
+			else return true;
+		else if (this->tamanho == "XL")
+			if (art.tamanho == "XXS" || art.tamanho == "XS" || art.tamanho == "S" || art.tamanho == "M" || art.tamanho == "L")
+				return false;
+			else return true;
+		else return false;
+		
 		}
 		else {
 			return false;
 		}
 	}
-	else {
-		return false;
-	}
-}
 
 bool Artigo::operator==(Artigo art) const {
 	return (this->nome == art.nome) && (this->tamanho == art.tamanho);
