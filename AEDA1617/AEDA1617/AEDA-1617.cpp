@@ -507,7 +507,6 @@ void menuLoja(Piscina *p) {
 		cin.ignore();
 		getline(cin, nome);
 		cout << "Indique o tamanho do artigo que pretende comprar (XXS->XXL)" << endl;
-		cin.ignore();
 		getline(cin, tamanho);
 		cout << "Indique a quantidade de unidades que pretende comprar" << endl;
 		cin >> quantidade;
@@ -542,7 +541,6 @@ void menuLoja(Piscina *p) {
 		cin.ignore();
 		getline(cin, nome);
 		cout << "Indique o tamanho do artigo que pretende reabastecer (XXS->XXL)" << endl;
-		cin.ignore();
 		getline(cin, tamanho);
 		cout << "Indique a quantidade de unidades que pretende reabastecer" << endl;
 		cin >> quantidade;
@@ -571,7 +569,6 @@ void menuLoja(Piscina *p) {
 		cin.ignore();
 		getline(cin, nome);
 		cout << "Indique o tamanho do artigo que pretende consultar (XXS->XXL)" << endl;
-		cin.ignore();
 		getline(cin, tamanho);
 		try {
 			Artigo art(nome, 0, tamanho);
